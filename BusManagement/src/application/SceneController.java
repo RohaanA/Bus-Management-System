@@ -13,6 +13,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/*
+ * A Controller is added through Scene Builder options. 
+ * Through this controls can access functions in Controller
+ */
+
 public class SceneController {
 
 	@FXML

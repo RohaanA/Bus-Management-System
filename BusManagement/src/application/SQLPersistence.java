@@ -14,8 +14,10 @@ public class SQLPersistence {
 		int found=0;
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		
+		
+		//Add your own password here
 		Connection con=DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/BusManagement","root","moizrules1");
+				"jdbc:mysql://localhost:3306/BusManagement","root","");
 		
 		Statement stmt=con.createStatement();
 		ResultSet rs=stmt.executeQuery("SELECT COUNT(*) FROM Manager WHERE Username='"+ user +"' AND Password='"+pass+ "'; ");
