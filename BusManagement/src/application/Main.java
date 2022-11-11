@@ -20,7 +20,7 @@ public class Main extends Application {
 			primaryStage.setTitle("Manager Login");
 			
 			primaryStage.setScene(scene);
-			System.out.println("Logged In");
+			
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
