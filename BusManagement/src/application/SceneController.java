@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -23,13 +25,15 @@ public class SceneController {
 	@FXML
 	TextField txt_username;
 	@FXML
-	TextField txt_password;
-	
+	PasswordField txt_password;
+	@FXML 
+	RadioButton login_type;
 	
 	private Stage stage;
 	private Scene scene;
-	private Parent root;
+	//private Parent root;
 	private SQLPersistence mysql;
+	
 	
 	/*public void switchToLoginPage(ActionEvent event) throws IOException {
  		
@@ -46,6 +50,7 @@ public class SceneController {
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
 		stage.setScene(scene);
+		stage.setTitle("Manager View");
 		stage.show();
 		
 	}
@@ -53,7 +58,20 @@ public class SceneController {
 	public void login(ActionEvent event) throws IOException, ClassNotFoundException, SQLException{
 		
 		mysql=new SQLPersistence();	
-		mysql.authenticate_Manager(txt_username.getText(), txt_password.getText());
+		
+		
+		if(login_type.isSelected())
+		{
+			if(mysql.authenticate_Manager(txt_username.getText(), txt_password.getText()))
+			{
+				switchToManagerView(event);
+			}
+		}
+		
+		else
+		{
+			//Search in Customer SQL Table
+		}
 		
 	}
 	

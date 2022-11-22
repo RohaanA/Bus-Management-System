@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class SQLPersistence {
 	
-	public void authenticate_Manager(String user,String pass) throws ClassNotFoundException, SQLException {
+	public boolean authenticate_Manager(String user,String pass) throws ClassNotFoundException, SQLException {
 		
 		
 		System.out.println("Worked Till here");
@@ -17,7 +17,7 @@ public class SQLPersistence {
 		
 		//Add your own password here
 		Connection con=DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/BusManagement","root","");
+				"jdbc:mysql://localhost:3306/BusManagement","root","moizrules1");
 		
 		Statement stmt=con.createStatement();
 		ResultSet rs=stmt.executeQuery("SELECT COUNT(*) FROM Manager WHERE Username='"+ user +"' AND Password='"+pass+ "'; ");
@@ -30,12 +30,18 @@ public class SQLPersistence {
 		if(found==0)
 		{
 			System.out.println("Incorrect Username/Password");
+			con.close();
+			return false;
 		}
 		
 		else
 		{
 			System.out.println("Logged In");
+			con.close();
+			return true;
 		}
+		
+		
 	}
 	
 
