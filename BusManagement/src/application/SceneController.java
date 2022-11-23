@@ -4,6 +4,7 @@ package application;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import db.SQLPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
