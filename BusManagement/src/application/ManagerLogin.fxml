@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="415.0" prefWidth="607.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SceneController">
    <children>
-      <AnchorPane fx:id="login_type" prefHeight="438.0" prefWidth="623.0" style="-fx-background-color: #e2f0f7;">
+      <AnchorPane prefHeight="438.0" prefWidth="623.0" style="-fx-background-color: #e2f0f7;">
          <children>
             <TextField fx:id="txt_username" layoutX="243.0" layoutY="189.0" />
             <Label layoutX="176.0" layoutY="193.0" text="Username">
@@ -36,7 +36,7 @@
             </Text>
             <Button fx:id="loginButton" layoutX="284.0" layoutY="341.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="56.0" text="Login" />
             <PasswordField fx:id="txt_password" layoutX="243.0" layoutY="237.0" />
-            <RadioButton layoutX="247.0" layoutY="282.0" mnemonicParsing="false" text="Manager">
+            <RadioButton layoutX="257.0" layoutY="282.0" mnemonicParsing="false" text="Manager">
                <font>
                   <Font name="Bell MT" size="12.0" />
                </font>
