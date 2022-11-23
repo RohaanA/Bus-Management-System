@@ -11,9 +11,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /*
@@ -29,6 +32,11 @@ public class SceneController {
 	PasswordField txt_password;
 	@FXML 
 	RadioButton login_type;
+	@FXML
+	private Label name_Disp;
+	
+	@FXML
+	Label userLabel;
 	
 	private Stage stage;
 	private Scene scene;
@@ -45,7 +53,10 @@ public class SceneController {
 		stage.show();
 	}*/
 	
-	public void switchToManagerView(ActionEvent event) throws IOException {
+	
+	
+	public void switchToManagerView(ActionEvent event,String Name) throws IOException {
+		
 		
 		Parent root = FXMLLoader.load(getClass().getResource("ManagerView.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -53,6 +64,10 @@ public class SceneController {
 		stage.setScene(scene);
 		stage.setTitle("Manager View");
 		stage.show();
+		System.out.println(Name);
+		
+		
+		
 		
 	}
 	
@@ -65,7 +80,9 @@ public class SceneController {
 		{
 			if(mysql.authenticate_Manager(txt_username.getText(), txt_password.getText()))
 			{
-				switchToManagerView(event);
+				switchToManagerView(event,txt_username.getText());
+				//login_type.setText("Hello");
+				//userLabel.setText("poop");
 			}
 		}
 		

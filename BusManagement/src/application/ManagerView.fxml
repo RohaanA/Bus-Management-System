@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SceneController">
    <children>
       <Pane layoutX="-2.0" prefHeight="613.0" prefWidth="134.0" style="-fx-background-color: black;">
          <children>
@@ -31,8 +31,8 @@
             </MenuButton>
             <Pane prefHeight="166.0" prefWidth="134.0" style="-fx-background-color: #00ABB3;">
                <children>
-                  <Label layoutX="19.0" layoutY="56.0" text="NamePlaceHolder" />
                   <Label layoutX="41.0" layoutY="25.0" text="Welcome!" />
+                  <Label fx:id="name_Disp" layoutX="53.0" layoutY="66.0" text="Label" />
                </children>
             </Pane>
          </children>

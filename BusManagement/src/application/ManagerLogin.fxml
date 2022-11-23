@@ -36,7 +36,7 @@
             </Text>
             <Button fx:id="loginButton" layoutX="284.0" layoutY="341.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="56.0" text="Login" />
             <PasswordField fx:id="txt_password" layoutX="243.0" layoutY="237.0" />
-            <RadioButton layoutX="257.0" layoutY="282.0" mnemonicParsing="false" text="Manager">
+            <RadioButton fx:id="login_type" layoutX="247.0" layoutY="282.0" mnemonicParsing="false" text="Manager">
                <font>
                   <Font name="Bell MT" size="12.0" />
                </font>
