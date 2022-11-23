@@ -25,51 +25,61 @@ import javafx.stage.Stage;
 
 public class SceneController {
 
+	//FXML Elements
 	@FXML
 	TextField txt_username;
 	@FXML
 	PasswordField txt_password;
 	@FXML 
 	RadioButton login_type;
-	@FXML
-	private Label name_Disp;
 	
-	@FXML
-	Label userLabel;
 	
+	
+
+	//Basic Variables
 	private Stage stage;
 	private Scene scene;
-	//private Parent root;
 	private SQLPersistence mysql;
+	private String currentUser;
 	
 	
-	/*public void switchToLoginPage(ActionEvent event) throws IOException {
+	//Go Back to This Page once Logged out
+	public void Logout(ActionEvent event) throws IOException {
  		
 		Parent root = FXMLLoader.load(getClass().getResource("ManagerLogin.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-	}*/
-	
-	
-	
-	public void switchToManagerView(ActionEvent event,String Name) throws IOException {
-		
-		
-		Parent root = FXMLLoader.load(getClass().getResource("ManagerView.fxml"));
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene= new Scene(root);
-		stage.setScene(scene);
-		stage.setTitle("Manager View");
-		stage.show();
-		System.out.println(Name);
-		
-		
-		
-		
 	}
 	
+
+	//Once Logged in as Manager this is the first page
+	public void switchToManagerView(ActionEvent event) throws IOException {
+
+		Parent root = FXMLLoader.load(getClass().getResource("ManagerView.fxml"));		
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();	
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.setTitle("Manager View ("+currentUser+")");
+		stage.show();
+
+	}
+	
+	//Manage Buses Scene
+	public void switchToManageBuses(ActionEvent event) throws IOException {
+
+			Parent root = FXMLLoader.load(getClass().getResource("ManageBuses.fxml"));		
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();	
+			scene= new Scene(root);
+			stage.setScene(scene);
+			stage.setTitle("Manage Buses ("+currentUser+")");
+			stage.show();
+
+		}
+	
+	
+	//Authenticate The Login
 	public void login(ActionEvent event) throws IOException, ClassNotFoundException, SQLException{
 		
 		mysql=new SQLPersistence();	
@@ -79,9 +89,8 @@ public class SceneController {
 		{
 			if(mysql.authenticate_Manager(txt_username.getText(), txt_password.getText()))
 			{
-				switchToManagerView(event,txt_username.getText());
-				//login_type.setText("Hello");
-				//userLabel.setText("poop");
+				currentUser=txt_username.getText();
+				switchToManagerView(event);			
 			}
 		}
 		
