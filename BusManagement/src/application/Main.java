@@ -28,7 +28,7 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		
+		//Use factory pattern to instantiate singleton DB.
 		
 		
 		launch(args);
