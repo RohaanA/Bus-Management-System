@@ -5,14 +5,13 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-<<<<<<< HEAD
 import businesslogic.Account;
+import db.PersistenceFactory;
+import db.PersistenceHandler;
 import db.SQLPersistence;
-=======
 import application.Classes.BusDescription;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
->>>>>>> refs/heads/master
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,6 +45,7 @@ public class SceneController {
 	@FXML
 	Label nameHolder;
 	
+	
 	//JavaFx Bus Table Nodes
 	@FXML
 	TableView<BusDescription> tableBus;
@@ -69,12 +69,9 @@ public class SceneController {
 	//Basic Variables
 	private Stage stage;
 	private Scene scene;
-<<<<<<< HEAD
 	//private Parent root;
-=======
-	private SQLPersistence mysql;
+	private PersistenceHandler mysql;
 	static String currentUser="";
->>>>>>> refs/heads/master
 	
 	
 	
@@ -87,33 +84,11 @@ public class SceneController {
 		scene= new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-<<<<<<< HEAD
-	}*/
-	
-	
-	
-	public void switchToManagerView(ActionEvent event,String Name) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("ManagerView.fxml"));
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene= new Scene(root);
-		stage.setScene(scene);
-		stage.setTitle("Manager View");
-		stage.show();
-		System.out.println(Name);
-	}
-	public void switchToCustomerView(ActionEvent event, String Name) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("CustomerDashboard.fxml"));
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene= new Scene(root);
-		stage.setScene(scene);
-		stage.setTitle("Customer View");
-		stage.show();
-		System.out.println(Name);
-=======
->>>>>>> refs/heads/master
 	}
 	
-
+	
+	
+	
 	//Once Logged in as Manager this is the first page
 	public void switchToManagerView(ActionEvent event) throws IOException {
 
@@ -122,12 +97,22 @@ public class SceneController {
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();	
 		scene= new Scene(root);
 		stage.setScene(scene);
-		stage.setTitle("Manager View ("+currentUser+")");
+		stage.setTitle("Manager View");
 		stage.show();
 		
-		
-
 	}
+	public void switchToCustomerView(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("CustomerDashboard.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.setTitle("Customer View");
+		stage.show();
+		
+	}
+	
+
+	
 	
 	//Manage Buses Scene
 	public void switchToManageBuses(ActionEvent event) throws IOException {
@@ -155,10 +140,9 @@ public class SceneController {
 		
 		if(login_type.isSelected())
 		{
-<<<<<<< HEAD
 			status = acc.login(username, password, "Manager");
 			if (status) {
-				switchToManagerView(event, username);
+				switchToManagerView(event);
 			}
 		}
 		else
@@ -166,13 +150,7 @@ public class SceneController {
 			status = acc.login(username, password, "Customer");
 			//Switch to customer view.
 			if (status) {
-				switchToCustomerView(event, username);
-=======
-			if(mysql.authenticate_Manager(txt_username.getText(), txt_password.getText()))
-			{
-				currentUser=txt_username.getText();
-				switchToManagerView(event);			
->>>>>>> refs/heads/master
+				switchToCustomerView(event);
 			}
 		}
 		
@@ -186,7 +164,7 @@ public class SceneController {
 	{
 		try
 		{
-			mysql=new SQLPersistence();
+			mysql=PersistenceFactory.getDBInstance("MySQL");
 			ResultSet rs=mysql.displayAllBus();
 			
 			ObservableList<BusDescription> data = FXCollections.observableArrayList();
