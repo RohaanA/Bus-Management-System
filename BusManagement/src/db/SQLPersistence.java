@@ -36,7 +36,8 @@ public class SQLPersistence extends PersistenceHandler {
 			found=rs.getInt("COUNT(*)");
 		}
 		
-		//Close connection & respond.
+		//Close connection & result set.
+		rs.close();
 		con.close();
 		
 		if(found == 0)
