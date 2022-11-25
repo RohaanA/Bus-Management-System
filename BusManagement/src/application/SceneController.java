@@ -42,7 +42,6 @@ public class SceneController {
 	private Stage stage;
 	private Scene scene;
 	//private Parent root;
-	private SQLPersistence mysql;
 	
 	
 	/*public void switchToLoginPage(ActionEvent event) throws IOException {
@@ -57,8 +56,6 @@ public class SceneController {
 	
 	
 	public void switchToManagerView(ActionEvent event,String Name) throws IOException {
-		
-		
 		Parent root = FXMLLoader.load(getClass().getResource("ManagerView.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
@@ -66,10 +63,15 @@ public class SceneController {
 		stage.setTitle("Manager View");
 		stage.show();
 		System.out.println(Name);
-		
-		
-		
-		
+	}
+	public void switchToCustomerView(ActionEvent event, String Name) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("CustomerDashboard.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.setTitle("Customer View");
+		stage.show();
+		System.out.println(Name);
 	}
 	
 	public void login(ActionEvent event) throws IOException, ClassNotFoundException, SQLException{
@@ -87,13 +89,18 @@ public class SceneController {
 			if (status) {
 				switchToManagerView(event, username);
 			}
-			else System.out.println("Invalid username/password.");
 		}
 		else
 		{
 			status = acc.login(username, password, "Customer");
 			//Switch to customer view.
+			if (status) {
+				switchToCustomerView(event, username);
+			}
 		}
+		
+		if (!status)
+			System.out.println("Invalid user/pass");
 		
 	}
 	
