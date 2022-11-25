@@ -1,4 +1,4 @@
-package application;
+package controllers;
 
 
 import java.io.IOException;
@@ -56,7 +56,7 @@ public class SceneController {
 	
 	
 	public void switchToManagerView(ActionEvent event,String Name) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("ManagerView.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("../application/ManagerView.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
 		stage.setScene(scene);
@@ -65,7 +65,7 @@ public class SceneController {
 		System.out.println(Name);
 	}
 	public void switchToCustomerView(ActionEvent event, String Name) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("CustomerDashboard.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("../application/CustomerDashboard.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
 		stage.setScene(scene);
