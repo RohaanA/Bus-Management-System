@@ -8,14 +8,20 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="706.0" style="-fx-background-color: #EAEAEA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="706.0" style="-fx-background-color: #EAEAEA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ManagerHome_Controller">
    <children>
       <Pane prefHeight="613.0" prefWidth="134.0" style="-fx-background-color: black;">
          <children>
             <Pane prefHeight="166.0" prefWidth="134.0" style="-fx-background-color: #00ABB3;">
                <children>
-                  <Label alignment="CENTER" layoutX="2.0" layoutY="25.0" prefHeight="17.0" prefWidth="134.0" text="Welcome!" />
-                  <Label fx:id="nameHolder" layoutX="53.0" layoutY="66.0" text="Label" />
+                  <Label alignment="CENTER" layoutX="2.0" layoutY="25.0" prefHeight="17.0" prefWidth="134.0" text="Welcome!">
+                     <font>
+                        <Font name="Bell MT" size="22.0" />
+                     </font></Label>
+                  <Label fx:id="nameHolder" alignment="CENTER" layoutY="72.0" prefHeight="22.0" prefWidth="134.0" text="Label" wrapText="true">
+                     <font>
+                        <Font name="Bell MT Bold" size="19.0" />
+                     </font></Label>
                </children>
             </Pane>
             <Button alignment="CENTER" layoutY="307.0" mnemonicParsing="false" onAction="#switchToManageBuses" onMouseClicked="#switchToManageBuses" prefHeight="33.0" prefWidth="134.0" style="-fx-background-color: black;" text="Manage Buses" textFill="#fdfdfd">

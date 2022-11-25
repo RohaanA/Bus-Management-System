@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="634.0" prefWidth="734.0" style="-fx-background-color: #EAEAEA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="634.0" prefWidth="734.0" style="-fx-background-color: #EAEAEA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Manager_BusController">
    <children>
       <Pane prefHeight="634.0" prefWidth="134.0" style="-fx-background-color: black;">
          <children>
@@ -17,8 +17,13 @@
                <children>
                   <Label alignment="CENTER" layoutY="25.0" prefHeight="17.0" prefWidth="134.0" text="Welcome!">
                      <font>
-                        <Font name="Arial Black" size="12.0" />
+                        <Font name="Bell MT Bold" size="22.0" />
                      </font></Label>
+                  <Label fx:id="nameHolder" alignment="CENTER" layoutX="4.0" layoutY="72.0" prefHeight="22.0" prefWidth="127.0" text="Label" wrapText="true">
+                     <font>
+                        <Font name="Bell MT" size="22.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Button alignment="CENTER" layoutY="307.0" mnemonicParsing="false" onAction="#switchToManageBuses" prefHeight="23.0" prefWidth="134.0" style="-fx-background-color: black;" text="Manage Buses" textFill="#fdfdfd">
@@ -67,7 +72,7 @@
       <Button layoutX="430.0" layoutY="111.0" mnemonicParsing="false" onAction="#viewBus" text="Search" />
       <Button layoutX="499.0" layoutY="111.0" mnemonicParsing="false" onAction="#viewAllBuses" text="View All" />
       <Label layoutX="157.0" layoutY="496.0" text="Selected Bus ID: " />
-      <TextField layoutX="250.0" layoutY="492.0" prefHeight="25.0" prefWidth="51.0" />
+      <TextField fx:id="selectedID" layoutX="250.0" layoutY="492.0" prefHeight="25.0" prefWidth="51.0" />
       <Button layoutX="446.0" layoutY="492.0" mnemonicParsing="false" text="Deactivate Bus" />
    </children>
 </AnchorPane>
