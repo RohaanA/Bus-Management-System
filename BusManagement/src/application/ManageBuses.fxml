@@ -49,20 +49,22 @@
             <Font size="33.0" />
          </font>
       </Label>
-      <TableView layoutX="202.0" layoutY="178.0" prefHeight="200.0" prefWidth="426.0">
+      <TableView fx:id="tableBus" layoutX="157.0" layoutY="177.0" prefHeight="285.0" prefWidth="526.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Bus ID" />
-          <TableColumn prefWidth="75.0" text="Model" />
-            <TableColumn prefWidth="75.0" text="Seat Count" />
-            <TableColumn prefWidth="117.33328247070312" text="Last Maintenence" />
-            <TableColumn prefWidth="75.0" text="Total Cost" />
+          <TableColumn prefWidth="66.0" text="Bus ID" />
+            <TableColumn prefWidth="90.00001525878906" text="Model" />
+            <TableColumn prefWidth="65.33331298828125" text="Year" />
+            <TableColumn prefWidth="70.0" text="Seat Count" />
+            <TableColumn prefWidth="95.33328247070312" text="Last Mainten." />
+          <TableColumn prefWidth="60.666748046875" text="Status" />
+            <TableColumn prefWidth="75.0" text="Expenses" />
         </columns>
       </TableView>
       <Button layoutX="269.0" layoutY="477.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Delete Bus" />
       <Button layoutX="383.0" layoutY="477.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Update Bus" />
-      <TextField layoutX="256.0" layoutY="111.0" />
+      <TextField fx:id="busSearchBar" layoutX="256.0" layoutY="111.0" />
       <Label layoutX="209.0" layoutY="115.0" text="Bus ID" />
-      <Button layoutX="430.0" layoutY="111.0" mnemonicParsing="false" text="Search" />
-      <Button layoutX="499.0" layoutY="111.0" mnemonicParsing="false" text="View All" />
+      <Button layoutX="430.0" layoutY="111.0" mnemonicParsing="false" onAction="#viewBus" text="Search" />
+      <Button layoutX="499.0" layoutY="111.0" mnemonicParsing="false" onAction="#viewAllBuses" text="View All" />
    </children>
 </AnchorPane>

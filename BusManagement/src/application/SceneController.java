@@ -2,8 +2,11 @@ package application;
 
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,8 +17,9 @@ import javafx.scene.control.Label;
 
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
+
 import javafx.stage.Stage;
 
 /*
@@ -32,16 +36,18 @@ public class SceneController {
 	PasswordField txt_password;
 	@FXML 
 	RadioButton login_type;
-	
-	
-	
+	@FXML
+	TextField busSearchBar;
+	@FXML
+	TableView<String> tableBus;
 
 	//Basic Variables
 	private Stage stage;
 	private Scene scene;
 	private SQLPersistence mysql;
-	private String currentUser;
+	static String currentUser="";
 	
+    
 	
 	//Go Back to This Page once Logged out
 	public void Logout(ActionEvent event) throws IOException {
@@ -101,5 +107,96 @@ public class SceneController {
 		
 	}
 	
+	
+	public void viewAllBuses(ActionEvent event) 
+	{
+		try
+		{
+			mysql=new SQLPersistence();
+			ResultSet rs=mysql.displayAllBus();
+			
+			if(rs!=null)
+			{
+				while(rs.next()){
+	                //Iterate Row
+					/*
+					 * ObservableList<String> row = FXCollections.observableArrayList(); for(int i=1
+					 * ; i<=rs.getMetaData().getColumnCount(); i++){ //Iterate Column
+					 * row.add(rs.getString(i)); } System.out.println("Row [1] added "+row );
+					 * data.add(row);
+					 */
+					
+					System.out.println(rs.getInt("busID"));
+	            }
+				
+			}
+			else
+			{
+				System.out.println("No Data Found");
+			}
+			//tableBus.setItems(data);
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error in Viewing All Buses");
+			e.printStackTrace();
+		
+		}
+		
+	}
+	
+	public void viewBus(ActionEvent event) 
+	{
+		try
+		{
+			
+			mysql=new SQLPersistence();
+			ResultSet rs=mysql.displayBus(Integer.parseInt((busSearchBar.getText())));
+			
+			System.out.println("Finding...");
+			ObservableList<String> data = FXCollections.observableArrayList();
+			
+			//System.out.println(Integer.parseInt((busSearchBar.getText())));
+			while(rs.next()){
+                //Iterate Row
+				
+				  ObservableList<String> row = FXCollections.observableArrayList(); 
+				  
+				  for(int i=1
+				  ; i<=rs.getMetaData().getColumnCount(); i++){ //Iterate Column
+					  System.out.println("Data: "+rs.getString(i) );
+					  row.add(rs.getString(i)); 
+					  System.out.println("Row [1] added "+row );
+				  } 
+				 
+				 data.addAll(row);
+				 
+				 System.out.println("Good Job");
+				
+				//System.out.println(rs.getInt("busID"));
+            }
+			
+			/*
+			 * if(rs!=null) { System.out.println("Result:");
+			 * System.out.println(rs.getInt("busID")); } else {
+			 * System.out.println("No Data Found"); }
+			 */
+			
+			System.out.println(data);
+			//tableBus.getItems().addAll(data);
+			tableBus.setItems(data);
+			
+			rs.close();
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error in Viewing All Buses");
+			e.printStackTrace();
+		
+		}
+		
+	}
 	
 }
