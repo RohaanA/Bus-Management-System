@@ -7,7 +7,6 @@ import java.sql.*;
 
 public class SQLPersistence extends PersistenceHandler {
 
-	private Connection con;
 	private String _connectionURL = "jdbc:mysql://localhost:3306/busdb";
 	private String _connectAccount = "root";
 	private String _dbPassword = "tiger12345";
@@ -17,7 +16,7 @@ public class SQLPersistence extends PersistenceHandler {
 	}
 	
 	public boolean authenticate(String user,String pass, String type) throws SQLException {
-		con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
 		System.out.println("Worked Till here");
 
 		int found=0;
@@ -48,7 +47,7 @@ public class SQLPersistence extends PersistenceHandler {
 
 	@Override
 	public boolean registerCustomer(String username, String password, String name, String cnic, String dob, String address) throws SQLException {
-		con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
 		Statement stmt=con.createStatement();
 		ResultSet rs;
 		
