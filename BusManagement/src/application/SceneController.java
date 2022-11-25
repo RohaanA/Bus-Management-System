@@ -4,6 +4,7 @@ package application;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import businesslogic.Account;
 import db.SQLPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -73,22 +74,25 @@ public class SceneController {
 	
 	public void login(ActionEvent event) throws IOException, ClassNotFoundException, SQLException{
 		
-		mysql=new SQLPersistence();	
+		String username = txt_username.getText();
+		String password = txt_password.getText();
+		// Pass on information to account class.
+		Account acc = new Account();
+		boolean status = false;
 		
 		
 		if(login_type.isSelected())
 		{
-			if(mysql.authenticate_Manager(txt_username.getText(), txt_password.getText()))
-			{
-				switchToManagerView(event,txt_username.getText());
-				//login_type.setText("Hello");
-				//userLabel.setText("poop");
+			status = acc.login(username, password, "Manager");
+			if (status) {
+				switchToManagerView(event, username);
 			}
+			else System.out.println("Invalid username/password.");
 		}
-		
 		else
 		{
-			//Search in Customer SQL Table
+			status = acc.login(username, password, "Customer");
+			//Switch to customer view.
 		}
 		
 	}
