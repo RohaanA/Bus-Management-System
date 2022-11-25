@@ -17,7 +17,7 @@ public class SQLPersistence extends PersistenceHandler {
 	
 	public boolean authenticate(String user,String pass, String type) throws SQLException {
 		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
-		System.out.println("Worked Till here");
+		
 
 		int found=0;
 		Statement stmt=con.createStatement();
@@ -58,6 +58,49 @@ public class SQLPersistence extends PersistenceHandler {
 		con.close();
 		return false;
 	}
+	
+//	View All Buses
+	public ResultSet displayBus(int busID) throws ClassNotFoundException, SQLException {
+		
+	
+		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+		
+		Statement stmt=con.createStatement();
+		ResultSet rs=stmt.executeQuery("SELECT * FROM bus WHERE busID="+ busID);
+		
+		if(rs==null)
+		{
+			 System.out.println( "EMPTY");
+		}
+		else
+		{
+			System.out.println( "Good");
+		}
+		
+
+		
+		return rs;
+
+		
+	}
+	
+	//	View All Buses
+	public ResultSet displayAllBus() throws ClassNotFoundException, SQLException {
+		
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		
+		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+		
+		Statement stmt=con.createStatement();
+		ResultSet rs=stmt.executeQuery("SELECT * FROM bus ");
+		
+		
+		
+		return rs;
+	
+	}
+	
 	
 
 }
