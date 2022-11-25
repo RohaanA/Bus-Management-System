@@ -1,6 +1,8 @@
 package application;
 
 
+import db.PersistenceFactory;
+import db.PersistenceHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -28,8 +30,8 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		//Use factory pattern to instantiate singleton DB.
-		
+		//Using singleton-factory pattern to instantiate single DB Instance.
+		PersistenceHandler DB = PersistenceFactory.getDBInstance("MySQL");
 		
 		launch(args);
 	}

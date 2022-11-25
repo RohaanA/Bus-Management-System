@@ -1,12 +1,22 @@
 package db;
 
 public class PersistenceFactory {
-	public static PersistenceHandler createPersistenceHandler(String type) {
+	private static PersistenceHandler dbInstance = null;
+	private static PersistenceFactory instance = null;
+	
+	private PersistenceFactory(String type) {
 		if ("MySQL".equalsIgnoreCase(type)) {
 			//return MySQL.
-			return new SQLPersistence();
+			dbInstance =  new SQLPersistence();
 		}
-		else return null;
+		else dbInstance = null;
+	}
+	
+	public static PersistenceHandler getDBInstance(String type) {
+		if (instance == null) {
+			instance = new PersistenceFactory(type);
+		}
 		
+		return dbInstance;
 	}
 }
