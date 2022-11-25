@@ -1,15 +1,15 @@
-package application;
+package controllers;
 
 
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import application.Classes.BusDescription;
 import businesslogic.Account;
 import db.PersistenceFactory;
 import db.PersistenceHandler;
 import db.SQLPersistence;
-import application.Classes.BusDescription;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,12 +28,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/*
+ * A Controller is added through Scene Builder options. 
+ * Through this controls can access functions in Controller
+ */
 
 public class SceneController {
 
-	//FXML Elements
 	@FXML
 	TextField txt_username;
 	@FXML
@@ -45,7 +49,17 @@ public class SceneController {
 	@FXML
 	Label nameHolder;
 	
+	@FXML
+	Label userLabel;
 	
+	private Stage stage;
+	private Scene scene;
+	//private Parent root;
+	private PersistenceHandler mysql;
+	static String currentUser="";
+	
+	
+
 	//JavaFx Bus Table Nodes
 	@FXML
 	TableView<BusDescription> tableBus;
@@ -65,70 +79,36 @@ public class SceneController {
 	TableColumn<BusDescription,Float> cost;
 	
 	
-
-	//Basic Variables
-	private Stage stage;
-	private Scene scene;
-	//private Parent root;
-	private PersistenceHandler mysql;
-	static String currentUser="";
 	
-	
-	
-	//Go Back to This Page once Logged out
-	public void Logout(ActionEvent event) throws IOException {
+	/*public void switchToLoginPage(ActionEvent event) throws IOException {
  		
 		Parent root = FXMLLoader.load(getClass().getResource("ManagerLogin.fxml"));
-		
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-	}
+	}*/
 	
 	
 	
-	
-	//Once Logged in as Manager this is the first page
 	public void switchToManagerView(ActionEvent event) throws IOException {
-
-		System.out.print("Switching to Bus Manager View...");
-		Parent root = FXMLLoader.load(getClass().getResource("ManagerView.fxml"));		
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();	
+		Parent root = FXMLLoader.load(getClass().getResource("../application/ManagerView.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Manager View");
 		stage.show();
-		
 	}
-	public void switchToCustomerView(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("CustomerDashboard.fxml"));
+	public void switchToCustomerView(ActionEvent event, String Name) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("../application/CustomerDashboard.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Customer View");
 		stage.show();
-		
+		System.out.println(Name);
 	}
 	
-
-	
-	
-	//Manage Buses Scene
-	public void switchToManageBuses(ActionEvent event) throws IOException {
-		
-			System.out.print("Switching to Bus Manager View...");
-			Parent root = FXMLLoader.load(getClass().getResource("ManageBuses.fxml"));		
-			stage = (Stage)((Node)event.getSource()).getScene().getWindow();	
-			scene= new Scene(root);
-			stage.setScene(scene);
-			stage.setTitle("Manage Buses ("+currentUser+")");
-			stage.show();
-
-		}
-	
-	
-	//Authenticate The Login
 	public void login(ActionEvent event) throws IOException, ClassNotFoundException, SQLException{
 		
 		String username = txt_username.getText();
@@ -150,13 +130,37 @@ public class SceneController {
 			status = acc.login(username, password, "Customer");
 			//Switch to customer view.
 			if (status) {
-				switchToCustomerView(event);
+				switchToCustomerView(event, username);
 			}
 		}
 		
 		if (!status)
 			System.out.println("Invalid user/pass");
 		
+	}
+	
+	//Manage Buses Scene
+	public void switchToManageBuses(ActionEvent event) throws IOException {
+		
+			System.out.print("Switching to Bus Manager View...");
+			Parent root = FXMLLoader.load(getClass().getResource("../application/ManageBuses.fxml"));		
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();	
+			scene= new Scene(root);
+			stage.setScene(scene);
+			stage.setTitle("Manage Buses ("+currentUser+")");
+			stage.show();
+
+	}
+
+	//Go Back to This Page once Logged out
+	public void Logout(ActionEvent event) throws IOException {
+ 		
+		Parent root = FXMLLoader.load(getClass().getResource("../application/ManagerLogin.fxml"));
+		
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.show();
 	}
 	
 	
@@ -212,11 +216,6 @@ public class SceneController {
 		}
 		
 	}
-	
-	
-	
-	
-	
 	public void viewBus(ActionEvent event) 
 	{
 		try
@@ -295,8 +294,5 @@ public class SceneController {
 		
 	}
 	
-	
-
-		
 	
 }
