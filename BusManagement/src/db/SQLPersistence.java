@@ -5,7 +5,7 @@ import java.sql.*;
 //Database persistence Handler
 
 
-public class SQLPersistence {
+public class SQLPersistence extends PersistenceHandler {
 	
 	public boolean authenticate_Manager(String user,String pass) throws ClassNotFoundException, SQLException {
 		
