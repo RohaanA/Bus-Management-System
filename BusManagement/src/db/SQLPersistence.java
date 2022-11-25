@@ -8,13 +8,16 @@ import java.sql.*;
 public class SQLPersistence extends PersistenceHandler {
 
 	private Connection con;
+	private String _connectionURL = "jdbc:mysql://localhost:3306/busdb";
+	private String _connectAccount = "root";
+	private String _dbPassword = "tiger12345";
 	
 	public SQLPersistence() throws SQLException, ClassNotFoundException {
-		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/busdb","root","tiger12345");
 		Class.forName("com.mysql.cj.jdbc.Driver");
 	}
 	
-	public boolean authenticate(String user,String pass, String type) throws ClassNotFoundException, SQLException {
+	public boolean authenticate(String user,String pass, String type) throws SQLException {
+		con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
 		System.out.println("Worked Till here");
 
 		int found=0;
@@ -44,11 +47,15 @@ public class SQLPersistence extends PersistenceHandler {
 	}
 
 	@Override
-	public boolean registerCustomer(String name, String cnic, String dob, String address) {
-//		Statement stmt=con.createStatement();
-//		ResultSet rs;
-//		
+	public boolean registerCustomer(String username, String password, String name, String cnic, String dob, String address) throws SQLException {
+		con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+		Statement stmt=con.createStatement();
+		ResultSet rs;
 		
+		String insertionQuery = "INSERT INTO account (username, password, name, accountType) VALUES ('"+username+"', '"+password+"', '"+name+"' , Customer);";
+		stmt.executeUpdate(insertionQuery);
+		
+		con.close();
 		return false;
 	}
 	

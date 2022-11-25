@@ -12,10 +12,10 @@ public class Account {
 		
 	}
 	
-	public boolean login(String username, String password, String type) throws ClassNotFoundException, SQLException {
+	public boolean login(String username, String password, String type) throws SQLException {
 		return dbInstance.authenticate(username, password, type);
 	}
-	public boolean registerCustomer(String name, String cnic, String dob, String address) {
-		return dbInstance.registerCustomer(name, cnic, dob, address);
+	public boolean registerCustomer(String username, String password, String name, String cnic, String dob, String address) throws SQLException {
+		return dbInstance.registerCustomer(username, password, name, cnic, dob, address);
 	}
 }
