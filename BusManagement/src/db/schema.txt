@@ -35,7 +35,14 @@ create table booking(
    bookingID INT NOT NULL AUTO_INCREMENT,
    accountID INT NOT NULL,
    routeID INT NOT NULL,
-   currentStatus VARCHAR(20) NOT NULL,
+   paymentStatus VARCHAR(6) NOT NULL,
+   bookingStatus VARCHAR(10) NOT NULL,
+   
+   
+   
+   CHECK(paymentStatus = 'Unpaid' OR paymentStatus = 'Paid'),
+   CHECK(bookingStatus = 'notstarted' OR bookingStatus = 'ongoing' OR bookingStatus = 'cancelled'),
+   
    
    PRIMARY KEY (bookingID),
    FOREIGN KEY (accountID) REFERENCES account(accountID),
