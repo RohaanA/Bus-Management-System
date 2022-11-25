@@ -113,7 +113,7 @@ public class SQLPersistence {
 		ResultSet rs=stmt.executeQuery("SELECT * FROM bus ");
 		
 		
-		con.close();
+		
 		return rs;
 		
 		

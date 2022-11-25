@@ -15,6 +15,7 @@
             <Pane prefHeight="166.0" prefWidth="134.0" style="-fx-background-color: #00ABB3;">
                <children>
                   <Label alignment="CENTER" layoutX="2.0" layoutY="25.0" prefHeight="17.0" prefWidth="134.0" text="Welcome!" />
+                  <Label fx:id="nameHolder" layoutX="53.0" layoutY="66.0" text="Label" />
                </children>
             </Pane>
             <Button alignment="CENTER" layoutY="307.0" mnemonicParsing="false" onAction="#switchToManageBuses" onMouseClicked="#switchToManageBuses" prefHeight="33.0" prefWidth="134.0" style="-fx-background-color: black;" text="Manage Buses" textFill="#fdfdfd">

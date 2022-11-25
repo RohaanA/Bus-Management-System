@@ -3,15 +3,15 @@ package application.Classes;
 public class BusDescription {
 	
 	//Attributes
-	private String bus_id;
+	private int bus_id;
 	private String model;
 	private String year;
-	private String seatCount;
+	private int seatCount;
 	private String last_Maintenence;
 	private String status;
-	private String expenses;
+	private float expenses;
 	
-	public BusDescription(String bus_id,String model,String year,String seatCount,String lastmaint,String status,String cost)
+	public BusDescription(int bus_id,String model,String year,int seatCount,String lastmaint,String status,float cost)
 	{
 		
 		this.bus_id= bus_id;
@@ -23,11 +23,11 @@ public class BusDescription {
 		this.expenses=cost;
 	}
 
-	public String getBus_id() {
+	public int getBus_id() {
 		return bus_id;
 	}
 
-	public void setBus_id(String bus_id) {
+	public void setBus_id(int bus_id) {
 		this.bus_id = bus_id;
 	}
 
@@ -47,11 +47,11 @@ public class BusDescription {
 		this.year = year;
 	}
 
-	public String getSeatCount() {
+	public int getSeatCount() {
 		return seatCount;
 	}
 
-	public void setSeatCount(String seatCount) {
+	public void setSeatCount(int seatCount) {
 		this.seatCount = seatCount;
 	}
 
@@ -71,13 +71,15 @@ public class BusDescription {
 		this.status = status;
 	}
 
-	public String getExpenses() {
+	public float getExpenses() {
 		return expenses;
 	}
 
-	public void setExpenses(String expenses) {
+	public void setExpenses(float expenses) {
 		this.expenses = expenses;
 	}
+
+	
 	
 	
 	

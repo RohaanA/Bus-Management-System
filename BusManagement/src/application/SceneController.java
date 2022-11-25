@@ -19,15 +19,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
-/*
- * A Controller is added through Scene Builder options. 
- * Through this controls can access functions in Controller
- */
 
 public class SceneController {
 
@@ -40,23 +38,26 @@ public class SceneController {
 	RadioButton login_type;
 	@FXML
 	TextField busSearchBar;
+	@FXML
+	Label nameHolder;
 	
+	//JavaFx Bus Table Nodes
 	@FXML
 	TableView<BusDescription> tableBus;
 	@FXML
-	TableColumn<BusDescription,String> busID;
+	TableColumn<BusDescription,Integer> busID;
 	@FXML
 	TableColumn<BusDescription,String> model;
 	@FXML
 	TableColumn<BusDescription,String> year;
 	@FXML
-	TableColumn<BusDescription,String> seatCount;
+	TableColumn<BusDescription,Integer> seatCount;
 	@FXML
 	TableColumn<BusDescription,String> last_Maintenance;
 	@FXML
 	TableColumn<BusDescription,String> status;
 	@FXML
-	TableColumn<BusDescription,String> cost;
+	TableColumn<BusDescription,Float> cost;
 	
 	
 
@@ -66,12 +67,13 @@ public class SceneController {
 	private SQLPersistence mysql;
 	static String currentUser="";
 	
-    
+	
 	
 	//Go Back to This Page once Logged out
 	public void Logout(ActionEvent event) throws IOException {
  		
 		Parent root = FXMLLoader.load(getClass().getResource("ManagerLogin.fxml"));
+		
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
 		stage.setScene(scene);
@@ -82,18 +84,22 @@ public class SceneController {
 	//Once Logged in as Manager this is the first page
 	public void switchToManagerView(ActionEvent event) throws IOException {
 
+		System.out.print("Switching to Bus Manager View...");
 		Parent root = FXMLLoader.load(getClass().getResource("ManagerView.fxml"));		
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();	
 		scene= new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Manager View ("+currentUser+")");
 		stage.show();
+		
+		
 
 	}
 	
 	//Manage Buses Scene
 	public void switchToManageBuses(ActionEvent event) throws IOException {
-
+		
+			System.out.print("Switching to Bus Manager View...");
 			Parent root = FXMLLoader.load(getClass().getResource("ManageBuses.fxml"));		
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();	
 			scene= new Scene(root);
@@ -134,26 +140,41 @@ public class SceneController {
 			mysql=new SQLPersistence();
 			ResultSet rs=mysql.displayAllBus();
 			
-			if(rs!=null)
-			{
-				while(rs.next()){
-	                //Iterate Row
-					/*
-					 * ObservableList<String> row = FXCollections.observableArrayList(); for(int i=1
-					 * ; i<=rs.getMetaData().getColumnCount(); i++){ //Iterate Column
-					 * row.add(rs.getString(i)); } System.out.println("Row [1] added "+row );
-					 * data.add(row);
-					 */
-					
-					System.out.println(rs.getInt("busID"));
-	            }
+			ObservableList<BusDescription> data = FXCollections.observableArrayList();
+			
+			busID.setCellValueFactory(new PropertyValueFactory<>("bus_id"));
+			model.setCellValueFactory(new PropertyValueFactory<>("model"));
+			year.setCellValueFactory(new PropertyValueFactory<>("year"));
+			seatCount.setCellValueFactory(new PropertyValueFactory<>("seatCount"));
+			last_Maintenance.setCellValueFactory(new PropertyValueFactory<>("last_Maintenence"));
+			status.setCellValueFactory(new PropertyValueFactory<>("status"));
+			cost.setCellValueFactory(new PropertyValueFactory<>("expenses"));
+			
+			
+			
+			
+			while(rs.next()){
+                //Iterate Row
 				
-			}
-			else
-			{
-				System.out.println("No Data Found");
-			}
-			//tableBus.setItems(data);
+				data.add(new BusDescription(
+						rs.getInt("busID"),
+						rs.getString("model"),
+						rs.getString("year"),
+						rs.getInt("SeatCount"),
+						rs.getString("lastMaentenanceDate"),
+						rs.getString("maintenance_active"),
+						rs.getFloat("totalCost")
+						
+						));
+
+            }
+			
+			
+			tableBus.setItems(data);
+			
+			tableRowClickListener();
+			
+			rs.close();
 			
 		}
 		catch(Exception e)
@@ -164,6 +185,10 @@ public class SceneController {
 		}
 		
 	}
+	
+	
+	
+	
 	
 	public void viewBus(ActionEvent event) 
 	{
@@ -193,41 +218,26 @@ public class SceneController {
                 //Iterate Row
 				
 				data.add(new BusDescription(
-						rs.getString("busID"),
+						rs.getInt("busID"),
 						rs.getString("model"),
 						rs.getString("year"),
-						rs.getString("SeatCount"),
+						rs.getInt("SeatCount"),
 						rs.getString("lastMaentenanceDate"),
 						rs.getString("maintenance_active"),
-						rs.getString("totalCost")
+						rs.getFloat("totalCost")
 						
 						));
-				
-				 /* ObservableList<BusDescription> row = FXCollections.observableArrayList(); 
-				  
-				  for(int i=1
-				  ; i<=rs.getMetaData().getColumnCount(); i++){ //Iterate Column
-					  System.out.println("Data: "+rs.getString(i) );
-					  row.add(rs.getString(i)); 
-					  System.out.println("Row [1] added "+row );
-				  } 
-				 
-				 data.add(row);
-				 
-				 System.out.println("Good Job");*/
-				
-				
+
             }
 			
 			
 			tableBus.setItems(data);
 			
-			//System.out.println(data);
-			
-			
-			
+			tableRowClickListener();
 			
 			rs.close();
+			
+
 			
 		}
 		catch(Exception e)
@@ -238,5 +248,28 @@ public class SceneController {
 		}
 		
 	}
+	
+	//Listens to any row clicked
+	void tableRowClickListener()
+	{
+		//Get Information of Clicked Row
+		tableBus.setRowFactory(tv -> {
+		    TableRow<BusDescription> row = new TableRow<>();
+		    row.setOnMouseClicked(event -> {
+		        if (! row.isEmpty() && event.getButton()==MouseButton.PRIMARY 
+		             && event.getClickCount() == 2) {
+
+		        	BusDescription clickedRow = row.getItem();
+		            System.out.println(clickedRow.getBus_id());
+		        }
+		    });
+		    return row ;
+		});
+		
+	}
+	
+	
+
+		
 	
 }
