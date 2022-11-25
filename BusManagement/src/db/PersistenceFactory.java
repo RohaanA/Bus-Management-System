@@ -1,5 +1,7 @@
 package db;
 
+import java.sql.SQLException;
+
 public class PersistenceFactory {
 	private static PersistenceHandler dbInstance = null;
 	private static PersistenceFactory instance = null;
@@ -7,7 +9,15 @@ public class PersistenceFactory {
 	private PersistenceFactory(String type) {
 		if ("MySQL".equalsIgnoreCase(type)) {
 			//return MySQL.
-			dbInstance =  new SQLPersistence();
+			try {
+				dbInstance =  new SQLPersistence();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else dbInstance = null;
 	}

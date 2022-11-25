@@ -15,4 +15,7 @@ public class Account {
 	public boolean login(String username, String password, String type) throws ClassNotFoundException, SQLException {
 		return dbInstance.authenticate(username, password, type);
 	}
+	public boolean registerCustomer(String name, String cnic, String dob, String address) {
+		return dbInstance.registerCustomer(name, cnic, dob, address);
+	}
 }

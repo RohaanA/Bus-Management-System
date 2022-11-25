@@ -6,46 +6,50 @@ import java.sql.*;
 
 
 public class SQLPersistence extends PersistenceHandler {
+
+	private Connection con;
+	
+	public SQLPersistence() throws SQLException, ClassNotFoundException {
+		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/busdb","root","tiger12345");
+		Class.forName("com.mysql.cj.jdbc.Driver");
+	}
 	
 	public boolean authenticate(String user,String pass, String type) throws ClassNotFoundException, SQLException {
 		System.out.println("Worked Till here");
 
 		int found=0;
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		
-		
-		//Add your own password here
-		Connection con=DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/BusManagement","root","moizrules1");
-		
 		Statement stmt=con.createStatement();
+		ResultSet rs;
 		
 		if (type.equalsIgnoreCase("manager")) {
-			ResultSet rs=stmt.executeQuery("SELECT COUNT(*) FROM Manager WHERE Username='"+ user +"' AND Password='"+pass+ "'; ");
-			
-			while(rs.next())
-			{
-				found=rs.getInt("COUNT(*)");
-			}
-			
-			if(found == 0)
-			{
-				System.out.println("Incorrect Username/Password");
-				con.close();
-				return false;
-			}
-			
-			System.out.println("Logged In");
-			con.close();
-			return true;
+			rs=stmt.executeQuery("SELECT COUNT(*) FROM Account WHERE Username='"+ user +"' AND Password='"+pass+ "' AND accountType= 'Manager';");
 		}
 		else if (type.equalsIgnoreCase("customer")) {
-			// TODO: authenticate customer
-			return true;
+			rs=stmt.executeQuery("SELECT COUNT(*) FROM Account WHERE Username='"+ user +"' AND Password='"+pass+ "' AND accountType= 'Customer';");
+		}
+		else return false;
+		
+		while(rs.next())
+		{
+			found=rs.getInt("COUNT(*)");
 		}
 		
-		return false;
+		//Close connection & respond.
+		con.close();
 		
+		if(found == 0)
+			return false;
+		return true;
+		
+	}
+
+	@Override
+	public boolean registerCustomer(String name, String cnic, String dob, String address) {
+//		Statement stmt=con.createStatement();
+//		ResultSet rs;
+//		
+		
+		return false;
 	}
 	
 
