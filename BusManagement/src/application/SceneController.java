@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import application.Classes.BusDescription;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,9 +18,10 @@ import javafx.scene.control.Label;
 
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /*
@@ -38,8 +40,25 @@ public class SceneController {
 	RadioButton login_type;
 	@FXML
 	TextField busSearchBar;
+	
 	@FXML
-	TableView<String> tableBus;
+	TableView<BusDescription> tableBus;
+	@FXML
+	TableColumn<BusDescription,String> busID;
+	@FXML
+	TableColumn<BusDescription,String> model;
+	@FXML
+	TableColumn<BusDescription,String> year;
+	@FXML
+	TableColumn<BusDescription,String> seatCount;
+	@FXML
+	TableColumn<BusDescription,String> last_Maintenance;
+	@FXML
+	TableColumn<BusDescription,String> status;
+	@FXML
+	TableColumn<BusDescription,String> cost;
+	
+	
 
 	//Basic Variables
 	private Stage stage;
@@ -155,13 +174,36 @@ public class SceneController {
 			ResultSet rs=mysql.displayBus(Integer.parseInt((busSearchBar.getText())));
 			
 			System.out.println("Finding...");
-			ObservableList<String> data = FXCollections.observableArrayList();
+			ObservableList<BusDescription> data = FXCollections.observableArrayList();
+			
+			
+			
+			busID.setCellValueFactory(new PropertyValueFactory<>("bus_id"));
+			model.setCellValueFactory(new PropertyValueFactory<>("model"));
+			year.setCellValueFactory(new PropertyValueFactory<>("year"));
+			seatCount.setCellValueFactory(new PropertyValueFactory<>("seatCount"));
+			last_Maintenance.setCellValueFactory(new PropertyValueFactory<>("last_Maintenence"));
+			status.setCellValueFactory(new PropertyValueFactory<>("status"));
+			cost.setCellValueFactory(new PropertyValueFactory<>("expenses"));
+			
+			
 			
 			//System.out.println(Integer.parseInt((busSearchBar.getText())));
 			while(rs.next()){
                 //Iterate Row
 				
-				  ObservableList<String> row = FXCollections.observableArrayList(); 
+				data.add(new BusDescription(
+						rs.getString("busID"),
+						rs.getString("model"),
+						rs.getString("year"),
+						rs.getString("SeatCount"),
+						rs.getString("lastMaentenanceDate"),
+						rs.getString("maintenance_active"),
+						rs.getString("totalCost")
+						
+						));
+				
+				 /* ObservableList<BusDescription> row = FXCollections.observableArrayList(); 
 				  
 				  for(int i=1
 				  ; i<=rs.getMetaData().getColumnCount(); i++){ //Iterate Column
@@ -170,22 +212,20 @@ public class SceneController {
 					  System.out.println("Row [1] added "+row );
 				  } 
 				 
-				 data.addAll(row);
+				 data.add(row);
 				 
-				 System.out.println("Good Job");
+				 System.out.println("Good Job");*/
 				
-				//System.out.println(rs.getInt("busID"));
+				
             }
 			
-			/*
-			 * if(rs!=null) { System.out.println("Result:");
-			 * System.out.println(rs.getInt("busID")); } else {
-			 * System.out.println("No Data Found"); }
-			 */
 			
-			System.out.println(data);
-			//tableBus.getItems().addAll(data);
 			tableBus.setItems(data);
+			
+			//System.out.println(data);
+			
+			
+			
 			
 			rs.close();
 			
