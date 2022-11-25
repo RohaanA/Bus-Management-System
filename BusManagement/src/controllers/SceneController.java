@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 
 import javafx.scene.control.PasswordField;
@@ -51,6 +52,8 @@ public class SceneController {
 	
 	@FXML
 	Label userLabel;
+    @FXML
+    private Hyperlink registerLink;
 	
 	private Stage stage;
 	private Scene scene;
@@ -293,6 +296,11 @@ public class SceneController {
 		});
 		
 	}
+    @FXML
+    void switchToRegisterView(ActionEvent event) {
+    	// TODO: Switch to register view.
+    }
+
 	
 	
 }
