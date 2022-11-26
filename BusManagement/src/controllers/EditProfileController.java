@@ -1,10 +1,13 @@
 package controllers;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,7 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class EditProfileController {
+public class EditProfileController implements Initializable {
 	private Stage stage;
 	private Scene scene;
 
@@ -78,5 +81,11 @@ public class EditProfileController {
     void saveCustomerDetails(ActionEvent event) {
     	//TODO: Call DB through customer.
     }
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Load profile data
+		
+	}
 
 }

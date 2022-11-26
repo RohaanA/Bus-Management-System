@@ -77,7 +77,7 @@ public class CustomerRegisterController {
     	
     	//TODO: Call to account to register.
     	Account acc = new Account();
-    	boolean status = acc.registerCustomer(txt_username, txt_password, txt_cnicPartOne, txt_dob, txt_address);
+    	boolean status = acc.registerCustomer(txt_username, txt_password, txt_phone, txt_cnicPartOne, txt_dob, txt_address);
     	if (status) {
     		errorLabel.setVisible(false);
     		successLabel.setVisible(true);
