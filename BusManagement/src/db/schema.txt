@@ -32,7 +32,7 @@ create table route (
 );
 create table booking(
    bookingID INT NOT NULL AUTO_INCREMENT,
-   accountID INT NOT NULL,
+   username VARCHAR(20) NOT NULL UNIQUE,
    routeID INT NOT NULL,
    paymentStatus VARCHAR(6) NOT NULL,
    bookingStatus VARCHAR(10) NOT NULL,
@@ -44,27 +44,20 @@ create table booking(
    
    
    PRIMARY KEY (bookingID),
-   FOREIGN KEY (accountID) REFERENCES account(accountID),
+   FOREIGN KEY (username) REFERENCES account(username),
    FOREIGN KEY (routeID) REFERENCES route(routeID)
 );
 
-create table seatsBooked(
-	routeID INT NOT NULL,
-	seatBooked INT NOT NULL,
-	
-	PRIMARY KEY (seatBooked),
-	FOREIGN KEY (routeID) REFERENCES route(routeID)
-);
 create table customer(
-	accountID INT NOT NULL,
+	username VARCHAR(20) NOT NULL UNIQUE,
 	phone VARCHAR(13) NOT NULL,
 	cnic VARCHAR(13) NOT NULL UNIQUE,
 	dob VARCHAR(20) NOT NULL,
 	address VARCHAR(50) NOT NULL,
 	balance INT NOT NULL DEFAULT 0,
 	
-	PRIMARY KEY(accountID, phone),
-	FOREIGN KEY(accountID) REFERENCES account(accountID)
+	PRIMARY KEY(username, cnic),
+	FOREIGN KEY(username) REFERENCES account(username)
 );
 #Inserting account
 "INSERT INTO account (username, password, accountType) VALUES (honey, 1234, Customer);"
@@ -75,4 +68,13 @@ INSERT INTO customer (accountID, phone, cnic, dob, address) VALUES ('"+accID+"',
 #Inserting customer
 INSERT INTO customer ( 
 #Finding account
-SELECT COUNT(*) FROM Account WHERE Username='ItsHoney' AND Password='1234' AND accountType= 'Manager';"
+SELECT COUNT(*) FROM Account WHERE Username='ItsHoney' AND Password='1234' AND accountType= 'Manager';
+
+
+create table seatsBooked(
+	routeID INT NOT NULL,
+	seatBooked INT NOT NULL,
+	
+	PRIMARY KEY (seatBooked),
+	FOREIGN KEY (routeID) REFERENCES route(routeID)
+);

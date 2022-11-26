@@ -1,6 +1,7 @@
 package db;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 //Database persistence Handler
 
@@ -62,23 +63,23 @@ public class SQLPersistence extends PersistenceHandler {
 				con.setAutoCommit(true);
 				throw e;
 			}
-			//Get account ID of latest insertion
-			try(Statement accID_stmt = con.createStatement()) {
-				ResultSet rs = accID_stmt.executeQuery("SELECT MAX(accountID) AS id FROM account");
-				if (rs.next()) {
-					accID = rs.getInt("id");	
-					rs.close();
-				}
-				else return false;
-			}
-			catch (SQLException e) {
-				con.rollback();
-				con.setAutoCommit(true);
-				throw e;
-			}
+//			//Get account ID of latest insertion
+//			try(Statement accID_stmt = con.createStatement()) {
+//				ResultSet rs = accID_stmt.executeQuery("SELECT MAX(accountID) AS id FROM account");
+//				if (rs.next()) {
+//					accID = rs.getInt("id");	
+//					rs.close();
+//				}
+//				else return false;
+//			}
+//			catch (SQLException e) {
+//				con.rollback();
+//				con.setAutoCommit(true);
+//				throw e;
+//			}
 			//Insert into customer
 			try(Statement customer_stmt = con.createStatement()) {
-				String customerInsertionQuery = "INSERT INTO customer (accountID, phone, cnic, dob, address) VALUES ('"+accID+"','"+phone+"','"+cnic+"','"+dob+"','"+address+"');";
+				String customerInsertionQuery = "INSERT INTO customer (username, phone, cnic, dob, address) VALUES ('"+username+"','"+phone+"','"+cnic+"','"+dob+"','"+address+"');";
 				customer_stmt.executeUpdate(customerInsertionQuery);	
 			} catch (SQLException e) {
 				con.rollback();
@@ -135,6 +136,32 @@ public class SQLPersistence extends PersistenceHandler {
 		
 		return rs;
 	
+	}
+
+	@Override
+	public ArrayList<String> loadCustomerData(String username) throws SQLException {
+		try (Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);) {
+			
+			try (Statement custStmt = con.createStatement()) {
+				String accountInsertionQuery = "SELECT phone, cnic, dob, address, balance FROM CUSTOMER where username='"+username+"';";
+				ResultSet rs = custStmt.executeQuery(accountInsertionQuery);
+				//Converting ResultSet to ArrayList
+				ArrayList<String> customerDetails = new ArrayList<String>();
+				int columnCount = rs.getMetaData().getColumnCount();
+				
+				while(rs.next()) {
+					int i=1;
+					while(i <= columnCount) {
+						String toAdd = rs.getString(i++);
+						System.out.println(toAdd);
+						customerDetails.add(toAdd);
+					}
+				}
+				
+				return customerDetails;
+			}
+			catch (SQLException e) { throw e; }
+		} catch (SQLException e) { throw e; }
 	}
 	
 	
