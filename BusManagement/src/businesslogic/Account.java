@@ -15,7 +15,7 @@ public class Account {
 	public boolean login(String username, String password, String type) throws SQLException {
 		return dbInstance.authenticate(username, password, type);
 	}
-	public boolean registerCustomer(String username, String password, String name, String cnic, String dob, String address) throws SQLException {
-		return dbInstance.registerCustomer(username, password, name, cnic, dob, address);
+	public boolean registerCustomer(String username, String password, String cnic, String dob, String address) throws SQLException {
+		return dbInstance.registerCustomer(username, password, cnic, dob, address);
 	}
 }

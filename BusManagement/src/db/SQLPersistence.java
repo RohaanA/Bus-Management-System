@@ -47,12 +47,12 @@ public class SQLPersistence extends PersistenceHandler {
 	}
 
 	@Override
-	public boolean registerCustomer(String username, String password, String name, String cnic, String dob, String address) throws SQLException {
+	public boolean registerCustomer(String username, String password, String cnic, String dob, String address) throws SQLException {
 		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
 		Statement stmt=con.createStatement();
 		ResultSet rs;
 		
-		String insertionQuery = "INSERT INTO account (username, password, name, accountType) VALUES ('"+username+"', '"+password+"', '"+name+"' , Customer);";
+		String insertionQuery = "INSERT INTO account (username, password, accountType) VALUES ('"+username+"', '"+password+"', 'Customer');";
 		stmt.executeUpdate(insertionQuery);
 		
 		con.close();

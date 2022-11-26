@@ -20,43 +20,43 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="newDOB" layoutX="275.0" layoutY="295.0" />
+      <TextField fx:id="dob" layoutX="275.0" layoutY="295.0" />
       <Label layoutX="118.0" layoutY="319.0" prefHeight="30.0" prefWidth="134.0" text="Address:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="newAddress" layoutX="275.0" layoutY="323.0" />
+      <TextField fx:id="address" layoutX="275.0" layoutY="323.0" />
       <Label layoutX="118.0" layoutY="236.0" prefHeight="30.0" prefWidth="173.0" text="Phone Number:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="newPhone" layoutX="275.0" layoutY="240.0" />
+      <TextField fx:id="phone" layoutX="275.0" layoutY="240.0" />
       <Label layoutX="118.0" layoutY="264.0" prefHeight="30.0" prefWidth="107.0" text="CNIC:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="newCNICPartOne" layoutX="275.0" layoutY="268.0" prefHeight="25.0" prefWidth="82.0" />
+      <TextField fx:id="cnicPartOne" layoutX="275.0" layoutY="268.0" prefHeight="25.0" prefWidth="82.0" />
       <Label layoutX="363.0" layoutY="264.0" prefHeight="30.0" prefWidth="10.0" text="-">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="newCNICPartTwo" layoutX="373.0" layoutY="268.0" prefHeight="25.0" prefWidth="82.0" />
+      <TextField fx:id="cnicPartTwo" layoutX="373.0" layoutY="268.0" prefHeight="25.0" prefWidth="82.0" />
       <Label layoutX="458.0" layoutY="263.0" prefHeight="30.0" prefWidth="10.0" text="-">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="newCNICPartThree" layoutX="468.0" layoutY="267.0" prefHeight="25.0" prefWidth="26.0" />
-      <Label fx:id="errorLabel" disable="true" layoutX="291.0" layoutY="440.0" prefHeight="30.0" prefWidth="173.0" text="Error: " textFill="#c61212">
+      <TextField fx:id="cnicPartThree" layoutX="468.0" layoutY="267.0" prefHeight="25.0" prefWidth="26.0" />
+      <Label fx:id="errorLabel" layoutX="291.0" layoutY="440.0" prefHeight="30.0" prefWidth="173.0" text="Error: " textFill="#c61212" visible="false">
          <font>
             <Font name="Segoe UI Black" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="successLabel" disable="true" layoutX="286.0" layoutY="426.0" prefHeight="30.0" prefWidth="130.0" text="Saved Successfully" textFill="#14c41a">
+      <Label fx:id="successLabel" layoutX="286.0" layoutY="426.0" prefHeight="30.0" prefWidth="130.0" text="Saved Successfully" textFill="#14c41a" visible="false">
          <font>
             <Font name="Segoe UI Black" size="14.0" />
          </font>
@@ -71,8 +71,8 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="newPhone2" layoutX="275.0" layoutY="180.0" />
-      <PasswordField layoutX="275.0" layoutY="209.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="username" layoutX="275.0" layoutY="180.0" />
+      <PasswordField fx:id="password" layoutX="275.0" layoutY="209.0" prefHeight="25.0" prefWidth="149.0" />
       <Button layoutX="262.0" layoutY="361.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="53.0" prefWidth="107.0" text="Go Back" />
    </children>
 </AnchorPane>
