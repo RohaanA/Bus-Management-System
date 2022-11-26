@@ -57,6 +57,7 @@ public class SceneController {
 	
 	private Stage stage;
 	private Scene scene;
+	private Parent root;
 	//private Parent root;
 	private PersistenceHandler mysql;
 	static String currentUser="";
@@ -101,14 +102,19 @@ public class SceneController {
 		stage.setTitle("Manager View");
 		stage.show();
 	}
-	public void switchToCustomerView(ActionEvent event, String Name) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("../application/CustomerDashboard.fxml"));
+	public void switchToCustomerView(ActionEvent event, Account acc) throws IOException {
+		
+//		Parent root = FXMLLoader.load(getClass().getResource("../application/CustomerDashboard.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/CustomerDashboard.fxml"));
+		root = loader.load();
+		CustomerDashboardController custDashboardController = loader.getController();
+		custDashboardController.setAccountInstance(acc);
+		
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Customer View");
 		stage.show();
-		System.out.println(Name);
 	}
 	
 	public void login(ActionEvent event) throws IOException, ClassNotFoundException, SQLException{
@@ -132,7 +138,7 @@ public class SceneController {
 			status = acc.login(username, password, "Customer");
 			//Switch to customer view.
 			if (status) {
-				switchToCustomerView(event, username);
+				switchToCustomerView(event, acc);
 			}
 		}
 		

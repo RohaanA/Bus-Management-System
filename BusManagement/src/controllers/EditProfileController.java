@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import businesslogic.Account;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,9 +16,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class EditProfileController implements Initializable {
+public class EditProfileController {
 	private Stage stage;
 	private Scene scene;
+	private Parent root;
+	private Account loggedIn = null;
 
     @FXML
     private Label errorLabel;
@@ -82,10 +85,19 @@ public class EditProfileController implements Initializable {
     	//TODO: Call DB through customer.
     }
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Load profile data
-		
-	}
+    public void setAccountInstance(Account acc) {
+    	loggedIn = acc;
+    	loadData();
+    }
+    
+    /*
+     * Loads data from account instance
+     */
+    private void loadData() {
+    	oldCNIC.setText(oldCNIC.getText() + loggedIn.getCNIC());
+    	oldDOB.setText(oldDOB.getText() + loggedIn.getDOB());
+    	oldPhone.setText(oldPhone.getText() + loggedIn.getPhone());
+    	oldAddress.setText(oldAddress.getText() + loggedIn.getAddress());
+    }
 
 }

@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 
+import businesslogic.Account;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,6 +13,8 @@ import javafx.stage.Stage;
 public class CustomerDashboardController {
 	private Stage stage;
 	private Scene scene;
+	private Parent root;
+	private Account loggedIn = null;
 
 	public void setHome(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("../application/CustomerDashboard.fxml"));
@@ -22,7 +25,13 @@ public class CustomerDashboardController {
 		stage.show();
 	}
 	public void switchToEditProfile(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("../application/EditProfile.fxml"));
+		//Pass account instance.
+//		Parent root = FXMLLoader.load(getClass().getResource("../application/EditProfile.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/EditProfile.fxml"));
+		root = loader.load();
+		EditProfileController editProfileController = loader.getController();
+		editProfileController.setAccountInstance(loggedIn);
+		
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
 		stage.setScene(scene);
@@ -31,7 +40,7 @@ public class CustomerDashboardController {
 	}
 	//Go Back to This Page once Logged out
 	public void Logout(ActionEvent event) throws IOException {
- 		
+ 		loggedIn = null; //Clear account instance
 		Parent root = FXMLLoader.load(getClass().getResource("../application/ManagerLogin.fxml"));
 		
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -39,5 +48,7 @@ public class CustomerDashboardController {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
+	public void setAccountInstance(Account acc) {
+		loggedIn = acc;
+	}
 }
