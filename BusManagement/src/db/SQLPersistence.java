@@ -1,6 +1,8 @@
 package db;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 //Database persistence Handler
 
@@ -47,17 +49,53 @@ public class SQLPersistence extends PersistenceHandler {
 	}
 
 	@Override
-	public boolean registerCustomer(String username, String password, String name, String cnic, String dob, String address) throws SQLException {
-		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
-		Statement stmt=con.createStatement();
-		ResultSet rs;
-		
-		String insertionQuery = "INSERT INTO account (username, password, name, accountType) VALUES ('"+username+"', '"+password+"', '"+name+"' , Customer);";
-		stmt.executeUpdate(insertionQuery);
-		
-		con.close();
-		return false;
+	public boolean registerCustomer(String username, String password, String phone, String cnic, String dob, String address) throws SQLException {
+		try (Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);) {
+			con.setAutoCommit(false);
+			int accID;
+			
+			//Insert into account
+			try (Statement account_stmt = con.createStatement()) {
+				String accountInsertionQuery = "INSERT INTO account (username, password, accountType) VALUES ('"+username+"', '"+password+"', 'Customer');";
+				account_stmt.executeUpdate(accountInsertionQuery);
+			}
+			catch (SQLException e) {
+				con.rollback();
+				con.setAutoCommit(true);
+				throw e;
+			}
+//			//Get account ID of latest insertion
+//			try(Statement accID_stmt = con.createStatement()) {
+//				ResultSet rs = accID_stmt.executeQuery("SELECT MAX(accountID) AS id FROM account");
+//				if (rs.next()) {
+//					accID = rs.getInt("id");	
+//					rs.close();
+//				}
+//				else return false;
+//			}
+//			catch (SQLException e) {
+//				con.rollback();
+//				con.setAutoCommit(true);
+//				throw e;
+//			}
+			//Insert into customer
+			try(Statement customer_stmt = con.createStatement()) {
+				String customerInsertionQuery = "INSERT INTO customer (username, phone, cnic, dob, address) VALUES ('"+username+"','"+phone+"','"+cnic+"','"+dob+"','"+address+"');";
+				customer_stmt.executeUpdate(customerInsertionQuery);	
+			} catch (SQLException e) {
+				con.rollback();
+				con.setAutoCommit(true);	
+				throw e;
+			}
+			
+			con.commit();
+			con.setAutoCommit(true);
+			con.close();
+			return true;
+	} catch (SQLException e) {
+		throw e;
 	}
+}
 	
 //	View All Buses
 	public ResultSet displayBus(int busID) throws ClassNotFoundException, SQLException {
@@ -99,6 +137,29 @@ public class SQLPersistence extends PersistenceHandler {
 		
 		return rs;
 	
+	}
+
+	@Override
+	public HashMap<String, String> loadCustomerData(String username) throws SQLException {
+		System.out.println("Load customer data called.");
+		try (Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);) {
+			
+			try (Statement custStmt = con.createStatement()) {
+				String accountInsertionQuery = "SELECT phone, cnic, dob, address, balance FROM CUSTOMER where username='"+username+"';";
+				ResultSet rs = custStmt.executeQuery(accountInsertionQuery);
+				//Converting ResultSet to ArrayList
+					ResultSetMetaData rmd = rs.getMetaData();
+					int columnCount = rmd.getColumnCount();
+					HashMap<String, String> customerDetails = new HashMap<String, String>();
+					while(rs.next()) 
+						for(int i=1; i<=columnCount; i++) 
+							customerDetails.put(rmd.getColumnName(i), rs.getObject(i).toString());
+						
+					
+					return customerDetails;
+			}
+			catch (SQLException e) { throw e; }
+		} catch (SQLException e) { throw e; }
 	}
 	
 	

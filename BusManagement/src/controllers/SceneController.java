@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 
 import javafx.scene.control.PasswordField;
@@ -51,9 +52,12 @@ public class SceneController {
 	
 	@FXML
 	Label userLabel;
+    @FXML
+    private Hyperlink registerLink;
 	
 	private Stage stage;
 	private Scene scene;
+	private Parent root;
 	//private Parent root;
 	private PersistenceHandler mysql;
 	static String currentUser="";
@@ -90,7 +94,6 @@ public class SceneController {
 	}*/
 	
 	
-	
 	public void switchToManagerView(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("../application/ManagerView.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -99,14 +102,19 @@ public class SceneController {
 		stage.setTitle("Manager View");
 		stage.show();
 	}
-	public void switchToCustomerView(ActionEvent event, String Name) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("../application/CustomerDashboard.fxml"));
+	public void switchToCustomerView(ActionEvent event, Account acc) throws IOException {
+		
+//		Parent root = FXMLLoader.load(getClass().getResource("../application/CustomerDashboard.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/CustomerDashboard.fxml"));
+		root = loader.load();
+		CustomerDashboardController custDashboardController = loader.getController();
+		custDashboardController.setAccountInstance(acc);
+		
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Customer View");
 		stage.show();
-		System.out.println(Name);
 	}
 	
 	public void login(ActionEvent event) throws IOException, ClassNotFoundException, SQLException{
@@ -130,7 +138,7 @@ public class SceneController {
 			status = acc.login(username, password, "Customer");
 			//Switch to customer view.
 			if (status) {
-				switchToCustomerView(event, username);
+				switchToCustomerView(event, acc);
 			}
 		}
 		
@@ -293,6 +301,17 @@ public class SceneController {
 		});
 		
 	}
+    @FXML
+    void switchToRegisterView(ActionEvent event) throws IOException {
+		System.out.print("Switching to Register View...");
+		Parent root = FXMLLoader.load(getClass().getResource("../application/CustomerRegister.fxml"));		
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();	
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.setTitle("Register Account");
+		stage.show();
+    }
+
 	
 	
 }
