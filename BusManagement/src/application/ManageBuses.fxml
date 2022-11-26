@@ -86,7 +86,7 @@
             <Font name="System Bold" size="13.0" />
          </font></Label>
       <TextField fx:id="selectedID" layoutX="298.0" layoutY="493.0" prefHeight="27.0" prefWidth="58.0" />
-      <Button layoutX="488.0" layoutY="492.0" mnemonicParsing="false" onAction="#changeBusStatus" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Deactivate Bus">
+      <Button layoutX="488.0" layoutY="492.0" mnemonicParsing="false" onAction="#changeBusStatus" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Change Status">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Button>

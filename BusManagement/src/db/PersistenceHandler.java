@@ -13,4 +13,8 @@ public abstract class PersistenceHandler {
 	public abstract ResultSet displayAllBus() throws ClassNotFoundException, SQLException;
 	public abstract boolean deleteBus(int busID);
 	public abstract boolean updateBusStatus(int busID);
+	public HashMap<String, String> loadCustomerData(String username) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
