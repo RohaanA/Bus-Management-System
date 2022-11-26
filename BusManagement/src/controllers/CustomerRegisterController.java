@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -29,7 +30,7 @@ public class CustomerRegisterController {
     private TextField address;
 
     @FXML
-    private TextField dob;
+    private DatePicker dob;
 
     @FXML
     private Label errorLabel;
@@ -65,7 +66,7 @@ public class CustomerRegisterController {
     	String txt_cnicPartOne = cnicPartOne.getText();
     	String txt_cnicPartTwo = cnicPartTwo.getText();
     	String txt_cnicPartThree = cnicPartThree.getText();
-    	String txt_dob = dob.getText();
+    	String txt_dob = dob.getValue().toString();
     	String txt_address = address.getText();
     	
     	if (txt_username.isEmpty() || txt_password.isEmpty() || txt_phone.isEmpty() || txt_cnicPartOne.isEmpty() || txt_cnicPartTwo.isEmpty() || txt_cnicPartThree.isEmpty() || txt_dob.isEmpty() || txt_address.isEmpty()) {

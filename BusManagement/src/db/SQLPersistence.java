@@ -86,8 +86,6 @@ public class SQLPersistence extends PersistenceHandler {
 				throw e;
 			}
 			
-			
-			
 			con.commit();
 			con.setAutoCommit(true);
 			con.close();

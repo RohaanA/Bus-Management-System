@@ -3,7 +3,7 @@ use busdb;
 
 create table account(
    accountID INT NOT NULL AUTO_INCREMENT,
-   username VARCHAR(20) NOT NULL,
+   username VARCHAR(20) NOT NULL UNIQUE,
    password VARCHAR(40) NOT NULL,
    accountType VARCHAR(20),
    
@@ -58,7 +58,7 @@ create table seatsBooked(
 create table customer(
 	accountID INT NOT NULL,
 	phone VARCHAR(13) NOT NULL,
-	cnic VARCHAR(13) NOT NULL,
+	cnic VARCHAR(13) NOT NULL UNIQUE,
 	dob VARCHAR(20) NOT NULL,
 	address VARCHAR(50) NOT NULL,
 	balance INT NOT NULL DEFAULT 0,
@@ -67,6 +67,7 @@ create table customer(
 	FOREIGN KEY(accountID) REFERENCES account(accountID)
 );
 #Inserting account
+"INSERT INTO account (username, password, accountType) VALUES (honey, 1234, Customer);"
 INSERT INTO account (username,password,name,accountType) VALUES ('ItsHoney','1234', 'Rohaan Atique', 'Manager');
 INSERT INTO account (username,password,name,accountType) VALUES ('ItsHoney','1234', 'Rohaan Atique', 'Customer');
 INSERT INTO account (username, password, name, accountType) VALUES ('"+username+"', '"+password+"', '"+name+"' , Customer);
