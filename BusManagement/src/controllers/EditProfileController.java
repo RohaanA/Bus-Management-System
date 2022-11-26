@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import businesslogic.Account;
@@ -82,7 +83,51 @@ public class EditProfileController {
     
     @FXML
     void saveCustomerDetails(ActionEvent event) {
-    	//TODO: Call DB through customer.
+    	//Validation Checks
+    	String txt_newPhone = newPhone.getText();
+    	String txt_newCNICPartOne = newCNICPartOne.getText();
+    	String txt_newCNICPartTwo = newCNICPartTwo.getText();
+    	String txt_newCNICPartThree = newCNICPartThree.getText();
+    	String txt_newDob = newDOB.getText();
+    	String txt_newAddress = newAddress.getText();
+    	
+    	//Guard Clause: Atleast one field has data.
+    	if (txt_newPhone.isEmpty() && txt_newCNICPartOne.isEmpty() && txt_newCNICPartTwo.isEmpty() && txt_newCNICPartThree.isEmpty() && txt_newDob.isEmpty() && txt_newAddress.isEmpty()) {
+    		setErrorLabel("No new data!");
+    		return;
+    	}
+    	//Guard clause: Check for CNIC
+    	if (!txt_newCNICPartOne.isEmpty() || !txt_newCNICPartTwo.isEmpty() || !txt_newCNICPartThree.isEmpty()) {
+	    	if (txt_newCNICPartOne.length() != 5 || txt_newCNICPartTwo.length() != 7 || txt_newCNICPartThree.length() != 1) {
+	    		setErrorLabel("Invalid CNIC!");
+	    		return;
+	    	}
+    	}
+    	String finalCNIC = txt_newCNICPartOne + "-" + txt_newCNICPartTwo + "-" + txt_newCNICPartThree;
+    	
+    	//Storing details and sending to customer.
+    	HashMap<String, String> details = new HashMap<String, String>();
+    	if (txt_newPhone.isEmpty() || txt_newPhone.isBlank())
+    		details.put("phone", loggedIn.getPhone());
+    	else details.put("phone", txt_newPhone);
+
+    	if (txt_newDob.isEmpty() || txt_newDob.isBlank())
+    		details.put("dob", loggedIn.getDOB());
+    	else details.put("dob", txt_newDob);
+
+    	if (txt_newAddress.isEmpty() || txt_newAddress.isBlank())
+    		details.put("address", loggedIn.getAddress());
+    	else details.put("address", txt_newAddress);
+
+    	if (finalCNIC.equals("--"))
+    		details.put("cnic", loggedIn.getCNIC());
+    	else details.put("cnic", finalCNIC);
+
+    	boolean status = loggedIn.save(loggedIn.getUsername(), "customer", details);
+    	if (status) {
+    		successLabel.setVisible(true);
+    	}
+    	else setErrorLabel("Update failed");
     }
 
     public void setAccountInstance(Account acc) {
@@ -91,13 +136,19 @@ public class EditProfileController {
     }
     
     /*
-     * Loads data from account instance
+     * Loads data from account instance (on view load)
      */
     private void loadData() {
     	oldCNIC.setText(oldCNIC.getText() + " " + loggedIn.getCNIC());
     	oldDOB.setText(oldDOB.getText() + " " + loggedIn.getDOB());
     	oldPhone.setText(oldPhone.getText() + " " + loggedIn.getPhone());
     	oldAddress.setText(oldAddress.getText() + " " + loggedIn.getAddress());
+    	
+    	errorLabel.setVisible(false);
+    	successLabel.setVisible(false);
     }
-
+    private void setErrorLabel(String err) {
+    	errorLabel.setText("Error: " + err);
+    	errorLabel.setVisible(true);
+    }
 }

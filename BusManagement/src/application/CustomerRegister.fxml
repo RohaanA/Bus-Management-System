@@ -51,7 +51,7 @@
          </font>
       </Label>
       <TextField fx:id="cnicPartThree" layoutX="468.0" layoutY="267.0" prefHeight="25.0" prefWidth="26.0" />
-      <Label fx:id="errorLabel" layoutX="291.0" layoutY="440.0" prefHeight="30.0" prefWidth="173.0" text="Error: " textFill="#c61212" visible="false">
+      <Label fx:id="errorLabel" layoutX="121.0" layoutY="440.0" prefHeight="30.0" prefWidth="490.0" text="Error: " textFill="#c61212" visible="false">
          <font>
             <Font name="Segoe UI Black" size="14.0" />
          </font>

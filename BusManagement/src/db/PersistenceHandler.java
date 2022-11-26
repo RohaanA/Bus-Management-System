@@ -12,5 +12,6 @@ public abstract class PersistenceHandler {
 	public abstract ResultSet displayBus(int busID) throws ClassNotFoundException, SQLException;
 	public abstract ResultSet displayAllBus() throws ClassNotFoundException, SQLException;
 	public abstract HashMap<String, String> loadCustomerData(String username) throws SQLException;
+	public abstract boolean saveCustomerData(String username, HashMap<String, String> data) throws SQLException;
 
 }

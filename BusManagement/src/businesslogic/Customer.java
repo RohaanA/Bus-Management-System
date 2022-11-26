@@ -46,4 +46,8 @@ public class Customer {
 	protected int getBalance() {
 		return balance;
 	}
+
+	public boolean save(String username, HashMap<String, String> data) throws SQLException {
+		return dbInstance.saveCustomerData(username, data);
+	}
 }

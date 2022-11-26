@@ -73,12 +73,17 @@ public class CustomerRegisterController {
     		setErrorLabel("Must fill all fields!");
     		return;
     	}
-    	//Guard clause: Check for dob
+    	//Guard clause: Check for CNIC
+    	if (cnicPartOne.getLength() != 5 || cnicPartTwo.getLength() != 7 || cnicPartThree.getLength() != 1) {
+    		setErrorLabel("Invalid CNIC!");
+    		return;
+    	}
     	
-    	
+
+    	String finalCNIC = cnicPartOne + "-" + cnicPartTwo + "-" + cnicPartThree;
     	//TODO: Call to account to register.
     	Account acc = new Account();
-    	boolean status = acc.registerCustomer(txt_username, txt_password, txt_phone, txt_cnicPartOne, txt_dob, txt_address);
+    	boolean status = acc.registerCustomer(txt_username, txt_password, txt_phone, finalCNIC, txt_dob, txt_address);
     	if (status) {
     		errorLabel.setVisible(false);
     		successLabel.setVisible(true);

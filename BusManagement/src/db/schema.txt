@@ -51,7 +51,7 @@ create table booking(
 create table customer(
 	username VARCHAR(20) NOT NULL UNIQUE,
 	phone VARCHAR(13) NOT NULL,
-	cnic VARCHAR(13) NOT NULL UNIQUE,
+	cnic VARCHAR(15) NOT NULL UNIQUE,
 	dob VARCHAR(20) NOT NULL,
 	address VARCHAR(50) NOT NULL,
 	balance INT NOT NULL DEFAULT 0,

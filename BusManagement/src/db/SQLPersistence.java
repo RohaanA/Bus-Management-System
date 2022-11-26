@@ -156,12 +156,38 @@ public class SQLPersistence extends PersistenceHandler {
 							customerDetails.put(rmd.getColumnName(i), rs.getObject(i).toString());
 						
 					
+					con.close();
+					rs.close();
 					return customerDetails;
 			}
 			catch (SQLException e) { throw e; }
 		} catch (SQLException e) { throw e; }
 	}
 	
+	@Override
+	public boolean saveCustomerData(String username, HashMap<String, String> data) throws SQLException {
+		//TODO: Save customer data;
+		try (Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);) {
+			try (Statement custStmt = con.createStatement()) {
+				String phone = data.get("phone");
+				String cnic = data.get("cnic");
+				String address = data.get("address");
+				String dob = data.get("dob");
+
+				System.out.println(phone);
+				System.out.println(address);
+				System.out.println(cnic);
+				System.out.println(dob);
+				
+				
+				String updateQuery = "UPDATE CUSTOMER SET phone = '"+phone+"', cnic='"+cnic+"', dob='"+dob+"', address='"+address+"' WHERE username='" + username + "' ;";
+				custStmt.executeUpdate(updateQuery);
+				
+				con.close();
+				return true;
+			} catch (SQLException e) { throw e; }
+		} catch (SQLException e) { throw e; }
+	}
 	
 
 }
