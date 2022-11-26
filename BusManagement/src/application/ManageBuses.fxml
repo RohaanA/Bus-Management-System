@@ -9,21 +9,20 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="634.0" prefWidth="734.0" style="-fx-background-color: #EAEAEA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Manager_BusController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="634.0" prefWidth="734.0" style="-fx-background-color: #01579B;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Manager_BusController">
    <children>
-      <Pane prefHeight="634.0" prefWidth="134.0" style="-fx-background-color: black;">
+       <Pane prefHeight="613.0" prefWidth="134.0" style="-fx-background-color: black; -fx-background-radius: 50px; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);">
          <children>
-            <Pane prefHeight="166.0" prefWidth="134.0" style="-fx-background-color: #00ABB3;">
+            <Pane prefHeight="166.0" prefWidth="134.0" style="-fx-background-color: #0288D1;">
                <children>
-                  <Label alignment="CENTER" layoutY="25.0" prefHeight="17.0" prefWidth="134.0" text="Welcome!">
+                  <Label alignment="CENTER" layoutX="2.0" layoutY="25.0" prefHeight="17.0" prefWidth="134.0" text="Welcome!">
                      <font>
                         <Font name="Bell MT Bold" size="22.0" />
                      </font></Label>
-                  <Label fx:id="nameHolder" alignment="CENTER" layoutX="4.0" layoutY="72.0" prefHeight="22.0" prefWidth="127.0" text="Label" wrapText="true">
+                  <Label fx:id="nameHolder" alignment="CENTER" layoutY="72.0" prefHeight="22.0" prefWidth="134.0" text="Label" wrapText="true">
                      <font>
-                        <Font name="Bell MT" size="22.0" />
-                     </font>
-                  </Label>
+                        <Font name="Bell MT Bold" size="19.0" />
+                     </font></Label>
                </children>
             </Pane>
             <Button alignment="CENTER" layoutY="307.0" mnemonicParsing="false" onAction="#switchToManageBuses" prefHeight="23.0" prefWidth="134.0" style="-fx-background-color: black;" text="Manage Buses" textFill="#fdfdfd">
@@ -49,9 +48,9 @@
                
          </children>
       </Pane>
-      <Label alignment="CENTER" layoutX="134.0" layoutY="31.0" prefHeight="53.0" prefWidth="572.0" style="-fx-background-color: #B2B2B2;" text="Manage Buses">
+      <Label alignment="CENTER" layoutX="138.0" layoutY="31.0" prefHeight="53.0" prefWidth="580.0" style="-fx-background-color: #0288D1; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 0);" text="Manage Buses">
          <font>
-            <Font size="33.0" />
+            <Font name="Bell MT" size="33.0" />
          </font>
       </Label>
       <TableView fx:id="tableBus" layoutX="157.0" layoutY="177.0" prefHeight="285.0" prefWidth="526.0">
@@ -65,14 +64,31 @@
             <TableColumn fx:id="cost" prefWidth="75.0" text="Expenses" />
         </columns>
       </TableView>
-      <Button layoutX="336.0" layoutY="492.0" mnemonicParsing="false" onAction="#deleteBus" prefHeight="25.0" prefWidth="83.0" text="Delete Bus" />
-      <Button layoutX="336.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Update Bus" />
-      <TextField fx:id="busSearchBar" layoutX="256.0" layoutY="111.0" />
-      <Label layoutX="209.0" layoutY="115.0" text="Bus ID" />
-      <Button layoutX="430.0" layoutY="111.0" mnemonicParsing="false" onAction="#viewBus" text="Search" />
-      <Button layoutX="499.0" layoutY="111.0" mnemonicParsing="false" onAction="#viewAllBuses" text="View All" />
-      <Label layoutX="157.0" layoutY="496.0" text="Selected Bus ID: " />
-      <TextField fx:id="selectedID" layoutX="250.0" layoutY="492.0" prefHeight="25.0" prefWidth="51.0" />
-      <Button layoutX="446.0" layoutY="492.0" mnemonicParsing="false" text="Deactivate Bus" />
+      <Button layoutX="388.0" layoutY="492.0" mnemonicParsing="false" onAction="#deleteBus" prefHeight="25.0" prefWidth="83.0" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Delete Bus">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
+      <TextField fx:id="busSearchBar" layoutX="256.0" layoutY="111.0" prefHeight="27.0" prefWidth="149.0" />
+      <Label layoutX="199.0" layoutY="115.0" text="Bus ID:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <Button layoutX="430.0" layoutY="111.0" mnemonicParsing="false" onAction="#viewBus" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Search">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
+      <Button layoutX="499.0" layoutY="111.0" mnemonicParsing="false" onAction="#viewAllBuses" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="View All">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
+      <Label layoutX="191.0" layoutY="497.0" text="Selected Bus ID: " textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <TextField fx:id="selectedID" layoutX="298.0" layoutY="493.0" prefHeight="27.0" prefWidth="58.0" />
+      <Button layoutX="488.0" layoutY="492.0" mnemonicParsing="false" onAction="#changeBusStatus" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Deactivate Bus">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
    </children>
 </AnchorPane>

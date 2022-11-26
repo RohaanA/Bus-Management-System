@@ -267,6 +267,23 @@ public class Manager_BusController {
 			
 		}
 		
+		public void changeBusStatus(ActionEvent event) {
+
+			int bus_ID=Integer.parseInt(selectedID.getText());
+			mysql=PersistenceFactory.getDBInstance("MySQL");
+			
+			if(mysql.updateBusStatus(bus_ID))
+			{
+				viewAllBuses(event); 
+				System.out.print("Updated Successfully");
+				
+			}
+			else
+			{
+				System.out.print("Unable to Update");
+			}
+			
+		}
 		
 		public void Display_User(String Name)
 		{

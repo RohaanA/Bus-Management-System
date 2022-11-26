@@ -129,18 +129,37 @@ public class SQLPersistence extends PersistenceHandler {
 		try {
 			
 			//First Get status
-			//Then do its complement
+			boolean value=false;
 			Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
 			
-			Statement stmt=con.createStatement();
+			Statement stmt1=con.createStatement();
 			
-			stmt.executeUpdate("Delete from bus where busID=" + busID);
+			ResultSet rs=stmt1.executeQuery("Select maintenance_active from bus where busID=" + busID);
 			
+			System.out.println("Reached here1");
+			
+			while(rs.next())
+			{
+				//Get the value
+				value=rs.getBoolean("maintenance_active");
+			}
+			
+			Statement stmt2=con.createStatement();
+			
+			
+			
+			//Then do its complement
+			stmt2.executeUpdate("UPDATE bus SET maintenance_active="+ !value +" where busID=" + busID);
+			
+			
+			rs.close();	
+	
 			return true;
 		} 
 		
 		catch (SQLException e) {
 			
+			System.out.println("An Error Occured while updating bus Status!");
 			e.printStackTrace();
 			return false;
 			

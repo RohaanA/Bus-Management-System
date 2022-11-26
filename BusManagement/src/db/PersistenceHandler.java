@@ -10,9 +10,9 @@ public abstract class PersistenceHandler {
 	public abstract ResultSet displayBus(int busID) throws ClassNotFoundException, SQLException;
 	public abstract ResultSet displayAllBus() throws ClassNotFoundException, SQLException;
 	public abstract boolean deleteBus(int busID);
+	public abstract boolean updateBusStatus(int busID);
+	
 	
 	//Delete Booking
-	//Update Bus status
-	
 	//Add Bus
 }
