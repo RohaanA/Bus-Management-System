@@ -54,7 +54,6 @@
                         <Font name="Bell MT" size="23.0" />
                      </font>
                   </Label>
-                  <Pane layoutX="-17.0" layoutY="-15.0" opacity="0.2" prefHeight="92.0" prefWidth="386.0" style="-fx-background-color: #2596be;" />
                </children>
             </Pane>
             <Label layoutX="176.0" layoutY="193.0" text="Username">

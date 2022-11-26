@@ -17,7 +17,7 @@ public class Main extends Application {
 		try {
 			//Testing
 			Parent root = FXMLLoader.load(getClass().getResource("ManagerLogin.fxml"));
-			Scene scene = new Scene(root,607,415);
+			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setTitle("Manager Login");
 			

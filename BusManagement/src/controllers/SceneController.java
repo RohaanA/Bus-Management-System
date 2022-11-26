@@ -93,7 +93,6 @@ public class SceneController {
 	}*/
 	
 	
-	
 	public void switchToManagerView(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("../application/ManagerView.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -297,8 +296,14 @@ public class SceneController {
 		
 	}
     @FXML
-    void switchToRegisterView(ActionEvent event) {
-    	// TODO: Switch to register view.
+    void switchToRegisterView(ActionEvent event) throws IOException {
+		System.out.print("Switching to Register View...");
+		Parent root = FXMLLoader.load(getClass().getResource("../application/CustomerRegister.fxml"));		
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();	
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.setTitle("Register Account");
+		stage.show();
     }
 
 	
