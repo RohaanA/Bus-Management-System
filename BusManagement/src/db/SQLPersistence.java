@@ -2,6 +2,7 @@ package db;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 //Database persistence Handler
 
@@ -139,26 +140,23 @@ public class SQLPersistence extends PersistenceHandler {
 	}
 
 	@Override
-	public ArrayList<String> loadCustomerData(String username) throws SQLException {
+	public HashMap<String, String> loadCustomerData(String username) throws SQLException {
+		System.out.println("Load customer data called.");
 		try (Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);) {
 			
 			try (Statement custStmt = con.createStatement()) {
 				String accountInsertionQuery = "SELECT phone, cnic, dob, address, balance FROM CUSTOMER where username='"+username+"';";
 				ResultSet rs = custStmt.executeQuery(accountInsertionQuery);
 				//Converting ResultSet to ArrayList
-				ArrayList<String> customerDetails = new ArrayList<String>();
-				int columnCount = rs.getMetaData().getColumnCount();
-				
-				while(rs.next()) {
-					int i=1;
-					while(i <= columnCount) {
-						String toAdd = rs.getString(i++);
-						System.out.println(toAdd);
-						customerDetails.add(toAdd);
-					}
-				}
-				
-				return customerDetails;
+					ResultSetMetaData rmd = rs.getMetaData();
+					int columnCount = rmd.getColumnCount();
+					HashMap<String, String> customerDetails = new HashMap<String, String>();
+					while(rs.next()) 
+						for(int i=1; i<=columnCount; i++) 
+							customerDetails.put(rmd.getColumnName(i), rs.getObject(i).toString());
+						
+					
+					return customerDetails;
 			}
 			catch (SQLException e) { throw e; }
 		} catch (SQLException e) { throw e; }

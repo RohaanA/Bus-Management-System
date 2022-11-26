@@ -10,7 +10,7 @@ public class Account {
 	private PersistenceHandler dbInstance = PersistenceFactory.getDBInstance("MySQL");
 	private Customer cust = null;
 	
-	private void load(String username, String type) {
+	private void loadAccountData(String username, String type) {
 		if (type.equalsIgnoreCase("customer")) {
 			//TODO: Load customer data
 			cust = new Customer(username);
@@ -28,7 +28,7 @@ public class Account {
 	public boolean login(String username, String password, String type) throws SQLException {
 		boolean authStatus = dbInstance.authenticate(username, password, type);
 		if (authStatus) {
-			//TODO: Load account data
+			loadAccountData(username, type);
 		}
 		return authStatus;
 	}
@@ -37,22 +37,30 @@ public class Account {
 	}
 
 	public String getCNIC() {
-		// TODO Auto-generated method stub
-		return null;
+		if (cust == null)
+			return null;
+		
+		return cust.getCNIC();
 	}
 
 	public String getDOB() {
-		// TODO Auto-generated method stub
-		return null;
+		if (cust == null)
+			return null;
+		
+		return cust.getDOB();
 	}
 
 	public String getPhone() {
-		// TODO Auto-generated method stub
-		return null;
+		if (cust == null)
+			return null;
+		
+		return cust.getPhone();
 	}
 
 	public String getAddress() {
-		// TODO Auto-generated method stub
-		return null;
+		if (cust == null)
+			return null;
+		
+		return cust.getAddress();
 	}
 }

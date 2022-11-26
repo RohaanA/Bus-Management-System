@@ -94,10 +94,10 @@ public class EditProfileController {
      * Loads data from account instance
      */
     private void loadData() {
-    	oldCNIC.setText(oldCNIC.getText() + loggedIn.getCNIC());
-    	oldDOB.setText(oldDOB.getText() + loggedIn.getDOB());
-    	oldPhone.setText(oldPhone.getText() + loggedIn.getPhone());
-    	oldAddress.setText(oldAddress.getText() + loggedIn.getAddress());
+    	oldCNIC.setText(oldCNIC.getText() + " " + loggedIn.getCNIC());
+    	oldDOB.setText(oldDOB.getText() + " " + loggedIn.getDOB());
+    	oldPhone.setText(oldPhone.getText() + " " + loggedIn.getPhone());
+    	oldAddress.setText(oldAddress.getText() + " " + loggedIn.getAddress());
     }
 
 }
