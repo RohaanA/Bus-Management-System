@@ -247,7 +247,28 @@ public class Manager_BusController {
 			
 		}
 		
-		void Display_User(String Name)
+		public void deleteBus(ActionEvent event)
+		{
+			
+			int bus_ID=Integer.parseInt(selectedID.getText());
+			mysql=PersistenceFactory.getDBInstance("MySQL");
+			
+			if(mysql.deleteBus(bus_ID))
+			{
+				viewAllBuses(event); 
+				System.out.print("Deleted Successfully");
+				
+			}
+			else
+			{
+				System.out.print("Unable to Delete");
+			}
+			
+			
+		}
+		
+		
+		public void Display_User(String Name)
 		{
 			
 			currentUser=Name;		

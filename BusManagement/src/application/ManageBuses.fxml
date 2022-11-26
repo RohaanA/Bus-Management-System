@@ -65,7 +65,7 @@
             <TableColumn fx:id="cost" prefWidth="75.0" text="Expenses" />
         </columns>
       </TableView>
-      <Button layoutX="336.0" layoutY="492.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Delete Bus" />
+      <Button layoutX="336.0" layoutY="492.0" mnemonicParsing="false" onAction="#deleteBus" prefHeight="25.0" prefWidth="83.0" text="Delete Bus" />
       <Button layoutX="336.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Update Bus" />
       <TextField fx:id="busSearchBar" layoutX="256.0" layoutY="111.0" />
       <Label layoutX="209.0" layoutY="115.0" text="Bus ID" />

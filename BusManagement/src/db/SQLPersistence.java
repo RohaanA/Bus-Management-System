@@ -87,7 +87,7 @@ public class SQLPersistence extends PersistenceHandler {
 	//	View All Buses
 	public ResultSet displayAllBus() throws ClassNotFoundException, SQLException {
 		
-		Class.forName("com.mysql.cj.jdbc.Driver");
+		
 		
 		
 		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
@@ -101,6 +101,51 @@ public class SQLPersistence extends PersistenceHandler {
 	
 	}
 	
+	public boolean deleteBus(int busID)
+	{
+		try {
+			
+			Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+			
+			Statement stmt=con.createStatement();
+			
+			stmt.executeUpdate("Delete from bus where busID=" + busID);
+			
+			return true;
+		} 
+		
+		catch (SQLException e) {
+			
+			e.printStackTrace();
+			return false;
+			
+		}
+	}
+	
+	public boolean updateBusStatus(int busID)
+	{
+		
+		
+		try {
+			
+			//First Get status
+			//Then do its complement
+			Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+			
+			Statement stmt=con.createStatement();
+			
+			stmt.executeUpdate("Delete from bus where busID=" + busID);
+			
+			return true;
+		} 
+		
+		catch (SQLException e) {
+			
+			e.printStackTrace();
+			return false;
+			
+		}
+	}
 	
 
 }
