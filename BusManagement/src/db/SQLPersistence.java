@@ -13,7 +13,7 @@ public class SQLPersistence extends PersistenceHandler {
 
 	private String _connectionURL = "jdbc:mysql://localhost:3306/busdb";
 	private String _connectAccount = "root";
-	private String _dbPassword = "moizrules1";
+	private String _dbPassword = "tiger12345";
 	
 	public SQLPersistence() throws SQLException, ClassNotFoundException {
 		Class.forName("com.mysql.cj.jdbc.Driver");

@@ -24,7 +24,7 @@ public class TicketBookingController {
 	private Account loggedIn = null;
 	private RouteDescription routeTaken = null;
 	private Route allRoutes = null;
-	ObservableList<SeatDescription> allSeatStatus = null;
+	ArrayList<String> allSeatArr = null;
 	
     @FXML
     private Label errorLabel;
@@ -58,7 +58,6 @@ public class TicketBookingController {
     	String txt_nameOnCard = nameOnCard.getText();
     	String txt_cardNumber = cardNumber.getText();
     	String txt_cvv = cvv.getText();
-    	String txt_cardValidity = cardValidity.getValue().toString();
     	
     	/* Guard Clauses */
     	if (txt_selectedSeatNumber.isEmpty() || txt_selectedSeatNumber.isBlank()) {
@@ -68,19 +67,22 @@ public class TicketBookingController {
     	else if (txt_nameOnCard.isEmpty() || txt_nameOnCard.isBlank() ||
     			 txt_nameOnCard.isEmpty() || txt_nameOnCard.isBlank() ||
     			 txt_cardNumber.isEmpty() || txt_cardNumber.isBlank() ||
-    			 txt_cardValidity.isEmpty() || txt_cardValidity.isBlank()) {
+    			 cardValidity.getValue() == null) {
         	setErrorLabel("Missing Card Fields");
     		return;	
     	}
-    	SeatDescription sd = allSeatStatus.get(Integer.parseInt(txt_selectedSeatNumber)+1);
-    	if (sd.getStatus().equals("booked")) {
+    	String status = allSeatArr.get(Integer.parseInt(txt_selectedSeatNumber)-1);
+    	System.out.println(status);
+    	if (status.equals("booked")) {
     		setErrorLabel("Seat is not available!");
     		return;
     	}
-    	
+
+    	String txt_cardValidity = cardValidity.getValue().toString();
     	
     	/* Guard Clauses End */
-    	
+    	for(int i=0; i<allSeatArr.size(); i++)
+    		System.out.println(i + "-" + allSeatArr.get(i));
     	
     }
     
@@ -90,6 +92,7 @@ public class TicketBookingController {
     	routeBus = new Bus();
     	this.allRoutes = allRoutes;
     	errorLabel.setVisible(false);
+    	allSeatArr = new ArrayList<String>();
     	
     	initializeSeatTable();
     }
@@ -109,13 +112,18 @@ public class TicketBookingController {
 			seatNumber.setCellValueFactory(new PropertyValueFactory<SeatDescription, Integer>("seatNumber"));
 			seatStatus.setCellValueFactory(new PropertyValueFactory<SeatDescription, String>("status"));
 			
-			allSeatStatus = FXCollections.observableArrayList();
+			ObservableList<SeatDescription> allSeatStatus = FXCollections.observableArrayList();
 			
 			
 			for(int i=0; i<seatCount; i++) {
-					if (seatsBooked.contains(i+1))
+					if (seatsBooked.contains(i+1)) {
 						allSeatStatus.add(new SeatDescription(i+1, "booked"));
-					else allSeatStatus.add(new SeatDescription(i+1, "available"));
+						allSeatArr.add("booked");
+					}
+					else { 
+						allSeatStatus.add(new SeatDescription(i+1, "available"));
+						allSeatArr.add("available");
+					}
 			}
 			seatsTable.setItems(allSeatStatus);
 			
