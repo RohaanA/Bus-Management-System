@@ -23,11 +23,11 @@ create table bus (
 );
 create table route (
    routeID INT NOT NULL AUTO_INCREMENT,
-   busID INT,
+   busID INT NULL,
    cost INT NOT NULL,
    Date DATE NOT NULL,
    
-   FOREIGN KEY (busID) REFERENCES bus(busID),
+   FOREIGN KEY (busID) REFERENCES bus(busID) ON DELETE SET NULL,
    PRIMARY KEY (routeID)
 );
 create table booking(
@@ -36,12 +36,9 @@ create table booking(
    routeID INT NOT NULL,
    paymentStatus VARCHAR(6) NOT NULL,
    bookingStatus VARCHAR(10) NOT NULL,
-   
-   
-   
-   CHECK(paymentStatus = 'Unpaid' OR paymentStatus = 'Paid'),
+ 
+   CHECK(paymentStatus = 'unpaid' OR paymentStatus = 'paid'),
    CHECK(bookingStatus = 'notstarted' OR bookingStatus = 'ongoing' OR bookingStatus = 'cancelled'),
-   
    
    PRIMARY KEY (bookingID),
    FOREIGN KEY (username) REFERENCES account(username),
@@ -55,6 +52,7 @@ create table customer(
 	dob VARCHAR(20) NOT NULL,
 	address VARCHAR(50) NOT NULL,
 	balance INT NOT NULL DEFAULT 0,
+	isBlacklisted BOOLEAN NOT NULL DEFAULT FALSE,
 	
 	PRIMARY KEY(username, cnic),
 	FOREIGN KEY(username) REFERENCES account(username)
@@ -78,3 +76,7 @@ create table seatsBooked(
 	PRIMARY KEY (seatBooked),
 	FOREIGN KEY (routeID) REFERENCES route(routeID)
 );
+
+ALTER TABLE customer
+MODIFY cnic
+varchar(15);

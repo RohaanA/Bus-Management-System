@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -39,7 +40,7 @@ public class EditProfileController {
     private TextField newCNICPartTwo;
 
     @FXML
-    private TextField newDOB;
+    private DatePicker newDOB;
 
     @FXML
     private TextField newPhone;
@@ -93,7 +94,7 @@ public class EditProfileController {
     	String txt_newCNICPartOne = newCNICPartOne.getText();
     	String txt_newCNICPartTwo = newCNICPartTwo.getText();
     	String txt_newCNICPartThree = newCNICPartThree.getText();
-    	String txt_newDob = newDOB.getText();
+    	String txt_newDob = newDOB.getValue().toString();
     	String txt_newAddress = newAddress.getText();
     	
     	//Guard Clause: Atleast one field has data.

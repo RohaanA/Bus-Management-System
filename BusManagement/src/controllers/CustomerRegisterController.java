@@ -95,7 +95,6 @@ public class CustomerRegisterController {
     	if (status) {
     		errorLabel.setVisible(false);
     		successLabel.setVisible(true);
-    		
     	}
     	else {
     		setErrorLabel("Failed to register account.");

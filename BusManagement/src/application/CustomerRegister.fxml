@@ -8,34 +8,34 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="706.0" style="-fx-background-color: #EAEAEA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerRegisterController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="706.0" style="-fx-background-color: #01579B;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerRegisterController">
    <children>
-      <Label alignment="CENTER" layoutX="-12.0" layoutY="43.0" prefHeight="51.0" prefWidth="719.0" style="-fx-background-color: #B2B2B2;" text="Register">
+      <Label alignment="CENTER" layoutX="-12.0" layoutY="43.0" prefHeight="51.0" prefWidth="719.0" style="-fx-background-color: #0288D1; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 0);" text="Register">
          <font>
             <Font size="33.0" />
          </font>
       </Label>
       <Button layoutX="377.0" layoutY="360.0" mnemonicParsing="false" onAction="#registerCustomer" prefHeight="54.0" prefWidth="107.0" text="Register" />
-      <Label layoutX="118.0" layoutY="291.0" prefHeight="30.0" prefWidth="173.0" text="Date of Birth:">
+      <Label layoutX="118.0" layoutY="291.0" prefHeight="30.0" prefWidth="173.0" text="Date of Birth:" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="118.0" layoutY="319.0" prefHeight="30.0" prefWidth="134.0" text="Address:">
+      <Label layoutX="118.0" layoutY="319.0" prefHeight="30.0" prefWidth="134.0" text="Address:" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
       <TextField fx:id="address" layoutX="275.0" layoutY="323.0" />
-      <Label layoutX="118.0" layoutY="236.0" prefHeight="30.0" prefWidth="173.0" text="Phone Number:">
+      <Label layoutX="118.0" layoutY="236.0" prefHeight="30.0" prefWidth="173.0" text="Phone Number:" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
       <TextField fx:id="phone" layoutX="275.0" layoutY="240.0" />
-      <Label layoutX="118.0" layoutY="264.0" prefHeight="30.0" prefWidth="107.0" text="CNIC:">
+      <Label layoutX="118.0" layoutY="264.0" prefHeight="30.0" prefWidth="107.0" text="CNIC:" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
       <TextField fx:id="cnicPartOne" layoutX="275.0" layoutY="268.0" prefHeight="25.0" prefWidth="82.0" />
@@ -61,14 +61,14 @@
             <Font name="Segoe UI Black" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="118.0" layoutY="206.0" prefHeight="30.0" prefWidth="173.0" text="Password:">
+      <Label layoutX="118.0" layoutY="206.0" prefHeight="30.0" prefWidth="173.0" text="Password:" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="118.0" layoutY="176.0" prefHeight="30.0" prefWidth="173.0" text="Username:">
+      <Label layoutX="118.0" layoutY="176.0" prefHeight="30.0" prefWidth="173.0" text="Username:" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
       <TextField fx:id="username" layoutX="275.0" layoutY="180.0" />
