@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="706.0" style="-fx-background-color: #EAEAEA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerDashboardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="706.0" style="-fx-background-color: #01579B;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerDashboardController">
    <children>
-      <Pane prefHeight="613.0" prefWidth="134.0" style="-fx-background-color: black;">
+      <Pane prefHeight="613.0" prefWidth="134.0" style="-fx-background-color: black; -fx-background-radius: 50px; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);">
          <children>
-            <Pane prefHeight="166.0" prefWidth="134.0" style="-fx-background-color: #00ABB3;">
+            <Pane prefHeight="166.0" prefWidth="134.0" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);">
                <children>
                   <Label alignment="CENTER" layoutX="2.0" layoutY="25.0" prefHeight="17.0" prefWidth="134.0" text="Welcome Customer!" />
                </children>
@@ -27,7 +27,7 @@
                   <Font name="Arial Black" size="11.0" />
                </font>
             </Button>
-            <Button layoutX="-1.0" layoutY="551.0" mnemonicParsing="false" onAction="#Logout" prefHeight="25.0" prefWidth="134.0" style="-fx-background-color: black;" text="Logout" textFill="#fdfdfd">
+            <Button layoutX="-1.0" layoutY="551.0" mnemonicParsing="false" onAction="#Logout" prefHeight="25.0" prefWidth="134.0" style="-fx-background-color: gray;" text="Logout" textFill="#fdfdfd">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
@@ -35,23 +35,26 @@
                
          </children>
       </Pane>
-      <Label alignment="CENTER" layoutX="134.0" layoutY="27.0" prefHeight="51.0" prefWidth="572.0" style="-fx-background-color: #B2B2B2;" text="Customer Dashboard">
+      <Label alignment="CENTER" layoutX="134.0" layoutY="27.0" prefHeight="51.0" prefWidth="572.0" style="-fx-background-color: #0288D1; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 0);" text="Customer Dashboard">
          <font>
-            <Font size="33.0" />
+            <Font name="System Bold" size="32.0" />
          </font>
       </Label>
+      <Button layoutX="202.0" layoutY="425.0" mnemonicParsing="false" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Generate Report">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
       <TableView layoutX="207.0" layoutY="207.0" prefHeight="200.0" prefWidth="426.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-            <TableColumn prefWidth="75.0" text="C3" />
-            <TableColumn prefWidth="75.0" text="C4" />
+          <TableColumn prefWidth="75.0" text="From" />
+          <TableColumn prefWidth="75.0" text="To" />
+            <TableColumn prefWidth="75.0" text="Status" />
+            <TableColumn prefWidth="75.0" text="Payment" />
         </columns>
       </TableView>
-      <Button layoutX="202.0" layoutY="425.0" mnemonicParsing="false" text="Generate Report" />
-      <Label alignment="CENTER" layoutX="134.0" layoutY="129.0" prefHeight="51.0" prefWidth="572.0" text="Current Bookings">
+      <Label alignment="CENTER" layoutX="134.0" layoutY="129.0" prefHeight="51.0" prefWidth="572.0" text="Current Bookings" textFill="WHITE">
          <font>
-            <Font size="33.0" />
+            <Font name="System Bold" size="33.0" />
          </font>
       </Label>
    </children>

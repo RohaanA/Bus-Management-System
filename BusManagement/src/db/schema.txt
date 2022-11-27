@@ -23,9 +23,11 @@ create table bus (
 );
 create table route (
    routeID INT NOT NULL AUTO_INCREMENT,
-   busID INT NULL,
+   busID INT,
+   fromLocation VARCHAR(20) NOT NULL, 
+   toLocation VARCHAR(20) NOT NULL,
    cost INT NOT NULL,
-   Date DATE NOT NULL,
+   departureDate DATETIME NOT NULL,
    
    FOREIGN KEY (busID) REFERENCES bus(busID) ON DELETE SET NULL,
    PRIMARY KEY (routeID)
@@ -59,9 +61,9 @@ create table customer(
 );
 #Inserting account
 "INSERT INTO account (username, password, accountType) VALUES (honey, 1234, Customer);"
-INSERT INTO account (username,password,name,accountType) VALUES ('ItsHoney','1234', 'Rohaan Atique', 'Manager');
-INSERT INTO account (username,password,name,accountType) VALUES ('ItsHoney','1234', 'Rohaan Atique', 'Customer');
-INSERT INTO account (username, password, name, accountType) VALUES ('"+username+"', '"+password+"', '"+name+"' , Customer);
+INSERT INTO account (username,password,accountType) VALUES ('ItsHoney','1234','Manager');
+INSERT INTO account (username,password,accountType) VALUES ('ItsHoney','1234','Customer');
+INSERT INTO account (username, password, accountType) VALUES ('"+username+"', '"+password+"', 'Customer');
 INSERT INTO customer (accountID, phone, cnic, dob, address) VALUES ('"+accID+"','"+phone+"','"+cnic+"','"+dob+"','"+address+"');  
 #Inserting customer
 INSERT INTO customer ( 
@@ -80,3 +82,24 @@ create table seatsBooked(
 ALTER TABLE customer
 MODIFY cnic
 varchar(15);
+
+
+/* DATA */
+/* Managers */
+INSERT INTO account (username,password,accountType) VALUES ('rohaan','1234','Manager');
+INSERT INTO account (username,password,accountType) VALUES ('moiz','1234','Manager');
+/* Customers */
+
+/* Busses */
+INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active) VALUES ('Daewoo BH116', '2022', 30, '2022-02-26', 0);
+INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active) VALUES ('Daewoo BH120f', '2022', 30, '2022-02-21', 0);
+INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active) VALUES ('Yutong Master', '2021', 51, '2022-05-26', 0);
+INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active) VALUES ('Volvo B11R', '2020', 21, '2022-02-25', 0);
+INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active) VALUES ('Higer KLQ6122B', '2022', 51, '2022-01-01', 0);
+/* Routes */
+INSERT INTO route (busID, fromLocation, toLocation, cost, departureDate) VALUES ('1', 'Multan', 'Lahore', '1500', '2022-11-26 12:00');
+INSERT INTO route (busID, fromLocation, toLocation, cost, departureDate) VALUES ('1', 'Lahore', 'Multan', '1500', '2022-11-26 18:00');
+INSERT INTO route (busID, fromLocation, toLocation, cost, departureDate) VALUES ('2', 'Islamabad', 'Lahore', '1750', '2022-11-28 12:00');
+INSERT INTO route (busID, fromLocation, toLocation, cost, departureDate) VALUES ('2', 'Lahore', 'Islamabad', '1750', '2022-11-28 17:00');
+INSERT INTO route (busID, fromLocation, toLocation, cost, departureDate) VALUES ('3', 'Karachi', 'Lahore', '4000', '2022-11-29 13:00');
+INSERT INTO route (busID, fromLocation, toLocation, cost, departureDate) VALUES ('4', 'Lahore', 'Karachi', '4000', '2022-11-29 13:00');

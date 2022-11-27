@@ -94,7 +94,9 @@ public class EditProfileController {
     	String txt_newCNICPartOne = newCNICPartOne.getText();
     	String txt_newCNICPartTwo = newCNICPartTwo.getText();
     	String txt_newCNICPartThree = newCNICPartThree.getText();
-    	String txt_newDob = newDOB.getValue().toString();
+    	String txt_newDob = "";
+    	if (newDOB.getValue() != null)
+    		txt_newDob = newDOB.getValue().toString();
     	String txt_newAddress = newAddress.getText();
     	
     	//Guard Clause: Atleast one field has data.
