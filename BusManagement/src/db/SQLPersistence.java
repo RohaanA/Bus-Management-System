@@ -227,5 +227,70 @@ public class SQLPersistence extends PersistenceHandler {
 		}
 	}
 	
+	
+	public ResultSet displayAllBooking()throws ClassNotFoundException, SQLException
+	{
+		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+		
+		Statement stmt=con.createStatement();
+		ResultSet rs=stmt.executeQuery("SELECT * FROM booking ");
+		
+		
+		
+		return rs;
+		
+	}
+	
+	public ResultSet displayBooking(int value,String type)throws ClassNotFoundException, SQLException
+	{
+		
+		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+		
+		Statement stmt=con.createStatement();
+		
+		ResultSet rs;
+		
+		if(type=="Route ID")
+		{
+			rs=stmt.executeQuery("SELECT * FROM booking where routeID="+ value);			
+		}
+		
+		else if(type=="Customer ID")
+		{
+			rs=stmt.executeQuery("SELECT * FROM booking where accountID="+ value);
+		}
+		
+		else
+		{
+			rs=stmt.executeQuery("SELECT * FROM booking where bookingID="+ value);
+		}
+		
+		
+		
+		return rs;
+		
+	}
 
+	public boolean cancelAllBookings(int routeID)
+	{
+
+		try {
+			
+			Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+			
+			Statement stmt=con.createStatement();
+			
+			stmt.executeUpdate("Update booking set currentStatus='Cancelled' where routeID=" + routeID);
+			
+			return true;
+		} 
+		
+		catch (SQLException e) {
+			
+			e.printStackTrace();
+			return false;
+			
+		}
+		
+	}
 }

@@ -78,6 +78,23 @@ public class Manager_BusController {
 			
 		}
 		
+		public void switchToManageBooking(ActionEvent event) throws IOException {
+			
+			FXMLLoader loader=new FXMLLoader(getClass().getResource("../application/ManageBooking.fxml"));	
+			Parent root=loader.load();
+			Manager_BookingController controller=loader.getController();
+			
+			
+			controller.Display_User(currentUser);
+			
+			//Parent root = FXMLLoader.load(getClass().getResource("../application/ManagerView.fxml"));
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene= new Scene(root);
+			stage.setScene(scene);
+			stage.setTitle("Manage Booking");
+			stage.show();
+			
+		}
 		
 		//Manage Buses Scene
 		public void switchToManageBuses(ActionEvent event) throws IOException {

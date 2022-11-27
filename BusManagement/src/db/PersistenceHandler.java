@@ -17,4 +17,9 @@ public abstract class PersistenceHandler {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public abstract ResultSet displayAllBooking()throws ClassNotFoundException, SQLException;
+	public abstract ResultSet displayBooking(int value,String type) throws ClassNotFoundException, SQLException;
+	public abstract boolean cancelAllBookings(int routeID) ;
+	
 }
