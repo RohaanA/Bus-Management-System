@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 
 import application.Classes.BusDescription;
+import businesslogic.Booking;
 import businesslogic.BookingDescription;
 import db.PersistenceFactory;
 import db.PersistenceHandler;
@@ -30,9 +31,9 @@ public class Manager_BookingController {
 	 
 		private Stage stage;
 		private Scene scene;
-		private PersistenceHandler mysql;		
+				
 		String currentUser="";
-
+		private Booking obj=new Booking();
 	    @FXML
 	    private TableColumn<BookingDescription, String> username;
 
@@ -139,8 +140,8 @@ public class Manager_BookingController {
 			try
 			{
 				
-				mysql=PersistenceFactory.getDBInstance("MySQL");
-				ResultSet rs=mysql.displayBooking(Integer.parseInt((SearchBar.getText())),filterChoice.getValue());
+				
+				ResultSet rs=obj.displayBooking(Integer.parseInt((SearchBar.getText())),filterChoice.getValue());
 				
 				System.out.println("Finding...");
 				ObservableList<BookingDescription> data = FXCollections.observableArrayList();
@@ -197,8 +198,9 @@ public class Manager_BookingController {
 		{
 			try
 			{
-				mysql=PersistenceFactory.getDBInstance("MySQL");
-				ResultSet rs=mysql.displayAllBooking();
+			
+				
+				ResultSet rs=obj.displayAllBooking();
 				
 				ObservableList<BookingDescription> data = FXCollections.observableArrayList();
 				
@@ -250,9 +252,9 @@ public class Manager_BookingController {
 		public void cancelAllBookings(ActionEvent event) {
 			
 			int route_ID=Integer.parseInt(selectedID.getText());
-			mysql=PersistenceFactory.getDBInstance("MySQL");
 			
-			if(mysql.cancelAllBookings(route_ID))
+			
+			if(obj.cancelAllBookings(route_ID))
 			{
 				viewAllBookings(event); 
 				System.out.print("Cancelled Successfully");
@@ -271,9 +273,9 @@ public class Manager_BookingController {
 		{
 
 			int route_ID=Integer.parseInt(selectedID.getText());
-			mysql=PersistenceFactory.getDBInstance("MySQL");
 			
-			if(mysql.changeBookingStatus(route_ID))
+			
+			if(obj.changeBookingStatus(route_ID))
 			{
 				viewAllBookings(event); 
 				System.out.println("changed Successfully");
