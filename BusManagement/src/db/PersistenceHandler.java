@@ -22,4 +22,7 @@ public abstract class PersistenceHandler {
 	public abstract ArrayList<String> getAllRouteLocations() throws SQLException;
 	public abstract ResultSet getAllRouteData() throws SQLException;
 	public abstract boolean changeBookingStatus(int routeID);
+	//Black List Customers
+	
+	
 }
