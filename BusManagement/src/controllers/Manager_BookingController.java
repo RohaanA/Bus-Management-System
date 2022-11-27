@@ -34,16 +34,22 @@ public class Manager_BookingController {
 		String currentUser="";
 
 	    @FXML
-	    private TableColumn<BookingDescription, Integer> accountID;
+	    private TableColumn<BookingDescription, String> username;
 
 	    @FXML
 	    private TableColumn<BookingDescription, Integer> bookingID;
 	    
 	    @FXML
-	    private TableColumn<BookingDescription, String> currentStatus;
+	    private TableColumn<BookingDescription, String> bookingStatus;
 
 	    @FXML
 	    private TableColumn<BookingDescription, Integer> routeID;
+	    
+	    @FXML
+	    private TableColumn<BookingDescription, String> paymentStatus;
+	    
+	    @FXML
+	    private TableColumn<BookingDescription, Integer> seatNumber;
 	    
 	    @FXML
 	    private TableView<BookingDescription> tableBooking;
@@ -69,7 +75,7 @@ public class Manager_BookingController {
 	    
 	    public void initialize() {
 	    	filterChoice.getItems().removeAll(filterChoice.getItems());
-	    	filterChoice.getItems().addAll("Route ID", "Customer ID", "Booking ID");
+	    	filterChoice.getItems().addAll("Route ID","Booking ID");
 	    	filterChoice.getSelectionModel().select("Route ID");
 		}
 
@@ -141,9 +147,10 @@ public class Manager_BookingController {
 				
 				bookingID.setCellValueFactory(new PropertyValueFactory<>("bookingID"));
 				routeID.setCellValueFactory(new PropertyValueFactory<>("routeID"));
-				accountID.setCellValueFactory(new PropertyValueFactory<>("accountID"));
-				currentStatus.setCellValueFactory(new PropertyValueFactory<>("currentStatus"));
-				
+				username.setCellValueFactory(new PropertyValueFactory<>("username"));
+				bookingStatus.setCellValueFactory(new PropertyValueFactory<>("bookingStatus"));
+				paymentStatus.setCellValueFactory(new PropertyValueFactory<>("paymentStatus"));
+				seatNumber.setCellValueFactory(new PropertyValueFactory<>("seatNumber"));
 				
 				
 				
@@ -153,9 +160,13 @@ public class Manager_BookingController {
 					data.add(new BookingDescription(
 							rs.getInt("bookingID"),
 							rs.getInt("routeID"),
-							rs.getInt("accountID"),
-							rs.getString("currentStatus")
+							rs.getInt("seatNumber"),
+							rs.getString("username"),
 							
+							rs.getString("bookingStatus"),
+							rs.getString("paymentStatus")
+							
+	
 							
 							));
 
@@ -193,21 +204,27 @@ public class Manager_BookingController {
 				
 				bookingID.setCellValueFactory(new PropertyValueFactory<>("bookingID"));
 				routeID.setCellValueFactory(new PropertyValueFactory<>("routeID"));
-				accountID.setCellValueFactory(new PropertyValueFactory<>("accountID"));
-				currentStatus.setCellValueFactory(new PropertyValueFactory<>("currentStatus"));
-				
+				username.setCellValueFactory(new PropertyValueFactory<>("username"));
+				bookingStatus.setCellValueFactory(new PropertyValueFactory<>("bookingStatus"));
+				paymentStatus.setCellValueFactory(new PropertyValueFactory<>("paymentStatus"));
+				seatNumber.setCellValueFactory(new PropertyValueFactory<>("seatNumber"));
 				
 				
 				
 				while(rs.next()){
 	                //Iterate Row
 					
+					
 					data.add(new BookingDescription(
 							rs.getInt("bookingID"),
 							rs.getInt("routeID"),
-							rs.getInt("accountID"),
-							rs.getString("currentStatus")
+							rs.getInt("seatNumber"),
+							rs.getString("username"),
 							
+							rs.getString("bookingStatus"),
+							rs.getString("paymentStatus")
+							
+	
 							
 							));
 
@@ -249,6 +266,26 @@ public class Manager_BookingController {
 			
 			
 		}
+		
+		public void changeBookingStatus(ActionEvent event)
+		{
+
+			int route_ID=Integer.parseInt(selectedID.getText());
+			mysql=PersistenceFactory.getDBInstance("MySQL");
+			
+			if(mysql.changeBookingStatus(route_ID))
+			{
+				viewAllBookings(event); 
+				System.out.println("changed Successfully");
+				
+			}
+			else
+			{
+				System.out.println("Unable to change");
+			}
+			
+		}
+	
 	    void Display_User(String Name)
 		{
 			

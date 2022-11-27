@@ -23,5 +23,5 @@ public abstract class PersistenceHandler {
 	public abstract ResultSet getAllRouteData() throws SQLException;
 	public abstract int getBusSeatCount(String busID) throws SQLException;
 	public abstract ArrayList<Integer> getBookedSeats(int routeID) throws SQLException;
-	
+	public abstract boolean changeBookingStatus(int routeID);
 }
