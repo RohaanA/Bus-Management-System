@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import businesslogic.BookingDescription;
+
 //Database persistence Handler
 
 
@@ -468,5 +470,19 @@ public class SQLPersistence extends PersistenceHandler {
 		
 		con.close();
 		return seatList;
+	}
+
+	@Override
+	public boolean saveBooking(BookingDescription bk) throws SQLException {
+		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+		Statement stmt=con.createStatement();	
+		String username = bk.getUsername();
+		int routeID = bk.getRouteID();
+		int seatNumber = bk.getSeatNumber();
+		
+		
+		stmt.executeUpdate("INSERT INTO booking(username, routeID, seatNumber, paymentStatus) VALUES ('"+username+"','"+routeID+"','"+seatNumber+"','paid');");
+		con.close();
+		return true;
 	}
 }

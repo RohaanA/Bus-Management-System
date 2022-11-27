@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import businesslogic.BookingDescription;
+
 public abstract class PersistenceHandler {
 	//public abstract void saveCustomerDetails();
 	public abstract boolean authenticate(String username, String password, String type) throws SQLException;
@@ -24,4 +26,5 @@ public abstract class PersistenceHandler {
 	public abstract boolean changeBookingStatus(int routeID);
 	public abstract ArrayList<Integer> getBookedSeats(int routeID) throws SQLException;
 	public abstract int getBusSeatCount(String busID) throws SQLException;
+	public abstract boolean saveBooking(BookingDescription bk) throws SQLException;
 }

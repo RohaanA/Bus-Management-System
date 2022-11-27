@@ -38,7 +38,7 @@ create table booking(
    routeID INT NOT NULL,
    seatNumber INT NOT NULL,
    paymentStatus VARCHAR(6) NOT NULL,
-   bookingStatus VARCHAR(10) NOT NULL,
+   bookingStatus VARCHAR(10) NOT NULL DEFAULT 'notstarted',
  
    CHECK(paymentStatus = 'unpaid' OR paymentStatus = 'paid'),
    CHECK(bookingStatus = 'notstarted' OR bookingStatus = 'ongoing' OR bookingStatus = 'cancelled'),
@@ -47,7 +47,6 @@ create table booking(
    FOREIGN KEY (username) REFERENCES account(username),
    FOREIGN KEY (routeID) REFERENCES route(routeID)
 );
-
 create table customer(
 	username VARCHAR(20) NOT NULL UNIQUE,
 	phone VARCHAR(13) NOT NULL,
@@ -79,7 +78,7 @@ INSERT INTO customer (accountID, phone, cnic, dob, address) VALUES ('"+accID+"',
 INSERT INTO customer ( 
 #Finding account
 SELECT COUNT(*) FROM Account WHERE Username='ItsHoney' AND Password='1234' AND accountType= 'Manager';
-
+INSERT INTO booking(username, routeID, seatNumber, paymentStatus) VALUES ('"+username+"','"+routeID+"','"+seatNumber+"','paid');
 
 
 

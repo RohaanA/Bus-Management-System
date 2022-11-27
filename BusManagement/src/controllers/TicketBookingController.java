@@ -1,10 +1,13 @@
 package controllers;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import application.Classes.SeatDescription;
 import businesslogic.Account;
+import businesslogic.Booking;
+import businesslogic.BookingDescription;
 import businesslogic.Bus;
 import businesslogic.Route;
 import businesslogic.RouteDescription;
@@ -12,12 +15,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class TicketBookingController {
 
@@ -46,10 +54,17 @@ public class TicketBookingController {
     private TextField nameOnCard;
     Bus routeBus = null;
     private ArrayList<Integer> availableSeats = null;
+    private Stage stage;
+    private Scene scene;
     
     @FXML
-    void logout(ActionEvent event) {
-
+    void logout(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("../application/ManagerLogin.fxml"));
+		
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.show();	
     }
 
     @FXML
@@ -77,13 +92,14 @@ public class TicketBookingController {
     		setErrorLabel("Seat is not available!");
     		return;
     	}
-
-    	String txt_cardValidity = cardValidity.getValue().toString();
-    	
     	/* Guard Clauses End */
-    	for(int i=0; i<allSeatArr.size(); i++)
-    		System.out.println(i + "-" + allSeatArr.get(i));
+    	String txt_cardValidity = cardValidity.getValue().toString();    	
     	
+    	Booking booking = new Booking();
+    	boolean bookingStatus = booking.saveBooking(new BookingDescription(-1, routeTaken.getRouteID(), Integer.parseInt(txt_selectedSeatNumber), loggedIn.getUsername(), "ongoing", "paid"));
+    	if (bookingStatus)
+    		System.out.println("Succesfully booked into database.");
+    	else System.out.println("Error occured while booking.");
     }
     
     public void start(Account acc, RouteDescription route, Route allRoutes) {
