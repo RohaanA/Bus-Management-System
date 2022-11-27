@@ -36,6 +36,7 @@ create table booking(
    bookingID INT NOT NULL AUTO_INCREMENT,
    username VARCHAR(20) NOT NULL UNIQUE,
    routeID INT NOT NULL,
+   seatNumber INT NOT NULL,
    paymentStatus VARCHAR(6) NOT NULL,
    bookingStatus VARCHAR(10) NOT NULL,
  
@@ -73,9 +74,11 @@ SELECT COUNT(*) FROM Account WHERE Username='ItsHoney' AND Password='1234' AND a
 
 create table seatsBooked(
 	routeID INT NOT NULL,
-	seatBooked INT NOT NULL,
+	seatNumber INT NOT NULL,
+	seatStatus VARCHAR(30) NOT NULL,
 	
-	PRIMARY KEY (seatBooked),
+	CHECK(seatStatus = 'booked'),
+	PRIMARY KEY (routeID, seatNumber),
 	FOREIGN KEY (routeID) REFERENCES route(routeID)
 );
 
@@ -103,3 +106,14 @@ INSERT INTO route (busID, fromLocation, toLocation, cost, departureDate) VALUES 
 INSERT INTO route (busID, fromLocation, toLocation, cost, departureDate) VALUES ('2', 'Lahore', 'Islamabad', '1750', '2022-11-28 17:00');
 INSERT INTO route (busID, fromLocation, toLocation, cost, departureDate) VALUES ('3', 'Karachi', 'Lahore', '4000', '2022-11-29 13:00');
 INSERT INTO route (busID, fromLocation, toLocation, cost, departureDate) VALUES ('4', 'Lahore', 'Karachi', '4000', '2022-11-29 13:00');
+/* SeatsBooked */
+INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('1', 1, 'booked');  
+INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('1', 2, 'booked');  
+INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('1', 4, 'booked');  
+INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('1', 7, 'booked');  
+INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('1', 9, 'booked');  
+INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('1', 15, 'booked'); 
+INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('2', 15, 'booked');   
+INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('3', 1, 'booked'); 
+INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('4', 12, 'booked');
+INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('4', 11, 'booked');
