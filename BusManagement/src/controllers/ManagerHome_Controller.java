@@ -150,8 +150,10 @@ public class ManagerHome_Controller {
 	{
 		try
 		{
-			mysql=PersistenceFactory.getDBInstance("MySQL");
-			ResultSet rs=mysql.generateReport();
+			
+			Report object=new Report();
+			//mysql=PersistenceFactory.getDBInstance("MySQL");
+			ResultSet rs=object.generateReport();
 			
 			ObservableList<Report> data = FXCollections.observableArrayList();
 			
@@ -195,8 +197,10 @@ public class ManagerHome_Controller {
 		
 		try
 		{
-			mysql=PersistenceFactory.getDBInstance("MySQL");
-			ResultSet rs=mysql.displayBlackListCustomers();
+			BlackListedCustomer obj=new BlackListedCustomer();
+			
+			
+			ResultSet rs=obj.displayBlackListCustomers();
 			
 			ObservableList<BlackListedCustomer> data = FXCollections.observableArrayList();
 			
@@ -243,9 +247,10 @@ public class ManagerHome_Controller {
 	public void blackListCustomer(ActionEvent event)
 	{
 		String username=username_textbox.getText();
-		mysql=PersistenceFactory.getDBInstance("MySQL");
 		
-		if(mysql.blackListCustomer(username))
+		BlackListedCustomer obj=new BlackListedCustomer();
+	
+		if(obj.blackListCustomer(username))
 		{
 			DisplayblackListCustomers(); 
 			System.out.println("changed Successfully");
