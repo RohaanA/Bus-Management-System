@@ -54,12 +54,14 @@
             <Font name="Bell MT" size="33.0" />
          </font>
       </Label>
-      <TableView fx:id="tableBooking" layoutX="242.0" layoutY="178.0" prefHeight="258.0" prefWidth="351.0">
+      <TableView fx:id="tableBooking" layoutX="146.0" layoutY="178.0" prefHeight="258.0" prefWidth="557.0">
         <columns>
           <TableColumn fx:id="bookingID" prefWidth="75.99996948242188" text=" Booking ID" />
-            <TableColumn fx:id="accountID" prefWidth="80.66668701171875" text="Account ID" />
+            <TableColumn fx:id="username" prefWidth="80.66668701171875" text="Username" />
             <TableColumn fx:id="routeID" prefWidth="89.33331298828125" text="Route ID" />
-            <TableColumn fx:id="currentStatus" prefWidth="102.66668701171875" text="Current Status" />
+            <TableColumn fx:id="bookingStatus" prefWidth="111.33331298828125" text="Booking Status" />
+            <TableColumn fx:id="paymentStatus" prefWidth="96.0" text="Payment Status" />
+            <TableColumn fx:id="seatNumber" prefWidth="105.3333740234375" text="Seat Number" />
         </columns>
       </TableView>
       <Button layoutX="370.0" layoutY="492.0" mnemonicParsing="false" onAction="#cancelAllBookings" prefHeight="27.0" prefWidth="134.0" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Cancel Booking(s)">
@@ -80,7 +82,7 @@
             <Font name="System Bold" size="13.0" />
          </font></Label>
       <TextField fx:id="selectedID" layoutX="282.0" layoutY="493.0" prefHeight="27.0" prefWidth="58.0" />
-      <Button layoutX="533.0" layoutY="492.0" mnemonicParsing="false" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Change Status">
+      <Button layoutX="533.0" layoutY="492.0" mnemonicParsing="false" onAction="#changeBookingStatus" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Change Status">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Button>

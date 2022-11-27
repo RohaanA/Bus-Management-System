@@ -13,7 +13,7 @@ public class SQLPersistence extends PersistenceHandler {
 
 	private String _connectionURL = "jdbc:mysql://localhost:3306/busdb";
 	private String _connectAccount = "root";
-	private String _dbPassword = "tiger12345";
+	private String _dbPassword = "moizrules1";
 	
 	public SQLPersistence() throws SQLException, ClassNotFoundException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -101,6 +101,11 @@ public class SQLPersistence extends PersistenceHandler {
 	
 //	View All Buses
 	public ResultSet displayBus(int busID) throws ClassNotFoundException, SQLException {
+		
+		if(busID<0)
+		{
+			return null;
+		}
 		
 	
 		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
@@ -193,6 +198,13 @@ public class SQLPersistence extends PersistenceHandler {
 	
 	public boolean deleteBus(int busID)
 	{
+		
+		if(busID<0)
+		{
+			return false;
+		}
+		
+		
 		try {
 			
 			Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
@@ -216,6 +228,11 @@ public class SQLPersistence extends PersistenceHandler {
 
 	public boolean updateBusStatus(int busID)
 	{
+		
+		if(busID<0)
+		{
+			return false;
+		}
 		
 		
 		try {
@@ -261,6 +278,8 @@ public class SQLPersistence extends PersistenceHandler {
 	
 	public ResultSet displayAllBooking()throws ClassNotFoundException, SQLException
 	{
+		
+		System.out.print("worked");
 		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
 		
 		Statement stmt=con.createStatement();
@@ -274,6 +293,11 @@ public class SQLPersistence extends PersistenceHandler {
 	
 	public ResultSet displayBooking(int value,String type)throws ClassNotFoundException, SQLException
 	{
+		if(value<0)
+		{
+			return null;
+		}
+		
 		
 		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
 		
@@ -286,10 +310,7 @@ public class SQLPersistence extends PersistenceHandler {
 			rs=stmt.executeQuery("SELECT * FROM booking where routeID="+ value);			
 		}
 		
-		else if(type=="Customer ID")
-		{
-			rs=stmt.executeQuery("SELECT * FROM booking where accountID="+ value);
-		}
+		
 		
 		else
 		{
@@ -298,17 +319,84 @@ public class SQLPersistence extends PersistenceHandler {
 		
 		
 		
+		
 		return rs;
 		
 	}
 
+	public boolean changeBookingStatus(int routeID) {
+		
+		if(routeID<0)
+		{
+			return false;
+		}
+		
+		//It is assumed all bookings of same route will be having same status
+		try {
+			
+			//First Get status
+			String value="";
+			Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+			
+			Statement stmt1=con.createStatement();
+			
+			ResultSet rs=stmt1.executeQuery("Select bookingStatus from booking where routeID=" + routeID);
+			
+			
+			
+			while(rs.next())
+			{
+				//Get the value
+				value=rs.getString("bookingStatus");
+				
+				
+			}
+			
+			System.out.println(value);
+			
+			Statement stmt2=con.createStatement();
+			
+			
+			if(value.equals("notstarted"))
+			{
+				//Then do its complement
+				stmt2.executeUpdate("UPDATE booking SET bookingStatus='"+ "ongoing" +"' where routeID=" + routeID);
+				
+			}
+			
+			else if(value.equals("ongoing"))
+			{
+				stmt2.executeUpdate("UPDATE booking SET bookingStatus='"+ "notstarted" +"' where routeID=" + routeID);
+			}
+			else
+			{
+				System.out.println("Nothing happened");
+			}
+			
+			rs.close();	
+		
+			return true;
+		} 
+		
+		catch (SQLException e) {
+			
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
 	public boolean cancelAllBookings(int routeID)
 	{
+		if(routeID<0)
+		{
+			return false;
+		}
+		
 		try {
 			
 			Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);		
 			Statement stmt=con.createStatement();
-			stmt.executeUpdate("Update booking set currentStatus='Cancelled' where routeID=" + routeID);
+			stmt.executeUpdate("Update booking set bookingStatus='cancelled' where routeID=" + routeID);
 			return true;
 		} 
 		catch (SQLException e) {
