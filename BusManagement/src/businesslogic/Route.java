@@ -8,6 +8,7 @@ import db.PersistenceFactory;
 import db.PersistenceHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class Route {
 	private PersistenceHandler dbInstance = PersistenceFactory.getDBInstance("MySQL");
@@ -24,8 +25,7 @@ public class Route {
 							rs.getString("toLocation"),
 							rs.getInt("cost"),
 							rs.getString("deptDate"),
-							rs.getString("deptTime"),
-							rs.getString("busID")
+							rs.getString("deptTime")
 							));
 	            }
 			//rs.close();
@@ -48,9 +48,5 @@ public class Route {
 				
 		}
 		return data;
-	}
-	public int getNoOfSeats() {
-		return 0;
-		//Bus routeBus = new Bus(busID);
 	}
 }
