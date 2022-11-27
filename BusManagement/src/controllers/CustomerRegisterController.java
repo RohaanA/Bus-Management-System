@@ -80,7 +80,15 @@ public class CustomerRegisterController {
     	}
     	
 
-    	String finalCNIC = cnicPartOne + "-" + cnicPartTwo + "-" + cnicPartThree;
+    	String finalCNIC = cnicPartOne.getText() + "-" + cnicPartTwo.getText() + "-" + cnicPartThree.getText();
+    	System.out.println("Customer Details Recorded:" );
+    	System.out.println("Username: " + txt_username );
+    	System.out.println("Password: " + txt_password);
+    	System.out.println("Phone: " + txt_phone);
+    	System.out.println("CNIC: " + finalCNIC);
+    	System.out.println("Dob: " + txt_dob);
+    	System.out.println("Address: " + txt_address);
+    	
     	//TODO: Call to account to register.
     	Account acc = new Account();
     	boolean status = acc.registerCustomer(txt_username, txt_password, txt_phone, finalCNIC, txt_dob, txt_address);

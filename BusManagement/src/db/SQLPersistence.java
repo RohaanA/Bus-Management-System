@@ -11,7 +11,7 @@ public class SQLPersistence extends PersistenceHandler {
 
 	private String _connectionURL = "jdbc:mysql://localhost:3306/busdb";
 	private String _connectAccount = "root";
-	private String _dbPassword = "moizrules1";
+	private String _dbPassword = "tiger12345";
 	
 	public SQLPersistence() throws SQLException, ClassNotFoundException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -210,93 +210,7 @@ public class SQLPersistence extends PersistenceHandler {
 		}
 	}
 	
-	public boolean updateBusStatus(int busID)
-	{
-		
-		
-		try {
-			
-			//First Get status
-			boolean value=false;
-			Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
-			
-			Statement stmt1=con.createStatement();
-			
-			ResultSet rs=stmt1.executeQuery("Select maintenance_active from bus where busID=" + busID);
-			
-			System.out.println("Reached here1");
-			
-			while(rs.next())
-			{
-				//Get the value
-				value=rs.getBoolean("maintenance_active");
-			}
-			
-			Statement stmt2=con.createStatement();
-			
-			
-			
-			//Then do its complement
-			stmt2.executeUpdate("UPDATE bus SET maintenance_active="+ !value +" where busID=" + busID);
-			
-			
-			rs.close();	
 	
-			return true;
-		} 
-		
-		catch (SQLException e) {
-			
-			System.out.println("An Error Occured while updating bus Status!");
-			e.printStackTrace();
-			return false;
-			
-		}
-	}
-	
-	
-	public ResultSet displayAllBooking()throws ClassNotFoundException, SQLException
-	{
-		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
-		
-		Statement stmt=con.createStatement();
-		ResultSet rs=stmt.executeQuery("SELECT * FROM booking ");
-		
-		
-		
-		return rs;
-		
-	}
-	
-	public ResultSet displayBooking(int value,String type)throws ClassNotFoundException, SQLException
-	{
-		
-		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
-		
-		Statement stmt=con.createStatement();
-		
-		ResultSet rs;
-		
-		if(type=="Route ID")
-		{
-			rs=stmt.executeQuery("SELECT * FROM booking where routeID="+ value);			
-		}
-		
-		else if(type=="Customer ID")
-		{
-			rs=stmt.executeQuery("SELECT * FROM booking where accountID="+ value);
-		}
-		
-		else
-		{
-			rs=stmt.executeQuery("SELECT * FROM booking where bookingID="+ value);
-		}
-		
-		
-		
-		return rs;
-		
-	}
 
 	public boolean updateBusStatus(int busID)
 	{
