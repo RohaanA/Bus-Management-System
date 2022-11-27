@@ -73,8 +73,13 @@ public class EditProfileController {
 
     @FXML
     public void setHome(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("../application/CustomerDashboard.fxml"));
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		//Parent root = FXMLLoader.load(getClass().getResource("../application/CustomerDashboard.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/CustomerDashboard.fxml"));
+		root = loader.load();
+		CustomerDashboardController customerDashboardController = loader.getController();
+		customerDashboardController .setAccountInstance(loggedIn);
+		
+    	stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Customer Dashboard");
@@ -131,8 +136,23 @@ public class EditProfileController {
     }
 
     public void setAccountInstance(Account acc) {
+		if (acc == null)
+			System.out.println("[EditProfileController]: Account is null. ");
     	loggedIn = acc;
     	loadData();
+    }
+    
+    public void switchToSearch(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/SearchTicket.fxml"));
+		root = loader.load();
+		SearchTicketController searchTicketController = loader.getController();
+		searchTicketController .setAccountInstance(loggedIn);
+
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.setTitle("Edit Profile");
+		stage.show();
     }
     
     /*
@@ -151,4 +171,6 @@ public class EditProfileController {
     	errorLabel.setText("Error: " + err);
     	errorLabel.setVisible(true);
     }
+    
+    
 }

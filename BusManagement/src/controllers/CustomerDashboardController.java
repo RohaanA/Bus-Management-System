@@ -16,14 +16,6 @@ public class CustomerDashboardController {
 	private Parent root;
 	private Account loggedIn = null;
 
-	public void setHome(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("../application/CustomerDashboard.fxml"));
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene= new Scene(root);
-		stage.setScene(scene);
-		stage.setTitle("Customer Dashboard");
-		stage.show();
-	}
 	public void switchToEditProfile(ActionEvent event) throws IOException {
 		//Pass account instance.
 //		Parent root = FXMLLoader.load(getClass().getResource("../application/EditProfile.fxml"));
@@ -49,6 +41,21 @@ public class CustomerDashboardController {
 		stage.show();
 	}
 	public void setAccountInstance(Account acc) {
+			if (acc == null)
+				System.out.println("[CustomerDashboardController]: Account is null. ");
 		loggedIn = acc;
+	}
+	public void switchToSearch(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/SearchTicket.fxml"));
+		root = loader.load();
+		SearchTicketController searchTicketController = loader.getController();
+		searchTicketController.setAccountInstance(loggedIn);
+
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.setTitle("Edit Profile");
+		stage.show();
+		
 	}
 }

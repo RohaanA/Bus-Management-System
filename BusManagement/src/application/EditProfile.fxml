@@ -16,7 +16,7 @@
                   <Label alignment="CENTER" layoutX="2.0" layoutY="25.0" prefHeight="17.0" prefWidth="134.0" text="Welcome Customer!" />
                </children>
             </Pane>
-            <Button alignment="CENTER" layoutX="3.0" layoutY="260.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="127.0" style="-fx-background-color: black;" text="Search Ticket" textFill="WHITE">
+            <Button alignment="CENTER" layoutX="3.0" layoutY="260.0" mnemonicParsing="false" onAction="#switchToSearch" prefHeight="33.0" prefWidth="127.0" style="-fx-background-color: black;" text="Search Ticket" textFill="WHITE">
             <font>
                   <Font name="Arial Black" size="11.0" />
                </font>
