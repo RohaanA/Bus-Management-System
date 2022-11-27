@@ -34,7 +34,7 @@ create table route (
 );
 create table booking(
    bookingID INT NOT NULL AUTO_INCREMENT,
-   username VARCHAR(20) NOT NULL UNIQUE,
+   username VARCHAR(20) NOT NULL,
    routeID INT NOT NULL,
    seatNumber INT NOT NULL,
    paymentStatus VARCHAR(6) NOT NULL,
@@ -125,4 +125,4 @@ SELECT B.seatCount FROM route R, bus B WHERE (R.busID = B.busID AND R.routeID='5
 
 SELECT SUM(cost) as 'Total Cost' 
 FROM seatsBooked SB, route R, Booking B
-WHERE SB.routeID = R.routeID;
+WHERE (SB.routeID = R.routeID) AND (B.routeID = R.routeID) AND (B.paymentStatus = 'paid');

@@ -16,7 +16,7 @@ public class RouteDescription {
 		this.fare = fare;
 		this.deptDate = deptDate;
 		this.deptTime = deptTime;
-		this.busID = busID;
+		this.busID = busID; // test
 	}
 
 	public int getRouteID() {
