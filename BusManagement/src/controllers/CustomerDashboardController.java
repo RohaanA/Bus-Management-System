@@ -49,12 +49,12 @@ public class CustomerDashboardController {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/SearchTicket.fxml"));
 		root = loader.load();
 		SearchTicketController searchTicketController = loader.getController();
-		searchTicketController.setAccountInstance(loggedIn);
+		searchTicketController.start(loggedIn);
 
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
 		stage.setScene(scene);
-		stage.setTitle("Edit Profile");
+		stage.setTitle("Search Ticket");
 		stage.show();
 		
 	}

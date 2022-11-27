@@ -118,11 +118,15 @@ public class SearchTicketController {
 		routesTable.setItems(data);
     }
 
+    @FXML
+    void bookTicket(ActionEvent event) {
+    	
+    }
     
     /*
      * Acts as the constructor of the controller. (Used for loading data/passing account instance)
      */
-	public void setAccountInstance(Account acc) {
+	public void start(Account acc) {
 		if (acc == null)
 			System.out.println("[SearchTicketController]: Account is null. ");
 		loggedIn = acc;
