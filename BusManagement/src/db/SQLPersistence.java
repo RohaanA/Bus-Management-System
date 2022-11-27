@@ -534,6 +534,23 @@ public class SQLPersistence extends PersistenceHandler {
 		return seatCount;
 		
 	}
+	
+	@Override
+	public ArrayList<Integer> getBookedSeats(int routeID) throws SQLException {
+		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+		Statement stmt=con.createStatement();	
+		ResultSet rs=stmt.executeQuery("select seatNumber from seatsBooked where routeID = '"+routeID+"';");
+		ArrayList<Integer> seatList = new ArrayList<Integer>();
+		while(rs.next()) {
+			int num = rs.getInt(1);
+			System.out.println("Adding: " + num);
+			seatList.add(num);
+		}
+		
+		con.close();
+		return seatList;
+	}
+	
 	@Override
 	public boolean saveBooking(BookingDescription bk) throws SQLException {
 		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
