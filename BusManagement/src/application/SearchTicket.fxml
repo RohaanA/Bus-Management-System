@@ -47,13 +47,13 @@
       </Label>
       <TableView fx:id="routesTable" layoutX="154.0" layoutY="225.0" prefHeight="255.0" prefWidth="526.0">
         <columns>
-          <TableColumn fx:id="routeID" prefWidth="66.0" text="Route#" />
-            <TableColumn fx:id="date" prefWidth="90.00001525878906" text="Date" />
-            <TableColumn fx:id="time" prefWidth="65.33331298828125" text="Time" />
-            <TableColumn fx:id="fare" prefWidth="70.0" text="Fare" />
+          <TableColumn fx:id="routeID" prefWidth="111.0" text="Route#" />
+            <TableColumn fx:id="date" prefWidth="149.0" text="Date" />
+            <TableColumn fx:id="time" prefWidth="118.0" text="Time" />
+            <TableColumn fx:id="fare" prefWidth="145.0" text="Fare" />
         </columns>
       </TableView>
-      <Button layoutX="341.0" layoutY="536.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Book Ticket">
+      <Button layoutX="341.0" layoutY="536.0" mnemonicParsing="false" onAction="#bookTicket" prefHeight="25.0" prefWidth="134.0" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Book Ticket">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Button>
@@ -69,7 +69,7 @@
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
-      <TextField layoutX="441.0" layoutY="494.0" prefHeight="25.0" prefWidth="51.0" />
+      <TextField fx:id="selectedRouteID" layoutX="441.0" layoutY="494.0" prefHeight="25.0" prefWidth="51.0" />
       <Label layoutX="379.0" layoutY="125.0" text="To:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />

@@ -1,5 +1,6 @@
 package controllers;
 
+import java.awt.TextField;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class SearchTicketController {
 	private Parent root;
 	private Account loggedIn = null;
 	private Route routes = null;
+	private ObservableList<RouteDescription> data = null;
     @FXML
     private TableColumn<RouteDescription, String> date;
     @FXML
@@ -48,6 +50,8 @@ public class SearchTicketController {
     private Label errorLabel;
 	@FXML
 	private Button searchButton;
+	@FXML
+	private TextField selectedRouteID;
 	
     @FXML
     void switchToLogin(ActionEvent event) throws IOException {
@@ -60,7 +64,7 @@ public class SearchTicketController {
     }
     
     @FXML
-    public void setHome(ActionEvent event) throws IOException {
+    private void setHome(ActionEvent event) throws IOException {
 //		Parent root = FXMLLoader.load(getClass().getResource("../application/CustomerDashboard.fxml"));
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/CustomerDashboard.fxml"));
 		root = loader.load();
@@ -74,7 +78,7 @@ public class SearchTicketController {
 		stage.show();
 	}
     @FXML
-    public void switchToEditProfile(ActionEvent event) throws IOException {
+    private void switchToEditProfile(ActionEvent event) throws IOException {
 		//Pass account instance.
 //		Parent root = FXMLLoader.load(getClass().getResource("../application/EditProfile.fxml"));
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/EditProfile.fxml"));
@@ -92,7 +96,7 @@ public class SearchTicketController {
      * Activated when user clicks search button.
      */
     @FXML
-    void search(ActionEvent event) {
+    private void search(ActionEvent event) {
     	String str_fromLoc = fromLoc.getValue();
     	String str_toLoc = toLoc.getValue();
 //    	/* Guard Clauses */
@@ -114,15 +118,38 @@ public class SearchTicketController {
 		fare.setCellValueFactory(new PropertyValueFactory<RouteDescription, Integer>("Fare"));
     
     
-		ObservableList<RouteDescription> data = routes.getRouteData(str_fromLoc, str_toLoc);
+		data = routes.getRouteData(str_fromLoc, str_toLoc);
 		routesTable.setItems(data);
     }
 
+    /*
+     * Activated when user clicks book ticket button.
+     */
     @FXML
     void bookTicket(ActionEvent event) {
+    	/* Guard Clauses */
+    	String txtSelectedRouteID = selectedRouteID.getText(); 
+    	if (data == null) 
+    		return;
+    	else if (txtSelectedRouteID.isEmpty() || txtSelectedRouteID.isBlank()) {
+    		setErrorLabel("No Route Selected!");
+    		return;
+    	}
+    	// Check if selected route ID is within that of showed.
+    	RouteDescription selectedRoute = null;
+    	int intSelectedRouteID = Integer.parseInt(txtSelectedRouteID);
+    	for(int i=0; i<data.size(); i++) {
+    		if (data.get(i).getRouteID() == intSelectedRouteID)
+    			selectedRoute = data.get(i);
+    	}		
+    	if (selectedRoute == null) {
+    		setErrorLabel("Please select route from table.");
+    		return;
+    	}
+    	
+//    	boolean status = routes.bookRoute(selectedRoute);
     	
     }
-    
     /*
      * Acts as the constructor of the controller. (Used for loading data/passing account instance)
      */
