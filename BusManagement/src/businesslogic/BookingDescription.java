@@ -1,6 +1,6 @@
 package businesslogic;
 
-public class Booking {
+public class BookingDescription {
 
 	private int bookingID;
 	private int routeID;
@@ -8,7 +8,7 @@ public class Booking {
 	private int accountID;
 	private String currentStatus;
 	
-	public Booking(int bookingID, int routeID, int accountID, String currentStatus) {
+	public BookingDescription(int bookingID, int routeID, int accountID, String currentStatus) {
 		super();
 		this.bookingID = bookingID;
 		this.routeID = routeID;

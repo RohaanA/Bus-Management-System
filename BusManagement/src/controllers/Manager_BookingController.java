@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 
 import application.Classes.BusDescription;
-import businesslogic.Booking;
+import businesslogic.BookingDescription;
 import db.PersistenceFactory;
 import db.PersistenceHandler;
 import javafx.collections.FXCollections;
@@ -34,19 +34,19 @@ public class Manager_BookingController {
 		String currentUser="";
 
 	    @FXML
-	    private TableColumn<Booking, Integer> accountID;
+	    private TableColumn<BookingDescription, Integer> accountID;
 
 	    @FXML
-	    private TableColumn<Booking, Integer> bookingID;
+	    private TableColumn<BookingDescription, Integer> bookingID;
 	    
 	    @FXML
-	    private TableColumn<Booking, String> currentStatus;
+	    private TableColumn<BookingDescription, String> currentStatus;
 
 	    @FXML
-	    private TableColumn<Booking, Integer> routeID;
+	    private TableColumn<BookingDescription, Integer> routeID;
 	    
 	    @FXML
-	    private TableView<Booking> tableBooking;
+	    private TableView<BookingDescription> tableBooking;
 	    
 	    
 	    @FXML
@@ -137,7 +137,7 @@ public class Manager_BookingController {
 				ResultSet rs=mysql.displayBooking(Integer.parseInt((SearchBar.getText())),filterChoice.getValue());
 				
 				System.out.println("Finding...");
-				ObservableList<Booking> data = FXCollections.observableArrayList();
+				ObservableList<BookingDescription> data = FXCollections.observableArrayList();
 				
 				bookingID.setCellValueFactory(new PropertyValueFactory<>("bookingID"));
 				routeID.setCellValueFactory(new PropertyValueFactory<>("routeID"));
@@ -150,7 +150,7 @@ public class Manager_BookingController {
 				while(rs.next()){
 	                //Iterate Row
 					
-					data.add(new Booking(
+					data.add(new BookingDescription(
 							rs.getInt("bookingID"),
 							rs.getInt("routeID"),
 							rs.getInt("accountID"),
@@ -189,7 +189,7 @@ public class Manager_BookingController {
 				mysql=PersistenceFactory.getDBInstance("MySQL");
 				ResultSet rs=mysql.displayAllBooking();
 				
-				ObservableList<Booking> data = FXCollections.observableArrayList();
+				ObservableList<BookingDescription> data = FXCollections.observableArrayList();
 				
 				bookingID.setCellValueFactory(new PropertyValueFactory<>("bookingID"));
 				routeID.setCellValueFactory(new PropertyValueFactory<>("routeID"));
@@ -202,7 +202,7 @@ public class Manager_BookingController {
 				while(rs.next()){
 	                //Iterate Row
 					
-					data.add(new Booking(
+					data.add(new BookingDescription(
 							rs.getInt("bookingID"),
 							rs.getInt("routeID"),
 							rs.getInt("accountID"),

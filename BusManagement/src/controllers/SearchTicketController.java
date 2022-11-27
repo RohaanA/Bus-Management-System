@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import businesslogic.Account;
-import businesslogic.Booking;
+import businesslogic.BookingDescription;
 import businesslogic.Route;
 import businesslogic.RouteDescription;
 import javafx.collections.FXCollections;
