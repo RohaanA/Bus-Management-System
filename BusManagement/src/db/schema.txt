@@ -121,3 +121,8 @@ INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('4', 11, 'book
 
 /* Queries */
 SELECT B.seatCount FROM route R, bus B WHERE (R.busID = B.busID AND R.routeID='5');
+
+
+SELECT SUM(cost) as 'Total Cost' 
+FROM seatsBooked SB, route R, Booking B
+WHERE SB.routeID = R.routeID;

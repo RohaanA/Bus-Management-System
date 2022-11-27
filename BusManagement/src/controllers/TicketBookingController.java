@@ -9,6 +9,7 @@ import businesslogic.Account;
 import businesslogic.Booking;
 import businesslogic.BookingDescription;
 import businesslogic.Bus;
+import businesslogic.Payment;
 import businesslogic.Route;
 import businesslogic.RouteDescription;
 import javafx.collections.FXCollections;
@@ -95,11 +96,26 @@ public class TicketBookingController {
     	/* Guard Clauses End */
     	String txt_cardValidity = cardValidity.getValue().toString();    	
     	
-    	Booking booking = new Booking();
-    	boolean bookingStatus = booking.saveBooking(new BookingDescription(-1, routeTaken.getRouteID(), Integer.parseInt(txt_selectedSeatNumber), loggedIn.getUsername(), "ongoing", "paid"));
-    	if (bookingStatus)
-    		System.out.println("Succesfully booked into database.");
-    	else System.out.println("Error occured while booking.");
+    	//Deduct payment
+    	Payment paym = new Payment(txt_cardNumber, txt_cardNumber, txt_cvv, txt_cardValidity);
+    	if(paym.deductAmount(routeTaken.getFare())) {
+	    	Booking booking = new Booking();
+	    	boolean bookingStatus = booking.saveBooking(new BookingDescription(-1, routeTaken.getRouteID(), Integer.parseInt(txt_selectedSeatNumber), loggedIn.getUsername(), "ongoing", "paid"));
+	    	if (bookingStatus)
+	    		System.out.println("Succesfully booked into database.");
+	    	else {
+	    		System.out.println("Error occured while booking.");
+	    		setErrorLabel("Error occured while booking.");
+	    		return;
+	    	}
+	    	
+	    	//Finally generate Ticket
+	    	
+    	}
+    	else {
+    		setErrorLabel("Invalid card details");
+    	}
+    	
     }
     
     public void start(Account acc, RouteDescription route, Route allRoutes) {
