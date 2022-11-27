@@ -8,7 +8,6 @@ import db.PersistenceFactory;
 import db.PersistenceHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class Route {
 	private PersistenceHandler dbInstance = PersistenceFactory.getDBInstance("MySQL");
