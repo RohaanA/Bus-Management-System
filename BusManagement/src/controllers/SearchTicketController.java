@@ -152,7 +152,7 @@ public class SearchTicketController {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/BookTicket.fxml"));
 		root = loader.load();
 		TicketBookingController ticketBookingController = loader.getController();
-		ticketBookingController.start(loggedIn, selectedRoute);
+		ticketBookingController.start(loggedIn, selectedRoute, routes);
 
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);

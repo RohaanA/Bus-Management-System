@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 public class Route {
 	private PersistenceHandler dbInstance = PersistenceFactory.getDBInstance("MySQL");
 	private ArrayList<RouteDescription> allRoutes = null;
+	private ArrayList<Integer> bookedSeats;
 
 	public Route() {
 		allRoutes = new ArrayList<RouteDescription>();
@@ -30,6 +31,7 @@ public class Route {
 	            }
 			//rs.close();
 		} catch (SQLException e) {e.printStackTrace();}
+		bookedSeats = new ArrayList<Integer>();
 }
 	
 	public ArrayList<String> getAllRouteLocations() throws SQLException {
@@ -49,8 +51,7 @@ public class Route {
 		}
 		return data;
 	}
-	public int getNoOfSeats() {
-		return 0;
-		//Bus routeBus = new Bus(busID);
+	public ArrayList<Integer> getBookedSeats(int routeID) throws SQLException {
+		return dbInstance.getBookedSeats(routeID);
 	}
 }
