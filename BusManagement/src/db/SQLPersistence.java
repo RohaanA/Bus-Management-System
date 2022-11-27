@@ -548,6 +548,12 @@ public class SQLPersistence extends PersistenceHandler {
 		return true;
 	}
 
+	@Override
+	public ArrayList<Integer> getBookedSeats(int routeID) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 

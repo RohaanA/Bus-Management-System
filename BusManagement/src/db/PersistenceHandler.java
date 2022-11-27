@@ -31,7 +31,7 @@ public abstract class PersistenceHandler {
 	
 	public abstract boolean blackListCustomer(String username);
 	
-	//public abstract ArrayList<Integer> getBookedSeats(int routeID) throws SQLException;
+	public abstract ArrayList<Integer> getBookedSeats(int routeID) throws SQLException;
 	public abstract int getBusSeatCount(String busID) throws SQLException;
 	public abstract boolean saveBooking(BookingDescription bk) throws SQLException;
 	
