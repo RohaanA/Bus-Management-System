@@ -3,6 +3,8 @@ package db;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 //Database persistence Handler
 
@@ -302,24 +304,44 @@ public class SQLPersistence extends PersistenceHandler {
 
 	public boolean cancelAllBookings(int routeID)
 	{
-
 		try {
 			
-			Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
-			
+			Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);		
 			Statement stmt=con.createStatement();
-			
 			stmt.executeUpdate("Update booking set currentStatus='Cancelled' where routeID=" + routeID);
-			
 			return true;
 		} 
-		
 		catch (SQLException e) {
-			
 			e.printStackTrace();
 			return false;
-			
 		}
-		
+	}
+
+	@Override
+	public ArrayList<String> getAllRoutes() throws SQLException {
+		try (Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword)) {
+			Set<String> routeLocs = new HashSet<String>();
+			ResultSet rs_from, rs_to;
+			try (Statement stmt = con.createStatement()) {
+				String query = "select fromLocation from route;";	
+				rs_from = stmt.executeQuery(query);
+			}
+			try (Statement stmt = con.createStatement()) {
+				String query = "select toLocation from route;";	
+				rs_to = stmt.executeQuery(query);
+			}
+
+			while(rs_from.next())
+				routeLocs.add(rs_from.getString("fromLocation"));
+			while(rs_to.next())
+				routeLocs.add(rs_to.getString("toLocation"));
+			
+			ArrayList<String> routeArr = new ArrayList<String>(routeLocs);
+			
+			rs_from.close();
+			rs_to.close();
+			con.close();
+			return routeArr;
+		} catch (SQLException e) { throw e; }
 	}
 }
