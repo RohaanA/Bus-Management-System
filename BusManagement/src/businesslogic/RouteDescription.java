@@ -7,8 +7,9 @@ public class RouteDescription {
 	private int fare;
 	private String fromLocation;
 	private String toLocation;
+	private String busID;
 	
-	public RouteDescription(int routeID, String fromLocation, String toLocation, int fare, String deptDate, String deptTime) {
+	public RouteDescription(int routeID, String fromLocation, String toLocation, int fare, String deptDate, String deptTime, String busID) {
 		this.routeID = routeID;
 		this.fromLocation = fromLocation;
 		this.toLocation = toLocation;
@@ -39,6 +40,9 @@ public class RouteDescription {
 
 	public String getToLocation() {
 		return toLocation;
+	}
+	public String getBusID() {
+		return busID;
 	}
 
 	

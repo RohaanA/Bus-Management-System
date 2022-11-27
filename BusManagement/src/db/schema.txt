@@ -76,6 +76,7 @@ create table booking(
    FOREIGN KEY (routeID) REFERENCES route(routeID)
 );
 
+<<<<<<< HEAD
 
 INSERT INTO account (accountID,username,password, name,accountType) values(0, "Saleem","pass123", "Saleem Khan","Manager");
 INSERT INTO account (username,password, name,accountType) values("Saleem","pass123", "Saleem Chaudhary","Customer");
@@ -84,8 +85,49 @@ INSERT INTO account (username,password,name,accountType) VALUES ('ItsHoney','123
 
 INSERT INTO bus (busID , model, year,SeatCount,lastMaentenanceDate,maintenance_active,totalCost) values(0,"Z123", "2015",24,'2010-03-16',false,20000.5);
 INSERT INTO bus (model, year,SeatCount,lastMaentenanceDate,maintenance_active,totalCost) values("Z124", "2013",24,'2010-01-11',true,3000.2);
+=======
+create table customer(
+	username VARCHAR(20) NOT NULL UNIQUE,
+	phone VARCHAR(13) NOT NULL,
+	cnic VARCHAR(15) NOT NULL UNIQUE,
+	dob VARCHAR(20) NOT NULL,
+	address VARCHAR(50) NOT NULL,
+	balance INT NOT NULL DEFAULT 0,
+	isBlacklisted BOOLEAN NOT NULL DEFAULT FALSE,
+	
+	PRIMARY KEY(username, cnic),
+	FOREIGN KEY(username) REFERENCES account(username)
+);
+create table seatsBooked(
+	routeID INT NOT NULL,
+	seatNumber INT NOT NULL,
+	seatStatus VARCHAR(30) NOT NULL,
+	
+	CHECK(seatStatus = 'booked'),
+	PRIMARY KEY (routeID, seatNumber),
+	FOREIGN KEY (routeID) REFERENCES route(routeID)
+);
+#Inserting account
+"INSERT INTO account (username, password, accountType) VALUES (honey, 1234, Customer);"
+INSERT INTO account (username,password,accountType) VALUES ('ItsHoney','1234','Manager');
+INSERT INTO account (username,password,accountType) VALUES ('ItsHoney','1234','Customer');
+INSERT INTO account (username, password, accountType) VALUES ('"+username+"', '"+password+"', 'Customer');
+INSERT INTO customer (accountID, phone, cnic, dob, address) VALUES ('"+accID+"','"+phone+"','"+cnic+"','"+dob+"','"+address+"');  
+#Inserting customer
+INSERT INTO customer ( 
+#Finding account
+SELECT COUNT(*) FROM Account WHERE Username='ItsHoney' AND Password='1234' AND accountType= 'Manager';
+>>>>>>> branch 'rohaan' of https://github.com/RohaanA/Bus-Management-System.git
 
 
+<<<<<<< HEAD
+=======
+
+
+ALTER TABLE customer
+MODIFY cnic
+varchar(15);
+>>>>>>> branch 'rohaan' of https://github.com/RohaanA/Bus-Management-System.git
 
 
 
@@ -98,11 +140,19 @@ INSERT INTO account (username,password,accountType) VALUES ('saleem','1234','Cus
 /* Customers */
 
 /* Busses */
+<<<<<<< HEAD
 INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active) VALUES ('Daewoo BH116', '2022', 30, '2022-02-26', 0,1000);
 INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active) VALUES ('Daewoo BH120f', '2022', 30, '2022-02-21', 0,2400);
 INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active) VALUES ('Yutong Master', '2021', 51, '2022-05-26', 0,10000);
 INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active) VALUES ('Volvo B11R', '2020', 21, '2022-02-25', 0,5000);
 INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active) VALUES ('Higer KLQ6122B', '2022', 51, '2022-01-01', 0,2000);
+=======
+INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active, totalCost) VALUES ('Daewoo BH116', '2022', 30, '2022-02-26', 0, 16000000);
+INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active, totalCost) VALUES ('Daewoo BH120f', '2022', 30, '2022-02-21', 0, 20000000);
+INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active, totalCost) VALUES ('Yutong Master', '2021', 51, '2022-05-26', 0, 25000000);
+INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active, totalCost) VALUES ('Volvo B11R', '2020', 21, '2022-02-25', 0, 35000000);
+INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active, totalCost) VALUES ('Higer KLQ6122B', '2022', 51, '2022-01-01', 0, 16000000);
+>>>>>>> branch 'rohaan' of https://github.com/RohaanA/Bus-Management-System.git
 /* Routes */
 INSERT INTO route (busID, fromLocation, toLocation, cost, departureDate) VALUES ('1', 'Multan', 'Lahore', '1500', '2022-11-26 12:00');
 INSERT INTO route (busID, fromLocation, toLocation, cost, departureDate) VALUES ('1', 'Lahore', 'Multan', '1500', '2022-11-26 18:00');
@@ -122,9 +172,15 @@ INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('3', 1, 'booke
 INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('4', 12, 'booked');
 INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('4', 11, 'booked');
 
+<<<<<<< HEAD
 INSERT INTO booking (routeID, bookingID,username,bookingStatus,paymentStatus,seatNumber) values(2, 0,'moiz','notstarted','paid',1);
 INSERT INTO booking (routeID, bookingID,username,bookingStatus,paymentStatus,seatNumber) values(2, 2,'rohaan','ongoing','paid',2);
 INSERT INTO booking (routeID, bookingID,username,bookingStatus,paymentStatus,seatNumber) values(3, 4,'john','ongoing','paid',5);
 INSERT INTO booking (routeID, bookingID,username,bookingStatus,paymentStatus,seatNumber) values(3, 5,'saleem','ongoing','paid',6);
 
 
+=======
+
+/* Queries */
+SELECT B.seatCount FROM route R, bus B WHERE (R.busID = B.busID AND R.routeID='5');
+>>>>>>> branch 'rohaan' of https://github.com/RohaanA/Bus-Management-System.git
