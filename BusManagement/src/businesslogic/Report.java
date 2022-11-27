@@ -1,11 +1,18 @@
 package businesslogic;
 
+import java.sql.ResultSet;
+
+import com.mysql.cj.protocol.Resultset;
+
+import db.PersistenceFactory;
+import db.PersistenceHandler;
+
 public class Report {
 	
 	private float earned;
 	private float spent;
 	private float totalProfit;
-
+	private PersistenceHandler mysql=PersistenceFactory.getDBInstance("MySQL");
 	
 	public Report() {
 		
@@ -41,6 +48,12 @@ public class Report {
 		this.totalProfit = totalProfit;
 	}
 
+	public ResultSet generateReport()
+	{
+		mysql=PersistenceFactory.getDBInstance("MySQL");
+		ResultSet rs=mysql.generateReport();
+		return rs;
+	}
 	
 
 }

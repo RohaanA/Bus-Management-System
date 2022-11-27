@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 
 import application.Classes.BusDescription;
+import businesslogic.Bus;
 import db.PersistenceFactory;
 import db.PersistenceHandler;
 import javafx.collections.FXCollections;
@@ -56,7 +57,7 @@ public class Manager_BusController {
 	    
 		private Stage stage;
 		private Scene scene;
-		private PersistenceHandler mysql;		
+		private Bus obj=new Bus();
 		String currentUser="";
 			
 		
@@ -133,8 +134,9 @@ public class Manager_BusController {
 		{
 			try
 			{
-				mysql=PersistenceFactory.getDBInstance("MySQL");
-				ResultSet rs=mysql.displayAllBus();
+				//Bus obj=new Bus();
+				
+				ResultSet rs=obj.displayAllBus();
 				
 				ObservableList<BusDescription> data = FXCollections.observableArrayList();
 				
@@ -185,9 +187,9 @@ public class Manager_BusController {
 		{
 			try
 			{
+				//Bus obj=new Bus();
 				
-				mysql=PersistenceFactory.getDBInstance("MySQL");
-				ResultSet rs=mysql.displayBus(Integer.parseInt((busSearchBar.getText())));
+				ResultSet rs=obj.displayBus(Integer.parseInt((busSearchBar.getText())));
 				
 				System.out.println("Finding...");
 				ObservableList<BusDescription> data = FXCollections.observableArrayList();
@@ -266,11 +268,12 @@ public class Manager_BusController {
 		
 		public void deleteBus(ActionEvent event)
 		{
+			//Bus obj=new Bus();
 			
 			int bus_ID=Integer.parseInt(selectedID.getText());
-			mysql=PersistenceFactory.getDBInstance("MySQL");
 			
-			if(mysql.deleteBus(bus_ID))
+			
+			if(obj.deleteBus(bus_ID))
 			{
 				viewAllBuses(event); 
 				System.out.print("Deleted Successfully");
@@ -286,10 +289,11 @@ public class Manager_BusController {
 		
 		public void changeBusStatus(ActionEvent event) {
 
+			//Bus obj=new Bus();
 			int bus_ID=Integer.parseInt(selectedID.getText());
-			mysql=PersistenceFactory.getDBInstance("MySQL");
 			
-			if(mysql.updateBusStatus(bus_ID))
+			
+			if(obj.updateBusStatus(bus_ID))
 			{
 				viewAllBuses(event); 
 				System.out.print("Updated Successfully");

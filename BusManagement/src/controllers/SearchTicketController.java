@@ -1,6 +1,5 @@
 package controllers;
 
-import java.awt.TextField;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,8 +21,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
 
 public class SearchTicketController {
 	private Stage stage;
@@ -126,7 +127,7 @@ public class SearchTicketController {
      * Activated when user clicks book ticket button.
      */
     @FXML
-    void bookTicket(ActionEvent event) {
+    void bookTicket(ActionEvent event) throws IOException {
     	/* Guard Clauses */
     	String txtSelectedRouteID = selectedRouteID.getText(); 
     	if (data == null) 
@@ -147,6 +148,17 @@ public class SearchTicketController {
     		return;
     	}
     	
+    	//Switch to Ticket Booking View
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/BookTicket.fxml"));
+		root = loader.load();
+		TicketBookingController ticketBookingController = loader.getController();
+		ticketBookingController.start(loggedIn, selectedRoute, routes);
+
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.setTitle("Search Ticket");
+		stage.show();
 //    	boolean status = routes.bookRoute(selectedRoute);
     	
     }
