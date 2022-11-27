@@ -317,31 +317,35 @@ public class SQLPersistence extends PersistenceHandler {
 		}
 	}
 
-	@Override
-	public ArrayList<String> getAllRoutes() throws SQLException {
+	public ArrayList<String> getAllRouteLocations() throws SQLException {
 		try (Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword)) {
 			Set<String> routeLocs = new HashSet<String>();
-			ResultSet rs_from, rs_to;
 			try (Statement stmt = con.createStatement()) {
 				String query = "select fromLocation from route;";	
-				rs_from = stmt.executeQuery(query);
-			}
+				ResultSet rs_from = stmt.executeQuery(query);
+
+				while(rs_from.next())
+					routeLocs.add(rs_from.getString("fromLocation"));
+			} catch (SQLException e) {throw e;}
 			try (Statement stmt = con.createStatement()) {
 				String query = "select toLocation from route;";	
-				rs_to = stmt.executeQuery(query);
-			}
-
-			while(rs_from.next())
-				routeLocs.add(rs_from.getString("fromLocation"));
-			while(rs_to.next())
-				routeLocs.add(rs_to.getString("toLocation"));
+				ResultSet rs_to = stmt.executeQuery(query);
+				while(rs_to.next())
+					routeLocs.add(rs_to.getString("toLocation"));
+			} catch (SQLException e) {throw e;}
 			
-			ArrayList<String> routeArr = new ArrayList<String>(routeLocs);
+			if (con != null)
+				con.close();
+			return new ArrayList<String>(routeLocs);
 			
-			rs_from.close();
-			rs_to.close();
-			con.close();
-			return routeArr;
 		} catch (SQLException e) { throw e; }
+	}
+
+	@Override
+	public ResultSet getAllRouteData() throws SQLException {
+			Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+			Statement stmt=con.createStatement();
+			ResultSet rs=stmt.executeQuery("select routeID, fromLocation, toLocation, cost, DATE(departureDate) AS deptDate, TIME(departureDate) as deptTime from route;");
+			return rs;
 	}
 }

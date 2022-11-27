@@ -45,13 +45,12 @@
             <Font size="33.0" />
          </font>
       </Label>
-      <TableView fx:id="tableBus" layoutX="157.0" layoutY="207.0" prefHeight="255.0" prefWidth="526.0">
+      <TableView fx:id="routesTable" layoutX="154.0" layoutY="225.0" prefHeight="255.0" prefWidth="526.0">
         <columns>
           <TableColumn fx:id="routeID" prefWidth="66.0" text="Route#" />
-            <TableColumn fx:id="model" prefWidth="90.00001525878906" text="Date" />
-            <TableColumn fx:id="year" prefWidth="65.33331298828125" text="Time" />
-            <TableColumn fx:id="seatCount" prefWidth="70.0" text="Fare" />
-          <TableColumn fx:id="status" prefWidth="60.666748046875" text="Status" />
+            <TableColumn fx:id="date" prefWidth="90.00001525878906" text="Date" />
+            <TableColumn fx:id="time" prefWidth="65.33331298828125" text="Time" />
+            <TableColumn fx:id="fare" prefWidth="70.0" text="Fare" />
         </columns>
       </TableView>
       <Button layoutX="341.0" layoutY="536.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Book Ticket">
@@ -62,7 +61,7 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-      <Button layoutX="628.0" layoutY="126.0" mnemonicParsing="false" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Search">
+      <Button fx:id="searchButton" layoutX="628.0" layoutY="126.0" mnemonicParsing="false" onAction="#search" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Search">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Button>
@@ -77,5 +76,10 @@
          </font></Label>
       <ChoiceBox fx:id="fromLoc" layoutX="217.0" layoutY="127.0" prefWidth="150.0" />
       <ChoiceBox fx:id="toLoc" layoutX="417.0" layoutY="126.0" prefWidth="150.0" />
+      <Label fx:id="errorLabel" layoutX="198.0" layoutY="163.0" prefHeight="44.0" prefWidth="403.0" style="-fx-border-color: red; -fx-border-radius: 5px; -fx-label-padding: 5px; -fx-background-color: white;" text="Error: " textFill="RED">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

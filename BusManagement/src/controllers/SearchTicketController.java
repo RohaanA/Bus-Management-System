@@ -5,16 +5,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import businesslogic.Account;
+import businesslogic.Booking;
 import businesslogic.Route;
+import businesslogic.RouteDescription;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class SearchTicketController {
@@ -22,22 +29,25 @@ public class SearchTicketController {
 	private Scene scene;
 	private Parent root;
 	private Account loggedIn = null;
+	private Route routes = null;
     @FXML
-    private TableColumn<?, ?> date;
+    private TableColumn<RouteDescription, String> date;
     @FXML
-    private TableColumn<?, ?> fare;
+    private TableColumn<RouteDescription, Integer> fare;
     @FXML
-    private TableColumn<?, ?> routeID;
+    private TableColumn<RouteDescription, Integer> routeID;
     @FXML
-    private TableColumn<?, ?> routeStatus;
+    private TableView<RouteDescription> routesTable;
     @FXML
-    private TableView<?> tableBus;
-    @FXML
-    private TableColumn<?, ?> time;
+    private TableColumn<RouteDescription, String> time;
     @FXML
     private ChoiceBox<String> toLoc;
     @FXML
     private ChoiceBox<String> fromLoc;
+    @FXML
+    private Label errorLabel;
+	@FXML
+	private Button searchButton;
 	
     @FXML
     void switchToLogin(ActionEvent event) throws IOException {
@@ -79,6 +89,37 @@ public class SearchTicketController {
 		stage.show();
 	}
     /*
+     * Activated when user clicks search button.
+     */
+    @FXML
+    void search(ActionEvent event) {
+    	String str_fromLoc = fromLoc.getValue();
+    	String str_toLoc = toLoc.getValue();
+//    	/* Guard Clauses */
+    	if (str_fromLoc == null || str_toLoc == null) {
+    		setErrorLabel("Please choose starting and ending location");
+    		return;
+    	}
+    	if (str_fromLoc.equals(str_toLoc)) {
+    		setErrorLabel("Starting and ending location are same.");
+    		return;
+    	}
+    	
+    	//Search for route.
+    	//route.searchRoutes(str_fromLoc, str_toLoc);
+
+		routeID.setCellValueFactory(new PropertyValueFactory<RouteDescription, Integer>("routeID"));
+		date.setCellValueFactory(new PropertyValueFactory<RouteDescription, String>("deptDate"));
+		time.setCellValueFactory(new PropertyValueFactory<RouteDescription, String>("deptTime"));
+		fare.setCellValueFactory(new PropertyValueFactory<RouteDescription, Integer>("Fare"));
+    
+    
+		ObservableList<RouteDescription> data = routes.getRouteData(str_fromLoc, str_toLoc);
+		routesTable.setItems(data);
+    }
+
+    
+    /*
      * Acts as the constructor of the controller. (Used for loading data/passing account instance)
      */
 	public void setAccountInstance(Account acc) {
@@ -86,21 +127,27 @@ public class SearchTicketController {
 			System.out.println("[SearchTicketController]: Account is null. ");
 		loggedIn = acc;
 		
+		//Hide error label
+		errorLabel.setVisible(false);
 		//Initialize routes
 		initializeRoutes();
 		
 	}
 	
 	private void initializeRoutes() {
-		Route routes = new Route();
+		routes = new Route();
 		try {
-			ArrayList<String> allRoutes = routes.getAllRoutes();
+			ArrayList<String> allRouteLocations = routes.getAllRouteLocations();
 			//Populate the checkboxes.
-			for(int i=0; i<allRoutes.size(); i++) {
-				fromLoc.getItems().add(allRoutes.get(i));
-				toLoc.getItems().add(allRoutes.get(i));
+			for(int i=0; i<allRouteLocations.size(); i++) {
+				fromLoc.getItems().add(allRouteLocations.get(i));
+				toLoc.getItems().add(allRouteLocations.get(i));
 			}
 			
 		} catch (SQLException e) {e.printStackTrace();}
-	}
+	}    
+    private void setErrorLabel(String err) {
+    	errorLabel.setText("Error: " + err);
+    	errorLabel.setVisible(true);
+    }
 }

@@ -19,6 +19,7 @@ public abstract class PersistenceHandler {
 	public abstract ResultSet displayAllBooking()throws ClassNotFoundException, SQLException;
 	public abstract ResultSet displayBooking(int value,String type) throws ClassNotFoundException, SQLException;
 	public abstract boolean cancelAllBookings(int routeID) ;
-	public abstract ArrayList<String> getAllRoutes() throws SQLException;
+	public abstract ArrayList<String> getAllRouteLocations() throws SQLException;
+	public abstract ResultSet getAllRouteData() throws SQLException;
 	
 }
