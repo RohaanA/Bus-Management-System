@@ -24,7 +24,8 @@ public class Route {
 							rs.getString("toLocation"),
 							rs.getInt("cost"),
 							rs.getString("deptDate"),
-							rs.getString("deptTime")
+							rs.getString("deptTime"),
+							rs.getString("busID")
 							));
 	            }
 			//rs.close();
@@ -47,5 +48,9 @@ public class Route {
 				
 		}
 		return data;
+	}
+	public int getNoOfSeats() {
+		return 0;
+		//Bus routeBus = new Bus(busID);
 	}
 }

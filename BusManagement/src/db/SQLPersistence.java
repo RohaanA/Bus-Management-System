@@ -345,7 +345,24 @@ public class SQLPersistence extends PersistenceHandler {
 	public ResultSet getAllRouteData() throws SQLException {
 			Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
 			Statement stmt=con.createStatement();
-			ResultSet rs=stmt.executeQuery("select routeID, fromLocation, toLocation, cost, DATE(departureDate) AS deptDate, TIME(departureDate) as deptTime from route;");
+			ResultSet rs=stmt.executeQuery("select busID, routeID, fromLocation, toLocation, cost, DATE(departureDate) AS deptDate, TIME(departureDate) as deptTime from route;");
 			return rs;
+	}
+
+	@Override
+	public int getBusSeatCount(String busID) throws SQLException {
+		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+		Statement stmt=con.createStatement();
+		ResultSet rs=stmt.executeQuery("select seatCount from bus where busID='"+busID+"';");
+		int seatCount;
+		
+		if (rs.next())
+			seatCount = rs.getInt(1);
+		else seatCount = -1;
+		
+		rs.close();
+		con.close();
+		return seatCount;
+		
 	}
 }

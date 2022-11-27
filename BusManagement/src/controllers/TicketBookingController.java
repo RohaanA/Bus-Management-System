@@ -1,6 +1,9 @@
 package controllers;
 
+import java.sql.SQLException;
+
 import businesslogic.Account;
+import businesslogic.Bus;
 import businesslogic.Route;
 import businesslogic.RouteDescription;
 import javafx.event.ActionEvent;
@@ -34,6 +37,7 @@ public class TicketBookingController {
     private TextField cvv;
     @FXML
     private TextField nameOnCard;
+    Bus routeBus = null;
 
     
     @FXML
@@ -49,12 +53,20 @@ public class TicketBookingController {
     public void start(Account acc, RouteDescription route) {
     	loggedIn = acc;
     	routeTaken = route;
+    	routeBus = new Bus();
     	
     	initializeSeatTable();
     }
 
 	private void initializeSeatTable() {
-		//TODO: Populate seats table.
+		//First get no. of seats on the given route.
+		try {
+			int seatCount = routeBus.getSeatsFromBusID(routeTaken.getBusID());
+			System.out.println("Seats: " + seatCount);
+} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -14,11 +14,11 @@ create table account(
 create table bus (
    busID INT NOT NULL AUTO_INCREMENT,
    model VARCHAR(30) NOT NULL,
-   year VARCHAR(30) NOT NULL,
+   year varchar(30),
    SeatCount INT NOT NULL,
    lastMaentenanceDate DATE NOT NULL,
-   maintenance_active BOOLEAN,
-   
+   maintenance_active boolean,
+   totalCost float,
    PRIMARY KEY (busID)
 );
 create table route (
@@ -60,6 +60,15 @@ create table customer(
 	PRIMARY KEY(username, cnic),
 	FOREIGN KEY(username) REFERENCES account(username)
 );
+create table seatsBooked(
+	routeID INT NOT NULL,
+	seatNumber INT NOT NULL,
+	seatStatus VARCHAR(30) NOT NULL,
+	
+	CHECK(seatStatus = 'booked'),
+	PRIMARY KEY (routeID, seatNumber),
+	FOREIGN KEY (routeID) REFERENCES route(routeID)
+);
 #Inserting account
 "INSERT INTO account (username, password, accountType) VALUES (honey, 1234, Customer);"
 INSERT INTO account (username,password,accountType) VALUES ('ItsHoney','1234','Manager');
@@ -72,15 +81,7 @@ INSERT INTO customer (
 SELECT COUNT(*) FROM Account WHERE Username='ItsHoney' AND Password='1234' AND accountType= 'Manager';
 
 
-create table seatsBooked(
-	routeID INT NOT NULL,
-	seatNumber INT NOT NULL,
-	seatStatus VARCHAR(30) NOT NULL,
-	
-	CHECK(seatStatus = 'booked'),
-	PRIMARY KEY (routeID, seatNumber),
-	FOREIGN KEY (routeID) REFERENCES route(routeID)
-);
+
 
 ALTER TABLE customer
 MODIFY cnic
@@ -94,11 +95,11 @@ INSERT INTO account (username,password,accountType) VALUES ('moiz','1234','Manag
 /* Customers */
 
 /* Busses */
-INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active) VALUES ('Daewoo BH116', '2022', 30, '2022-02-26', 0);
-INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active) VALUES ('Daewoo BH120f', '2022', 30, '2022-02-21', 0);
-INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active) VALUES ('Yutong Master', '2021', 51, '2022-05-26', 0);
-INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active) VALUES ('Volvo B11R', '2020', 21, '2022-02-25', 0);
-INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active) VALUES ('Higer KLQ6122B', '2022', 51, '2022-01-01', 0);
+INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active, totalCost) VALUES ('Daewoo BH116', '2022', 30, '2022-02-26', 0, 16000000);
+INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active, totalCost) VALUES ('Daewoo BH120f', '2022', 30, '2022-02-21', 0, 20000000);
+INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active, totalCost) VALUES ('Yutong Master', '2021', 51, '2022-05-26', 0, 25000000);
+INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active, totalCost) VALUES ('Volvo B11R', '2020', 21, '2022-02-25', 0, 35000000);
+INSERT INTO bus(model, year, seatCount, lastMaentenanceDate, maintenance_active, totalCost) VALUES ('Higer KLQ6122B', '2022', 51, '2022-01-01', 0, 16000000);
 /* Routes */
 INSERT INTO route (busID, fromLocation, toLocation, cost, departureDate) VALUES ('1', 'Multan', 'Lahore', '1500', '2022-11-26 12:00');
 INSERT INTO route (busID, fromLocation, toLocation, cost, departureDate) VALUES ('1', 'Lahore', 'Multan', '1500', '2022-11-26 18:00');
@@ -117,3 +118,7 @@ INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('2', 15, 'book
 INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('3', 1, 'booked'); 
 INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('4', 12, 'booked');
 INSERT INTO seatsBooked (routeID, seatNumber, seatStatus) VALUES ('4', 11, 'booked');
+
+
+/* Queries */
+SELECT B.seatCount FROM route R, bus B WHERE (R.busID = B.busID AND R.routeID='5');
