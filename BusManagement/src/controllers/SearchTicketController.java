@@ -147,6 +147,18 @@ public class SearchTicketController {
     		return;
     	}
     	
+
+    	//Switch to Ticket Booking View
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/BookTicket.fxml"));
+		root = loader.load();
+		TicketBookingController ticketBookingController = loader.getController();
+		ticketBookingController.start(loggedIn, selectedRoute, routes);
+
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.setTitle("Search Ticket");
+		stage.show();
 //    	boolean status = routes.bookRoute(selectedRoute);
     	
     }

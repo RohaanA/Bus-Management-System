@@ -66,7 +66,7 @@ create table booking(
    routeID INT NOT NULL,
    seatNumber INT NOT NULL,
    paymentStatus VARCHAR(6) NOT NULL,
-   bookingStatus VARCHAR(10) NOT NULL,
+   bookingStatus VARCHAR(10) NOT NULL DEFAULT 'notstarted',
  
    CHECK(paymentStatus = 'unpaid' OR paymentStatus = 'paid'),
    CHECK(bookingStatus = 'notstarted' OR bookingStatus = 'ongoing' OR bookingStatus = 'cancelled'),
@@ -75,6 +75,7 @@ create table booking(
    FOREIGN KEY (username) REFERENCES account(username),
    FOREIGN KEY (routeID) REFERENCES route(routeID)
 );
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 
@@ -86,6 +87,8 @@ INSERT INTO account (username,password,name,accountType) VALUES ('ItsHoney','123
 INSERT INTO bus (busID , model, year,SeatCount,lastMaentenanceDate,maintenance_active,totalCost) values(0,"Z123", "2015",24,'2010-03-16',false,20000.5);
 INSERT INTO bus (model, year,SeatCount,lastMaentenanceDate,maintenance_active,totalCost) values("Z124", "2013",24,'2010-01-11',true,3000.2);
 =======
+=======
+>>>>>>> branch 'rohaan' of https://github.com/RohaanA/Bus-Management-System.git
 create table customer(
 	username VARCHAR(20) NOT NULL UNIQUE,
 	phone VARCHAR(13) NOT NULL,
@@ -117,8 +120,12 @@ INSERT INTO customer (accountID, phone, cnic, dob, address) VALUES ('"+accID+"',
 INSERT INTO customer ( 
 #Finding account
 SELECT COUNT(*) FROM Account WHERE Username='ItsHoney' AND Password='1234' AND accountType= 'Manager';
+<<<<<<< HEAD
 >>>>>>> branch 'rohaan' of https://github.com/RohaanA/Bus-Management-System.git
 
+=======
+INSERT INTO booking(username, routeID, seatNumber, paymentStatus) VALUES ('"+username+"','"+routeID+"','"+seatNumber+"','paid');
+>>>>>>> branch 'rohaan' of https://github.com/RohaanA/Bus-Management-System.git
 
 <<<<<<< HEAD
 =======
@@ -183,4 +190,12 @@ INSERT INTO booking (routeID, bookingID,username,bookingStatus,paymentStatus,sea
 
 /* Queries */
 SELECT B.seatCount FROM route R, bus B WHERE (R.busID = B.busID AND R.routeID='5');
+<<<<<<< HEAD
+>>>>>>> branch 'rohaan' of https://github.com/RohaanA/Bus-Management-System.git
+=======
+
+
+SELECT SUM(cost) as 'Total Cost' 
+FROM seatsBooked SB, route R, Booking B
+WHERE SB.routeID = R.routeID;
 >>>>>>> branch 'rohaan' of https://github.com/RohaanA/Bus-Management-System.git
