@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 
 
 
@@ -20,7 +21,8 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setTitle("Manager Login");
-			
+			Image icon = new Image("/bus-icon.png");
+			primaryStage.getIcons().add(icon);
 			primaryStage.setScene(scene);
 			
 			primaryStage.show();
