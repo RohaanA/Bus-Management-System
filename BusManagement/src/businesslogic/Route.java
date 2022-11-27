@@ -8,11 +8,11 @@ import db.PersistenceFactory;
 import db.PersistenceHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class Route {
 	private PersistenceHandler dbInstance = PersistenceFactory.getDBInstance("MySQL");
 	private ArrayList<RouteDescription> allRoutes = null;
+	private ArrayList<Integer> bookedSeats;
 
 	public Route() {
 		allRoutes = new ArrayList<RouteDescription>();
@@ -25,11 +25,13 @@ public class Route {
 							rs.getString("toLocation"),
 							rs.getInt("cost"),
 							rs.getString("deptDate"),
-							rs.getString("deptTime")
+							rs.getString("deptTime"),
+							rs.getString("busID")
 							));
 	            }
 			//rs.close();
 		} catch (SQLException e) {e.printStackTrace();}
+		bookedSeats = new ArrayList<Integer>();
 }
 	
 	public ArrayList<String> getAllRouteLocations() throws SQLException {
@@ -48,5 +50,8 @@ public class Route {
 				
 		}
 		return data;
+	}
+	public ArrayList<Integer> getBookedSeats(int routeID) throws SQLException {
+		return dbInstance.getBookedSeats(routeID);
 	}
 }

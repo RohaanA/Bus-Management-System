@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import businesslogic.BookingDescription;
+
 //Database persistence Handler
 
 
@@ -13,7 +15,7 @@ public class SQLPersistence extends PersistenceHandler {
 
 	private String _connectionURL = "jdbc:mysql://localhost:3306/busdb";
 	private String _connectAccount = "root";
-	private String _dbPassword = "moizrules1";
+	private String _dbPassword = "tiger12345";
 	
 	public SQLPersistence() throws SQLException, ClassNotFoundException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -433,7 +435,7 @@ public class SQLPersistence extends PersistenceHandler {
 	public ResultSet getAllRouteData() throws SQLException {
 			Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
 			Statement stmt=con.createStatement();
-			ResultSet rs=stmt.executeQuery("select routeID, fromLocation, toLocation, cost, DATE(departureDate) AS deptDate, TIME(departureDate) as deptTime from route;");
+			ResultSet rs=stmt.executeQuery("select busID, routeID, fromLocation, toLocation, cost, DATE(departureDate) AS deptDate, TIME(departureDate) as deptTime from route;");
 			return rs;
 	}
 	
@@ -447,6 +449,7 @@ public class SQLPersistence extends PersistenceHandler {
 			ResultSet rs=stmt.executeQuery("SELECT SUM(cost) as 'Total Cost' ,(SELECT sum(bus.totalCost) from bus) as 'MaintenanceCost'\n"
 					+ "FROM seatsBooked SB, route R, Booking B\n"
 					+ "WHERE (SB.routeID = R.routeID) AND (B.routeID = R.routeID) AND (B.paymentStatus = 'paid');");
+			
 			
 			return rs;
 			
@@ -515,6 +518,37 @@ public class SQLPersistence extends PersistenceHandler {
 		}
 	}
 
+	@Override
+	public int getBusSeatCount(String busID) throws SQLException {
+		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+		Statement stmt=con.createStatement();
+		ResultSet rs=stmt.executeQuery("select seatCount from bus where busID='"+busID+"';");
+		int seatCount;
+		
+		if (rs.next())
+			seatCount = rs.getInt(1);
+		else seatCount = -1;
+		
+		rs.close();
+		con.close();
+		return seatCount;
+		
+	}
+	@Override
+	public boolean saveBooking(BookingDescription bk) throws SQLException {
+		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+		Statement stmt=con.createStatement();	
+		String username = bk.getUsername();
+		int routeID = bk.getRouteID();
+		int seatNumber = bk.getSeatNumber();
+		
+		
+		stmt.executeUpdate("INSERT INTO booking(username, routeID, seatNumber, paymentStatus) VALUES ('"+username+"','"+routeID+"','"+seatNumber+"','paid');");
+		con.close();
+		return true;
+	}
 
-	
+
+
+
 }
