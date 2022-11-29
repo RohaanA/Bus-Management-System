@@ -24,14 +24,15 @@ public abstract class PersistenceHandler {
 	public abstract ArrayList<String> getAllRouteLocations() throws SQLException;
 	public abstract ResultSet getAllRouteData() throws SQLException;
 	public abstract boolean changeBookingStatus(int routeID);
-	public abstract ArrayList<Integer> getBookedSeats(int routeID) throws SQLException;
-	public abstract int getBusSeatCount(String busID) throws SQLException;
-	public abstract boolean saveBooking(BookingDescription bk) throws SQLException;
 	//Generate Report
 	public abstract ResultSet generateReport();
 	//Black List Customers
 	public abstract ResultSet displayBlackListCustomers();
 	
 	public abstract boolean blackListCustomer(String username);
+	
+	public abstract ArrayList<Integer> getBookedSeats(int routeID) throws SQLException;
+	public abstract int getBusSeatCount(String busID) throws SQLException;
+	public abstract boolean saveBooking(BookingDescription bk) throws SQLException;
 	
 }

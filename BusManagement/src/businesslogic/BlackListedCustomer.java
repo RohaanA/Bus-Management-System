@@ -1,5 +1,10 @@
 package businesslogic;
 
+import java.sql.ResultSet;
+
+import db.PersistenceFactory;
+import db.PersistenceHandler;
+
 public class BlackListedCustomer {
 
 
@@ -30,6 +35,21 @@ public class BlackListedCustomer {
 		this.cnic = cnic;
 		Blacklist = blacklist;
 	}
+	public BlackListedCustomer() {
+		
+	}
+	public ResultSet displayBlackListCustomers()
+	{
+		ResultSet rs=mysql.displayBlackListCustomers();
+		return rs;
+	}
+	
+	public boolean blackListCustomer(String username)
+	{
+		return mysql.blackListCustomer(username);
+	}
+	
+	private PersistenceHandler mysql=PersistenceFactory.getDBInstance("MySQL");
 	private String Username;
 	private String cnic;
 	private boolean Blacklist;
