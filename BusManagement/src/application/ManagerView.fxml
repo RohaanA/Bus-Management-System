@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -52,17 +53,44 @@
             <Font name="Bell MT Bold" size="33.0" />
          </font>
       </Label>
-      <TableView layoutX="202.0" layoutY="174.0" prefHeight="200.0" prefWidth="426.0">
+      <TableView fx:id="reportTable" layoutX="202.0" layoutY="174.0" prefHeight="73.0" prefWidth="237.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-            <TableColumn prefWidth="75.0" text="C3" />
-            <TableColumn prefWidth="75.0" text="C4" />
+          <TableColumn fx:id="Earned" prefWidth="75.0" text="Earned" />
+          <TableColumn fx:id="Spent" prefWidth="75.0" text="Spent" />
+            <TableColumn fx:id="totalProfit" prefWidth="84.66668701171875" text="Total Profit" />
         </columns>
       </TableView>
-      <Button layoutX="202.0" layoutY="387.0" mnemonicParsing="false" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Generate Report">
+      <Button layoutX="202.0" layoutY="270.0" mnemonicParsing="false" onAction="#generateReport" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Generate Report">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Button>
+      <TableView fx:id="blackListTable" layoutX="202.0" layoutY="387.0" prefHeight="116.0" prefWidth="457.0">
+         <columns>
+            <TableColumn fx:id="username" prefWidth="126.66670227050781" text="Username" />
+            <TableColumn fx:id="cnic" prefWidth="167.3333740234375" text="CNIC" />
+            <TableColumn fx:id="blackListed" prefWidth="161.99996948242188" text="BlackListed" />
+         </columns>
+      </TableView>
+      <Button layoutX="462.0" layoutY="528.0" mnemonicParsing="false" onAction="#blackListCustomer" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="BlackList">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <TextField fx:id="username_textbox" layoutX="294.0" layoutY="529.0" />
+      <Label layoutX="202.0" layoutY="337.0" text="BlackList Customers" textFill="WHITE">
+         <font>
+            <Font name="Bell MT Bold" size="26.0" />
+         </font>
+      </Label>
+      <Label layoutX="202.0" layoutY="119.0" text="Generate Report" textFill="WHITE">
+         <font>
+            <Font name="Bell MT Bold" size="26.0" />
+         </font>
+      </Label>
+      <Label layoutX="202.0" layoutY="526.0" prefHeight="31.0" prefWidth="81.0" text="Username:" textFill="WHITE">
+         <font>
+            <Font name="Bell MT Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

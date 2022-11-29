@@ -485,4 +485,85 @@ public class SQLPersistence extends PersistenceHandler {
 		con.close();
 		return true;
 	}
+	
+	public ResultSet generateReport() {
+		
+		//SELECT sum(totalCost) as TotalmaintenenceCost FROM bus
+		try {
+			
+			Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+			Statement stmt=con.createStatement();
+			ResultSet rs=stmt.executeQuery("SELECT SUM(cost) as 'Total Cost' ,(SELECT sum(bus.totalCost) from bus) as 'MaintenanceCost'\n"
+					+ "FROM seatsBooked SB, route R, Booking B\n"
+					+ "WHERE (SB.routeID = R.routeID) AND (B.routeID = R.routeID) AND (B.paymentStatus = 'paid');");
+			
+			return rs;
+			
+		}
+		
+		catch(Exception e)
+		{
+			System.out.println("Failed!");
+			return null;
+		}
+		
+		
+	}
+	public ResultSet displayBlackListCustomers()
+	{
+		try {
+			
+			Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
+			Statement stmt=con.createStatement();
+			ResultSet rs=stmt.executeQuery("SELECT username,cnic,isBlacklisted FROM customer");
+			
+			return rs;
+			
+		}
+		
+		catch(Exception e)
+		{
+			System.out.println("Failed!");
+			return null;
+		}
+	}
+	
+	public boolean blackListCustomer(String username)
+	{
+
+		try {
+			
+			
+			boolean value=false;
+			
+			Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);		
+			
+			Statement stmt1=con.createStatement();
+			
+			ResultSet rs1=stmt1.executeQuery("Select isBlacklisted from customer where username='" + username +"'");
+			
+			while(rs1.next())
+			{
+				//Get the value
+				value=rs1.getBoolean("isBlacklisted");
+				
+				
+			}
+			
+			
+			Statement stmt2=con.createStatement();
+			
+			
+			
+			stmt2.executeUpdate("Update customer set isBlacklisted="+ !value +" where username='" + username +"'");
+			return true;
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+
+	
 }

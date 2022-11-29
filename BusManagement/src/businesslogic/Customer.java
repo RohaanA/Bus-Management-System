@@ -15,6 +15,7 @@ public class Customer {
 	private String phone;
 	private int balance;
 	
+	
 	public Customer(String username) {
 		//TODO: Load customer data from username
 		try {
@@ -31,6 +32,8 @@ public class Customer {
 		}
 	}
 	
+
+
 	protected String getCNIC() {
 		return cnic;
 	}
