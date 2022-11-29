@@ -15,7 +15,7 @@ public class SQLPersistence extends PersistenceHandler {
 
 	private String _connectionURL = "jdbc:mysql://localhost:3306/busdb";
 	private String _connectAccount = "root";
-	private String _dbPassword = "moizrules1";
+	private String _dbPassword = "tiger12345";
 	
 	public SQLPersistence() throws SQLException, ClassNotFoundException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -438,57 +438,7 @@ public class SQLPersistence extends PersistenceHandler {
 			ResultSet rs=stmt.executeQuery("select busID, routeID, fromLocation, toLocation, cost, DATE(departureDate) AS deptDate, TIME(departureDate) as deptTime from route;");
 			return rs;
 	}
-<<<<<<< HEAD
 
-	@Override
-	public int getBusSeatCount(String busID) throws SQLException {
-		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
-		Statement stmt=con.createStatement();
-		ResultSet rs=stmt.executeQuery("select seatCount from bus where busID='"+busID+"';");
-		int seatCount;
-		
-		if (rs.next())
-			seatCount = rs.getInt(1);
-		else seatCount = -1;
-		
-		rs.close();
-		con.close();
-		return seatCount;
-		
-	}
-
-	@Override
-	public ArrayList<Integer> getBookedSeats(int routeID) throws SQLException {
-		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
-		Statement stmt=con.createStatement();	
-		ResultSet rs=stmt.executeQuery("select seatNumber from seatsBooked where routeID = '"+routeID+"';");
-		ArrayList<Integer> seatList = new ArrayList<Integer>();
-		while(rs.next()) {
-			int num = rs.getInt(1);
-			System.out.println("Adding: " + num);
-			seatList.add(num);
-		}
-		
-		con.close();
-		return seatList;
-	}
-
-	@Override
-	public boolean saveBooking(BookingDescription bk) throws SQLException {
-		Connection con = DriverManager.getConnection(_connectionURL, _connectAccount, _dbPassword);
-		Statement stmt=con.createStatement();	
-		String username = bk.getUsername();
-		int routeID = bk.getRouteID();
-		int seatNumber = bk.getSeatNumber();
-		
-		
-		stmt.executeUpdate("INSERT INTO booking(username, routeID, seatNumber, paymentStatus) VALUES ('"+username+"','"+routeID+"','"+seatNumber+"','paid');");
-		con.close();
-		return true;
-	}
-=======
->>>>>>> branch 'master' of https://github.com/RohaanA/Bus-Management-System.git
-	
 	public ResultSet generateReport() {
 		
 		//SELECT sum(totalCost) as TotalmaintenenceCost FROM bus
@@ -614,13 +564,4 @@ public class SQLPersistence extends PersistenceHandler {
 		con.close();
 		return true;
 	}
-
-	
-<<<<<<< HEAD
-=======
-
-
-
-
->>>>>>> branch 'master' of https://github.com/RohaanA/Bus-Management-System.git
 }

@@ -20,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -53,6 +54,11 @@ public class TicketBookingController {
     private TextField cvv;
     @FXML
     private TextField nameOnCard;
+    @FXML
+    private Label successLabel;
+    @FXML
+    private Button ticketPurchaseBtn;
+    
     Bus routeBus = null;
     private ArrayList<Integer> availableSeats = null;
     private Stage stage;
@@ -103,6 +109,9 @@ public class TicketBookingController {
 	    	boolean bookingStatus = booking.saveBooking(new BookingDescription(-1, routeTaken.getRouteID(), Integer.parseInt(txt_selectedSeatNumber), loggedIn.getUsername(), "ongoing", "paid"));
 	    	if (bookingStatus)
 	    		System.out.println("Succesfully booked into database.");
+	    		ticketPurchaseBtn.setVisible(false);
+	    		successLabel.setVisible(true);
+    		}
 	    	else {
 	    		System.out.println("Error occured while booking.");
 	    		setErrorLabel("Error occured while booking.");
@@ -110,11 +119,6 @@ public class TicketBookingController {
 	    	}
 	    	
 	    	//Finally generate Ticket
-	    	
-    	}
-    	else {
-    		setErrorLabel("Invalid card details");
-    	}
     	
     }
     
