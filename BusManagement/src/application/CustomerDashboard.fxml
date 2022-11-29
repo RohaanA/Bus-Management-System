@@ -40,7 +40,7 @@
             <Font name="System Bold" size="32.0" />
          </font>
       </Label>
-      <Button layoutX="202.0" layoutY="425.0" mnemonicParsing="false" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="Generate Report">
+      <Button layoutX="202.0" layoutY="425.0" mnemonicParsing="false" style="-fx-background-color: #0091EA; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);" text="View">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
